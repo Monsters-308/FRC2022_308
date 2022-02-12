@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Intake {
-    private double speed;
+    private double speed=0;
 
     /**
      * Init the intake subsytem
