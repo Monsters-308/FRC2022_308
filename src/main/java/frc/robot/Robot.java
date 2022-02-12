@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auton.Forward;
+import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
     private final TalonSRX intake1 = new TalonSRX(5);// update the thingy maybe?
     private final TalonFX shooter1 = new TalonFX(6); // update this too probalby?
     private final TalonSRX indexer1 = new TalonSRX(6); // update this too probalby?
+    private final TalonSRX hang1 = new TalonSRX(6); // update this too probalby?
     public final DifferentialDrive robotDrive = new DifferentialDrive(leftDrive1, rightDrive1);
     XboxController driverController = new XboxController(0);
     XboxController coDriverController = new XboxController(1);
@@ -52,6 +54,7 @@ public class Robot extends TimedRobot {
     private Intake intake;
     private Shooter shooter;
     private Indexer indexer;
+    private Hang hang;
 
     private ShuffleboardTab robotInfo = Shuffleboard.getTab("Robot Info");
     private NetworkTableEntry shooterSpeed = robotInfo
@@ -71,6 +74,7 @@ public class Robot extends TimedRobot {
         shooter = new Shooter();
         intake = new Intake(0.5);
         indexer = new Indexer(0.5);
+        hang = new Hang(0.5);
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
         // gearbox is constructed, you might have to invert the left side instead.
@@ -109,7 +113,8 @@ public class Robot extends TimedRobot {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
         intake.teleloop(coDriverController.getAButton(), intake1);
         shooter.teleloop(coDriverController.getBButton(), shooterSpeed.getDouble(0.5), shooter1);
-        indexer.teleloop(indexer1, coDriverController.getYButton());
+        indexer.teleloop(coDriverController.getYButton(), indexer1);
+        hang.teleloop(coDriverController.getRightBumper(), coDriverController.getLeftBumper(), hang1);
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
     }

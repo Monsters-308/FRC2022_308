@@ -10,7 +10,7 @@ public class Indexer {
         this.speed = speed;
     }
 
-    public void teleloop(TalonSRX motor, boolean go) {
+    public void teleloop(boolean go, TalonSRX motor) {
         if (go) {
             motor.set(ControlMode.PercentOutput, speed);
         }
