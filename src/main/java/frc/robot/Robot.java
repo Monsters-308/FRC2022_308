@@ -33,16 +33,19 @@ public class Robot extends TimedRobot {
     private final CANSparkMax leftDrive2 = new CANSparkMax(3, MotorType.kBrushless);
     private final CANSparkMax rightDrive1 = new CANSparkMax(1, MotorType.kBrushless);
     private final CANSparkMax rightDrive2 = new CANSparkMax(4, MotorType.kBrushless);
-    // private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
-    // private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1, rightDrive2);
-    private final TalonSRX intake1 = new TalonSRX(5);//update the thingy maybe?
-    private final TalonFX shooter1 = new TalonFX(6); //update this too probalby?
+    // private final MotorControllerGroup LMotors = new
+    // MotorControllerGroup(leftDrive1, leftDrive2);
+    // private final MotorControllerGroup RMotors = new
+    // MotorControllerGroup(rightDrive1, rightDrive2);
+    private final TalonSRX intake1 = new TalonSRX(5);// update the thingy maybe?
+    private final TalonFX shooter1 = new TalonFX(6); // update this too probalby?
     public final DifferentialDrive robotDrive = new DifferentialDrive(leftDrive1, rightDrive1);
     XboxController driverController = new XboxController(0);
     XboxController coDriverController = new XboxController(1);
 
     private Intake intake;
     Shooter shooter;
+
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -60,7 +63,8 @@ public class Robot extends TimedRobot {
         // rightDrive1.setInverted(true);
     }
 
-    Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███ 1 ███
+    Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███
+                  // 1 ███
 
     /** This function is run once each time the robot enters autonomous mode. */
     @Override
@@ -77,18 +81,20 @@ public class Robot extends TimedRobot {
     /**
      * This function is called once each time the robot enters teleoperated mode.
      */
-    
+
     @Override
     public void teleopInit() {
-        
+
     }
 
+    // controlls: left and right stick controll tank drive, codriver A controlls
+    // intake, codriver B controlls falcon
     /** This function is called periodically during teleoperated mode. */
     @Override
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
-        intake.teleloop(coDriverController.getAButton(),intake1);
-        shooter.teleloop(0.5,shooter1,coDriverController.getBButton());
+        intake.teleloop(coDriverController.getAButton(), intake1);
+        shooter.teleloop(0.5, shooter1, coDriverController.getBButton());
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
     }
