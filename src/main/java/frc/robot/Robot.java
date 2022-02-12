@@ -25,13 +25,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  * directory.eeee
  */
 public class Robot extends TimedRobot {
-    private final CANSparkMax leftDrive1 = new CANSparkMax(0, MotorType.kBrushless);
-    private final CANSparkMax leftDrive2 = new CANSparkMax(1, MotorType.kBrushless);
-    private final CANSparkMax rightDrive1 = new CANSparkMax(2, MotorType.kBrushless);
-    private final CANSparkMax rightDrive2 = new CANSparkMax(3, MotorType.kBrushless);
-    private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
-    private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1, rightDrive2);
-    public final DifferentialDrive robotDrive = new DifferentialDrive(LMotors, RMotors);
+    private final CANSparkMax leftDrive1 = new CANSparkMax(2, MotorType.kBrushless);
+    private final CANSparkMax leftDrive2 = new CANSparkMax(3, MotorType.kBrushless);
+    private final CANSparkMax rightDrive1 = new CANSparkMax(1, MotorType.kBrushless);
+    private final CANSparkMax rightDrive2 = new CANSparkMax(4, MotorType.kBrushless);
+    // private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
+    // private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1, rightDrive2);
+    public final DifferentialDrive robotDrive = new DifferentialDrive(leftDrive1, rightDrive1);
     XboxController driverController = new XboxController(0);
 
     // cheese
@@ -42,10 +42,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+        leftDrive2.follow(leftDrive1);
+        rightDrive2.follow(rightDrive1);
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
         // gearbox is constructed, you might have to invert the left side instead.
-        // RMotors.setInverted(true);
+        // rightDrive1.setInverted(true);
     }
 
     Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███ 1 ███
