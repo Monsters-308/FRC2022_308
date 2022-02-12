@@ -8,11 +8,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+//import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auton.Forward;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -34,11 +36,13 @@ public class Robot extends TimedRobot {
     // private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
     // private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1, rightDrive2);
     private final TalonSRX intake1 = new TalonSRX(5);//update the thingy maybe?
+    private final TalonFX shooter1 = new TalonFX(6); //update this too probalby?
     public final DifferentialDrive robotDrive = new DifferentialDrive(leftDrive1, rightDrive1);
     XboxController driverController = new XboxController(0);
     XboxController coDriverController = new XboxController(1);
 
     private Intake intake;
+    Shooter shooter;
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -48,6 +52,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         leftDrive2.follow(leftDrive1);
         rightDrive2.follow(rightDrive1);
+        shooter = new Shooter();
         intake = new Intake(0.5);
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
@@ -83,6 +88,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
         intake.teleloop(coDriverController.getAButton(),intake1);
+        shooter.teleloop(0.5,shooter1,coDriverController.getBButton());
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
     }
