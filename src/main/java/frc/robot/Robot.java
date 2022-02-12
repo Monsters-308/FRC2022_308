@@ -77,8 +77,7 @@ public class Robot extends TimedRobot {
         // rightDrive1.setInverted(true);
     }
 
-    private Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███
-                          // 1 ███
+    private Forward auton;// DEPENDANT ON AUTON USED-------------------------------------------███ 1 ███
 
     /** This function is run once each time the robot enters autonomous mode. */
     @Override
