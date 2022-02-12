@@ -8,17 +8,18 @@ public class Intake {
 
     /**
      * Init the intake subsytem
+     * 
      * @param speed
      */
-    public Intake(double speed){
-        this.speed=speed;
+    public Intake(double speed) {
+        this.speed = speed;
     }
-    public void teleloop(boolean go,TalonSRX motor){
-        if(go){
+
+    public void teleloop(boolean go, TalonSRX motor) {
+        if (go) {
             motor.set(ControlMode.PercentOutput, speed);
-        }
-        else{
-            motor.set(ControlMode.PercentOutput,0.0);
+        } else {
+            motor.set(ControlMode.PercentOutput, 0.0);
         }
     }
 }

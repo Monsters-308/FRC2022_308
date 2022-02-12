@@ -7,8 +7,7 @@ public class Shooter {
     public void teleloop(double speed, TalonFX falconMotor, boolean go) {
         if (go) {
             falconMotor.set(TalonFXControlMode.PercentOutput, speed);
-        }
-        else{
+        } else {
             falconMotor.set(TalonFXControlMode.PercentOutput, 0.0);
         }
     }

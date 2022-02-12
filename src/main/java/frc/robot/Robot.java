@@ -5,9 +5,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auton.Forward;
@@ -44,7 +48,13 @@ public class Robot extends TimedRobot {
     XboxController coDriverController = new XboxController(1);
 
     private Intake intake;
-    Shooter shooter;
+    private Shooter shooter;
+
+    private ShuffleboardTab robotInfo = Shuffleboard.getTab("Robot Info");
+    private NetworkTableEntry shooterSpeed = robotInfo
+            .add("Shooter Speed", 0.5)
+            .withWidget(BuiltInWidgets.kNumberSlider)
+            .getEntry();
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -63,8 +73,8 @@ public class Robot extends TimedRobot {
         // rightDrive1.setInverted(true);
     }
 
-    Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███
-                  // 1 ███
+    private Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███
+                          // 1 ███
 
     /** This function is run once each time the robot enters autonomous mode. */
     @Override
@@ -94,7 +104,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
         intake.teleloop(coDriverController.getAButton(), intake1);
-        shooter.teleloop(0.5, shooter1, coDriverController.getBButton());
+        shooter.teleloop(shooterSpeed.getDouble(0.5), shooter1, coDriverController.getBButton());
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
     }
