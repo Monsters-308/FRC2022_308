@@ -9,8 +9,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import frc.robot.Auton.Forward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.auton.Forward;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 /**
 
@@ -21,14 +24,14 @@ import frc.robot.Auton.Forward;
  * directory.eeee
  */
 public class Robot extends TimedRobot {
-    private final PWMSparkMax leftDrive1 = new PWMSparkMax(0);
-    private final PWMSparkMax leftDrive2 = new PWMSparkMax(1);
-    private final PWMSparkMax rightDrive1 = new PWMSparkMax(2);
-    private final PWMSparkMax rightDrive2 = new PWMSparkMax(3);
-    private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive2, leftDrive1);
-    private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive2, rightDrive1);
+    private final CANSparkMax leftDrive1 = new CANSparkMax(0, MotorType.kBrushless);
+    private final CANSparkMax leftDrive2 = new CANSparkMax(1, MotorType.kBrushless);
+    private final CANSparkMax rightDrive1 = new CANSparkMax(2, MotorType.kBrushless);
+    private final CANSparkMax rightDrive2 = new CANSparkMax(3, MotorType.kBrushless);
+    private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
+    private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1,rightDrive2);
     public final DifferentialDrive robotDrive = new DifferentialDrive(LMotors, RMotors);
-    XboxController m_driverController = new XboxController(0);
+    XboxController driverController = new XboxController(0);
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -66,7 +69,8 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during teleoperated mode. */
     @Override
     public void teleopPeriodic() {
-        robotDrive.tankDrive(m_driverController.getLeftY(), m_driverController.getRightY());
+        robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
+        SmartDashboard.putNumber("LY joy", driverController.getLeftY());
     }
 
     /** This function is called once each time the robot enters test mode. */
