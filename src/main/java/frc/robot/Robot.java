@@ -5,16 +5,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auton.Forward;
+import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
@@ -43,18 +40,14 @@ public class Robot extends TimedRobot {
     // MotorControllerGroup(rightDrive1, rightDrive2);
     private final TalonSRX intake1 = new TalonSRX(5);// update the thingy maybe?
     private final TalonFX shooter1 = new TalonFX(6); // update this too probalby?
+    private final TalonSRX indexer1 = new TalonSRX(6); // update this too probalby?
     public final DifferentialDrive robotDrive = new DifferentialDrive(leftDrive1, rightDrive1);
     XboxController driverController = new XboxController(0);
     XboxController coDriverController = new XboxController(1);
 
     private Intake intake;
     private Shooter shooter;
-
-    private ShuffleboardTab robotInfo = Shuffleboard.getTab("Robot Info");
-    private NetworkTableEntry shooterSpeed = robotInfo
-            .add("Shooter Speed", 0.5)
-            .withWidget(BuiltInWidgets.kNumberSlider)
-            .getEntry();
+    private Indexer indexer;
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -67,6 +60,7 @@ public class Robot extends TimedRobot {
         rightDrive2.follow(rightDrive1);
         shooter = new Shooter();
         intake = new Intake(0.5);
+        indexer = new Indexer(0.5);
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
         // gearbox is constructed, you might have to invert the left side instead.
@@ -104,7 +98,8 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
         intake.teleloop(coDriverController.getAButton(), intake1);
-        shooter.teleloop(shooterSpeed.getDouble(0.5), shooter1, coDriverController.getBButton());
+        shooter.teleloop(coDriverController.getBButton(), 0.5, shooter1);
+        indexer.teleloop(indexer1, coDriverController.getYButton());
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
     }
