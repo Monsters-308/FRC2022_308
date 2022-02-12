@@ -13,7 +13,7 @@ public class Intake {
     public Intake(double speed){
         this.speed=speed;
     }
-    public void loop(boolean go,TalonSRX motor){
+    public void teleloop(boolean go,TalonSRX motor){
         if(go){
             motor.set(ControlMode.PercentOutput, speed);
         }

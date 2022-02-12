@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
-        intake.loop(coDriverController.getAButton(),intake1);
+        intake.teleloop(coDriverController.getAButton(),intake1);
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
     }
