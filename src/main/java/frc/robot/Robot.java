@@ -48,8 +48,7 @@ public class Robot extends TimedRobot {
         // RMotors.setInverted(true);
     }
 
-    Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███
-                  // 1 ███
+    Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███ 1 ███
 
     /** This function is run once each time the robot enters autonomous mode. */
     @Override
