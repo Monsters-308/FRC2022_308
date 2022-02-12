@@ -9,7 +9,7 @@ public class Forward {
     private Timer timer = new Timer();
 
     /**
-     * Initialize a "Forward" auton class.
+     * Initialize a "Forward" Auton class.
      * 
      * @param speed controls the speed and direction
      * @param time  controls the amount of time that the auton can run after its
