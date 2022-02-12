@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
         intake.teleloop(coDriverController.getAButton(), intake1);
-        shooter.teleloop(coDriverController.getBButton(), 0.5, shooter1);
+        shooter.teleloop(coDriverController.getBButton(), shooterSpeed.getDouble(0.5), shooter1);
         indexer.teleloop(indexer1, coDriverController.getYButton());
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
 
