@@ -1,4 +1,4 @@
-package frc.robot.auton1;
+package frc.robot.auton;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
