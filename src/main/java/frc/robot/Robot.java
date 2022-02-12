@@ -5,9 +5,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 //import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auton.Forward;
@@ -48,6 +52,12 @@ public class Robot extends TimedRobot {
     private Intake intake;
     private Shooter shooter;
     private Indexer indexer;
+
+    private ShuffleboardTab robotInfo = Shuffleboard.getTab("Robot Info");
+    private NetworkTableEntry shooterSpeed = robotInfo
+            .add("Shooter Speed", 0.5)
+            .withWidget(BuiltInWidgets.kNumberSlider)
+            .getEntry();
 
     /**
      * This function is run when the robot is first started up and should be used
