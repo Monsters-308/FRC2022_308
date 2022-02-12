@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auton.Forward;
+import frc.robot.subsystems.Intake;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -31,10 +33,12 @@ public class Robot extends TimedRobot {
     private final CANSparkMax rightDrive2 = new CANSparkMax(4, MotorType.kBrushless);
     // private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
     // private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1, rightDrive2);
+    private final TalonSRX intake1 = new TalonSRX(5);//update the thingy maybe?
     public final DifferentialDrive robotDrive = new DifferentialDrive(leftDrive1, rightDrive1);
     XboxController driverController = new XboxController(0);
+    XboxController coDriverController = new XboxController(1);
 
-    // cheese
+    private Intake intake;
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -44,6 +48,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         leftDrive2.follow(leftDrive1);
         rightDrive2.follow(rightDrive1);
+        intake = new Intake(0.5);
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
         // gearbox is constructed, you might have to invert the left side instead.
@@ -67,15 +72,19 @@ public class Robot extends TimedRobot {
     /**
      * This function is called once each time the robot enters teleoperated mode.
      */
+    
     @Override
     public void teleopInit() {
+        
     }
 
     /** This function is called periodically during teleoperated mode. */
     @Override
     public void teleopPeriodic() {
         robotDrive.tankDrive(driverController.getLeftY(), driverController.getRightY());
+        intake.loop(coDriverController.getAButton(),intake1);
         SmartDashboard.putNumber("LY joy", driverController.getLeftY());
+
     }
 
     /** This function is called once each time the robot enters test mode. */
