@@ -31,9 +31,8 @@ public class Forward {
     public void loop(DifferentialDrive motors) {
         if (timer.get() < time) {
             motors.tankDrive(speed, speed);
-        }
-        else{
-            motors.tankDrive(0.0,0.0);
+        } else {
+            motors.tankDrive(0.0, 0.0);
         }
     }
 }
