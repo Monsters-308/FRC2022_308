@@ -16,7 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 /**
-
+ * 
  * if necessary, view the TimedRobot documentation. If you change the
  * name of this class or
  * the package after creating this project, you must also update the manifest
@@ -29,10 +29,11 @@ public class Robot extends TimedRobot {
     private final CANSparkMax rightDrive1 = new CANSparkMax(2, MotorType.kBrushless);
     private final CANSparkMax rightDrive2 = new CANSparkMax(3, MotorType.kBrushless);
     private final MotorControllerGroup LMotors = new MotorControllerGroup(leftDrive1, leftDrive2);
-    private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1,rightDrive2);
+    private final MotorControllerGroup RMotors = new MotorControllerGroup(rightDrive1, rightDrive2);
     public final DifferentialDrive robotDrive = new DifferentialDrive(LMotors, RMotors);
     XboxController driverController = new XboxController(0);
 
+    // cheese
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -46,17 +47,19 @@ public class Robot extends TimedRobot {
         // RMotors.setInverted(true);
     }
 
-    Forward auton;//DEPENDANT ON AUTON USED---------------------------------------------------███ 1 ███
+    Forward auton;// DEPENDANT ON AUTON USED---------------------------------------------------███
+                  // 1 ███
+
     /** This function is run once each time the robot enters autonomous mode. */
     @Override
     public void autonomousInit() {
-        auton=new Forward(0.5,1.2);//DEPENDANT ON AUTON USED---------------------------------███ 1 ███
+        auton = new Forward(0.5, 1.2);// DEPENDANT ON AUTON USED---------------------------------███ 1 ███
     }
 
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-        auton.loop(robotDrive);//PARAMATERS DEPENDANT ON AUTON USED--------------------------███ 1 ███
+        auton.loop(robotDrive);// PARAMATERS DEPENDANT ON AUTON USED--------------------------███ 1 ███
     }
 
     /**
