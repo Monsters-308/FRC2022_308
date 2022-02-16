@@ -23,4 +23,8 @@ public final class Constants {
         public static final int kRightMotor1Port = 1;
         public static final int kRightMotor2Port = 4;
     }
+
+    public static final class ShooterConstants {
+        public static final int kShooterMotorCANPort = 47; // change this when we know the actual port
+    }
 }
