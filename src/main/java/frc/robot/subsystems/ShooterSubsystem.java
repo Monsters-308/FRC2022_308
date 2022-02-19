@@ -1,10 +1,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-// import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -33,6 +33,10 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooterMotor.config_IntegralZone(0, ShooterConstants.kIzone, 20);
         m_shooterMotor.setNeutralMode(NeutralMode.Coast);
         m_shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
+    }
+
+    public void stopShooter() {
+        m_shooterMotor.set(TalonFXControlMode.PercentOutput, 0);
     }
 
     @Override
