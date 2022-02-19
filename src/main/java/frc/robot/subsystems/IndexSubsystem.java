@@ -22,11 +22,6 @@ public class IndexSubsystem extends SubsystemBase {
 
     }
 
-    @Override
-    public void periodic() {
-
-    }
-
     public void turnON() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, IndexConstants.kIndexMotorSpeed);
     }
@@ -47,5 +42,10 @@ public class IndexSubsystem extends SubsystemBase {
     // Return true if the lower senstor detects a ball
     public boolean getLowerBall() {
         return !m_lowSensor.get();
+    }
+
+    @Override
+    public void periodic() {
+
     }
 }

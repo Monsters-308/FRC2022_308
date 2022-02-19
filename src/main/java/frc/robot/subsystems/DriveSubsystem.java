@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 // import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -26,15 +27,14 @@ public class DriveSubsystem extends SubsystemBase {
     private final CANSparkMax m_rightRear = new CANSparkMax(DriveConstants.kRightMotor2Port, MotorType.kBrushless);
 
     private final MotorControllerGroup m_leftMotors = new MotorControllerGroup(m_leftFront, m_leftRear);
-
     private final MotorControllerGroup m_rightMotors = new MotorControllerGroup(m_rightFront, m_rightRear);
 
     // The robot's drive
     private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-    /**
-     * Creates a new DriveSubsystem.
-     */
+    private RelativeEncoder m_leftEncoder = m_leftFront.getEncoder();
+    private RelativeEncoder m_rightEncoder = m_rightFront.getEncoder();
+
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
         m_leftRear.restoreFactoryDefaults();
@@ -48,26 +48,14 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightRear.follow(m_rightFront);
     }
 
-    /**
-     * Drives the robot using arcade controls.
-     *
-     * @param fwd the commanded forward movement
-     * @param rot the commanded rotation
-     */
     public void arcadeDrive(double fwd, double rot) {
-        m_drive.arcadeDrive(fwd, rot); //the worst robot drive ever
+        m_drive.arcadeDrive(fwd, rot); // the worst robot drive ever
     }
 
     public void tankDrive(double left, double right) {
         m_drive.tankDrive(left, right);
     }
 
-    /**
-     * Sets the max output of the drive. Useful for scaling the drive to drive more
-     * slowly.
-     *
-     * @param maxOutput the maximum output to which the drive will be constrained
-     */
     public void setMaxOutput(double maxOutput) {
         m_drive.setMaxOutput(maxOutput);
     }
