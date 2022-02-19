@@ -4,9 +4,12 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.IOConstants;
+import frc.robot.commands.subsystems.drive.DefaultDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -41,6 +44,12 @@ public class RobotContainer {
     public RobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
+
+        m_driveSubsystem.setDefaultCommand(
+                new DefaultDrive(
+                        m_driveSubsystem,
+                        () -> m_driverController.getLeftY(),
+                        () -> m_driverController.getRightY()));
     }
 
     /**
