@@ -38,11 +38,13 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeMotorPort = 47; // change this when we know the actual port
         public static final int kRetractMotorPort = 47; // change this when we know the actual port
-        public static final double kIntakeMotorForwardSpeed = 0.7;
-        public static final double kIntakeMotorReverseSpeed = -0.7;
+
+        public static final double kIntakeMotorSpeed = 0.7;
     }
 
-    public static final class IndexerConstants {
+    public static final class IndexConstants {
+        public static final int kIndexMotorPort = 47; // change this when we know the actual port
 
+        public static final double kIndexMotorSpeed = 0.7;
     }
 }

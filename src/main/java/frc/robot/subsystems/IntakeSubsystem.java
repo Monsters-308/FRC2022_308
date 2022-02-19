@@ -20,14 +20,14 @@ public class IntakeSubsystem extends SubsystemBase {
      * Forward Intake.
      */
     public void forwardIntake() {
-        m_intakeMotor.set(ControlMode.PercentOutput, IntakeConstants.kIntakeMotorForwardSpeed);
+        m_intakeMotor.set(ControlMode.PercentOutput, IntakeConstants.kIntakeMotorSpeed);
     }
 
     /**
      * Reverse Intake.
      */
     public void reverseIntake() {
-        m_intakeMotor.set(ControlMode.PercentOutput, IntakeConstants.kIntakeMotorReverseSpeed);
+        m_intakeMotor.set(ControlMode.PercentOutput, -IntakeConstants.kIntakeMotorSpeed);
     }
 
     /**
