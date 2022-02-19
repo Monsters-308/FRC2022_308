@@ -11,15 +11,15 @@ import frc.robot.Constants.IOConstants;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
-import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.StopIntake;
+import frc.robot.commands.shooter.AutoShooter;
+import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -70,6 +70,12 @@ public class RobotContainer {
                         new StopIndex(m_indexSubsystem),
                         new StopIntake(m_intakeSubsystem)));
 
+        new JoystickButton(m_coDriverController, Button.kB.value)
+                .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem))
+                .whenReleased(new ParallelCommandGroup(
+                        new StopIndex(m_indexSubsystem),
+                        new StopShooter(m_shooterSubsystem)));
+
     }
 
     /**
@@ -78,6 +84,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return null;//to be changed
+        return null;// to be changed
     }
 }
