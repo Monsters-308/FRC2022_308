@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
@@ -25,11 +26,11 @@ public class ShooterSubsystem extends SubsystemBase {
         m_configs.peakOutputReverse = 0.0; // dont allow reverse
 
         m_shooterMotor.configAllSettings(m_configs, 20);
-        m_shooterMotor.config_kF(0, Constants.ShooterConstants.kF, 20);
-        m_shooterMotor.config_kD(0, Constants.ShooterConstants.kD, 20);
-        m_shooterMotor.config_kP(0, Constants.ShooterConstants.kP, 20);
-        m_shooterMotor.config_kI(0, Constants.ShooterConstants.kI, 20);
-        m_shooterMotor.config_IntegralZone(0, Constants.ShooterConstants.kIzone, 20);
+        m_shooterMotor.config_kF(0, ShooterConstants.kF, 20);
+        m_shooterMotor.config_kD(0, ShooterConstants.kD, 20);
+        m_shooterMotor.config_kP(0, ShooterConstants.kP, 20);
+        m_shooterMotor.config_kI(0, ShooterConstants.kI, 20);
+        m_shooterMotor.config_IntegralZone(0, ShooterConstants.kIzone, 20);
         m_shooterMotor.setNeutralMode(NeutralMode.Coast);
         m_shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
     }
