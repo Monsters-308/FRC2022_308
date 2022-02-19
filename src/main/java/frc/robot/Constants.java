@@ -44,6 +44,8 @@ public final class Constants {
 
     public static final class IndexConstants {
         public static final int kIndexMotorPort = 47; // change this when we know the actual port
+        public static final int kHighSensorPort = 0; // change this when we know the actual port
+        public static final int kLowSensorPort = 1; // change this when we know the actual port
 
         public static final double kIndexMotorSpeed = 0.7;
     }

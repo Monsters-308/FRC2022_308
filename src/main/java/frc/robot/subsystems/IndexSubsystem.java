@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IndexConstants;
 
 public class IndexSubsystem extends SubsystemBase {
-    private TalonSRX m_indexMotor = new TalonSRX(IndexConstants.kIndexMotorPort);
-    public DigitalInput sensor1;
+    private final TalonSRX m_indexMotor = new TalonSRX(IndexConstants.kIndexMotorPort);
+    private final DigitalInput m_highSensor = new DigitalInput(IndexConstants.kHighSensorPort);
+    private final DigitalInput m_lowSensor = new DigitalInput(IndexConstants.kLowSensorPort);
+
     public IndexSubsystem() {
-        sensor1 = new DigitalInput(0);
         TalonSRXConfiguration config = new TalonSRXConfiguration();
         config.peakCurrentLimit = 40; // the peak current, in amps
         config.peakCurrentDuration = 1500; // the time at the peak current before the limit triggers, in ms
@@ -36,5 +37,13 @@ public class IndexSubsystem extends SubsystemBase {
 
     public void turnOFF() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
+    }
+
+    public void getUpperSensor() {
+        m_highSensor.get();
+    }
+
+    public void getLowerSensor() {
+        m_lowSensor.get();
     }
 }
