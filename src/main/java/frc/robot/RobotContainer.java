@@ -67,14 +67,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
 
         new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(
-                        new SequentialCommandGroup(new RunIntake(m_intakeSubsystem)))
-
-                .whenReleased(
-                        new ParallelCommandGroup(
-   
-                                        new ParallelCommandGroup(new StopIntake(m_intakeSubsystem))
-                        ));
+                .whenPressed(new RunIntake(m_intakeSubsystem))
+                .whenReleased(new StopIntake(m_intakeSubsystem));
 
     }
 
