@@ -63,6 +63,7 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
+        
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(
                         new SequentialCommandGroup())
