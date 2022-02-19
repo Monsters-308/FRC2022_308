@@ -53,11 +53,20 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void tankDrive(double left, double right) {
-        m_drive.tankDrive(left, right);
+        m_drive.tankDrive(left, -right);
     }
 
     public void setMaxOutput(double maxOutput) {
         m_drive.setMaxOutput(maxOutput);
+    }
+
+    public double getAverageEncoderDistance() {
+        return (m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0;
+    }
+
+    public void resetEncoders() {
+        m_leftEncoder.setPosition(0);
+        m_rightEncoder.setPosition(0);
     }
 
     @Override
