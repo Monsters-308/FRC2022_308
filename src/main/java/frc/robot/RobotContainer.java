@@ -6,10 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Constants.controllerstuff;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.Constants.IOConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -33,9 +31,10 @@ public class RobotContainer {
 
     // private final ExampleCommand m_autoCommand = new
     // ExampleCommand(m_exampleSubsystem);//we don't need this anymore probably
-    XboxController m_driverController = new XboxController(controllerstuff.controllerDrivePort);
+    XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
     // The codriver's controller
-    XboxController m_coDriverController = new XboxController(controllerstuff.controllerCoPort);
+    XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */

@@ -47,8 +47,9 @@ public final class Constants {
 
         public static final double kIndexMotorSpeed = 0.7;
     }
-    public static final class controllerstuff{
-        public static final int controllerDrivePort=0;
-        public static final int controllerCoPort=1;//probably
+
+    public static final class IOConstants {
+        public static final int controllerDrivePort = 0;
+        public static final int controllerCoPort = 1;// probably
     }
 }
