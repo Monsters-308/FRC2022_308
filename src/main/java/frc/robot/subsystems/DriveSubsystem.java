@@ -46,6 +46,10 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightRear.setSmartCurrentLimit(40, 40);
         m_leftRear.follow(m_leftFront);
         m_rightRear.follow(m_rightFront);
+
+        // Set the enconders to output distance in inches travelled
+        m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderConversionFactor);
+        m_rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderConversionFactor);
     }
 
     public void arcadeDrive(double fwd, double rot) {
