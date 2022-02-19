@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.IOConstants;
 import frc.robot.commands.drive.DefaultDrive;
+import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.intake.StopIntake;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -63,13 +65,16 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-        
+
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(
-                        new SequentialCommandGroup())
+                        new SequentialCommandGroup(new RunIntake(m_intakeSubsystem)))
 
                 .whenReleased(
-                        new ParallelCommandGroup());
+                        new ParallelCommandGroup(
+   
+                                        new ParallelCommandGroup(new StopIntake(m_intakeSubsystem))
+                        ));
 
     }
 
