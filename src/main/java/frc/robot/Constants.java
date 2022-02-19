@@ -27,6 +27,12 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotorCANPort = 47; // change this when we know the actual port
+
+        public static final double kF = 0.05;
+        public static final double kD = 5.0;
+        public static final double kI = 0.001;
+        public static final double kP = 0.1;
+        public static final int kIzone = 300;
     }
 
     public static final class IntakeConstants {
