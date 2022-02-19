@@ -8,12 +8,12 @@ public class StopIntake extends CommandBase {
 
     public StopIntake(IntakeSubsystem intakeSubsystem) {
         m_intakeSubsystem = intakeSubsystem;
+        addRequirements(m_intakeSubsystem);
     }
 
     @Override
     public void initialize() {
         m_intakeSubsystem.stopIntake();
-        addRequirements(m_intakeSubsystem);
     }
 
     @Override
