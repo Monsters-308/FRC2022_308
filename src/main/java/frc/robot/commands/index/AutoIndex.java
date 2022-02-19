@@ -21,8 +21,7 @@ public class AutoIndex extends CommandBase {
         m_indexSubsystem = indexSubsystem;
         m_intakeSubsystem = intakeSubsystem;
 
-        addRequirements(m_indexSubsystem);
-        addRequirements(m_intakeSubsystem);
+        addRequirements(m_indexSubsystem, m_intakeSubsystem);
     }
 
     @Override
