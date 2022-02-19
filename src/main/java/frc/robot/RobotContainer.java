@@ -30,23 +30,19 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here...
     private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
     private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
     private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
-    // private final ExampleCommand m_autoCommand = new
-    // ExampleCommand(m_exampleSubsystem);//we don't need this anymore probably
     XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
-    // The codriver's controller
+
     XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        // Configure the button bindings
         configureButtonBindings();
 
         m_driveSubsystem.setDefaultCommand(
@@ -78,8 +74,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        // An ExampleCommand will run in autonomous
-        // return m_autoCommand;
-        return null;
+        return null;//to be changed
     }
 }
