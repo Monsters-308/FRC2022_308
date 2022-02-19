@@ -39,11 +39,13 @@ public class IndexSubsystem extends SubsystemBase {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
     }
 
-    public void getUpperSensor() {
-        m_highSensor.get();
+    // Return true if the upper sensor detects a ball
+    public boolean getUpperBall() {
+        return !m_highSensor.get();
     }
 
-    public void getLowerSensor() {
-        m_lowSensor.get();
+    // Return true if the lower senstor detects a ball
+    public boolean getLowerBall() {
+        return !m_lowSensor.get();
     }
 }
