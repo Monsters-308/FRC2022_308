@@ -23,8 +23,8 @@ public final class Constants {
         public static final int kLeftMotor2Port = 3;
         public static final int kRightMotor1Port = 1;
         public static final int kRightMotor2Port = 4;
-        public static final double kEncoderConversionFactor = 10 * Math.PI; // May have remember diameter of the wheels
-                                                                            // wrong
+        public static final double kEncoderConversionFactor = 6 * Math.PI; // Wheel diameter * pi = circumference
+                                                                           // Diameter may be wrong, I had to guess
     }
 
     public static final class ShooterConstants {
