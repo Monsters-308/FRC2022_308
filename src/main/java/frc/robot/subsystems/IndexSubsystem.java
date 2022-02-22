@@ -35,12 +35,12 @@ public class IndexSubsystem extends SubsystemBase {
     }
 
     // Return true if the upper sensor detects a ball
-    public boolean getUpperBall() {
+    public boolean isUpperBallPresent() {
         return !m_highSensor.get();
     }
 
     // Return true if the lower senstor detects a ball
-    public boolean getLowerBall() {
+    public boolean isLowerBallPresent() {
         return !m_lowSensor.get();
     }
 
