@@ -13,7 +13,7 @@ public class StopIndex extends CommandBase {
 
     @Override
     public void initialize() {
-        m_indexSubsystem.turnOFF();
+        m_indexSubsystem.stopIndex();
     }
 
     @Override

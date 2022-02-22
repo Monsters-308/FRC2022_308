@@ -26,13 +26,13 @@ public class AutoIndex extends CommandBase {
 
     @Override
     public void initialize() {
-        if (m_indexSubsystem.getUpperBall() && m_indexSubsystem.getLowerBall()) {
+        if (m_indexSubsystem.isUpperBallPresent() && m_indexSubsystem.isLowerBallPresent()) {
             m_ballStage = BallStage.FULL;
-            m_indexSubsystem.turnOFF();
+            m_indexSubsystem.stopIndex();
             m_intakeSubsystem.stopIntake();
-        } else if (m_indexSubsystem.getUpperBall() && !m_indexSubsystem.getLowerBall()) {
+        } else if (m_indexSubsystem.isUpperBallPresent() && !m_indexSubsystem.isLowerBallPresent()) {
             m_ballStage = BallStage.BALL_INDEXED;
-        } else if (!m_indexSubsystem.getUpperBall() && m_indexSubsystem.getLowerBall()) {
+        } else if (!m_indexSubsystem.isUpperBallPresent() && m_indexSubsystem.isLowerBallPresent()) {
             m_ballStage = BallStage.BALL_PRESENT;
         } else {
             m_ballStage = BallStage.EMPTY;
@@ -43,32 +43,32 @@ public class AutoIndex extends CommandBase {
     public void execute() {
         switch (m_ballStage) {
             case EMPTY:
-                if (m_indexSubsystem.getLowerBall()) {
+                if (m_indexSubsystem.isLowerBallPresent()) {
                     m_ballStage = BallStage.BALL_PRESENT;
                 }
-                m_intakeSubsystem.forwardIntake();
-                m_indexSubsystem.turnON();
+                m_intakeSubsystem.runIntake();
+                m_indexSubsystem.runIndex();
                 break;
             case BALL_PRESENT:
-                if (m_indexSubsystem.getUpperBall()) {
+                if (m_indexSubsystem.isUpperBallPresent()) {
                     m_ballStage = BallStage.BALL_INDEXED;
                 } else {
-                    m_indexSubsystem.turnON();
-                    m_intakeSubsystem.forwardIntake();
+                    m_indexSubsystem.runIndex();
+                    m_intakeSubsystem.runIntake();
                 }
                 break;
             case BALL_INDEXED:
-                if (m_indexSubsystem.getLowerBall() && m_indexSubsystem.getUpperBall()) {
+                if (m_indexSubsystem.isLowerBallPresent() && m_indexSubsystem.isUpperBallPresent()) {
                     m_ballStage = BallStage.FULL;
-                    m_indexSubsystem.turnOFF();
+                    m_indexSubsystem.stopIndex();
                     m_intakeSubsystem.stopIntake();
                 } else {
-                    m_intakeSubsystem.forwardIntake();
+                    m_intakeSubsystem.runIntake();
                 }
                 break;
             case FULL:
                 m_intakeSubsystem.stopIntake();
-                m_indexSubsystem.turnOFF();
+                m_indexSubsystem.stopIndex();
                 m_complete = true;
                 break;
 

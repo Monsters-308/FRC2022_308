@@ -19,7 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
     /**
      * Forward Intake.
      */
-    public void forwardIntake() {
+    public void runIntake() {
         m_intakeMotor.set(ControlMode.PercentOutput, IntakeConstants.kIntakeMotorSpeed);
     }
 

@@ -13,7 +13,7 @@ public class RunIndex extends CommandBase {
 
     @Override
     public void initialize() {
-        m_indexSubsystem.turnON();
+        m_indexSubsystem.runIndex();
     }
 
     @Override

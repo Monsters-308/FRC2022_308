@@ -22,25 +22,25 @@ public class IndexSubsystem extends SubsystemBase {
 
     }
 
-    public void turnON() {
+    public void runIndex() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, IndexConstants.kIndexMotorSpeed);
     }
 
-    public void turnREVERSE() {
+    public void reverseIndex() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, -IndexConstants.kIndexMotorSpeed);
     }
 
-    public void turnOFF() {
+    public void stopIndex() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
     }
 
     // Return true if the upper sensor detects a ball
-    public boolean getUpperBall() {
+    public boolean isUpperBallPresent() {
         return !m_highSensor.get();
     }
 
     // Return true if the lower senstor detects a ball
-    public boolean getLowerBall() {
+    public boolean isLowerBallPresent() {
         return !m_lowSensor.get();
     }
 

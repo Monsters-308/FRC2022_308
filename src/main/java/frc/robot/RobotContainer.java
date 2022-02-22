@@ -85,13 +85,13 @@ public class RobotContainer {
                 .whenPressed(new InstantCommand(m_shooterSubsystem::runShooter, m_shooterSubsystem))
                 .whenReleased(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
         new JoystickButton(m_driverController, Button.kB.value)
-                .whenPressed(new InstantCommand(m_indexSubsystem::turnON, m_indexSubsystem))
+                .whenPressed(new InstantCommand(m_indexSubsystem::runIndex, m_indexSubsystem))
                 .whenReleased(new StopIndex(m_indexSubsystem));
         new JoystickButton(m_driverController, Button.kX.value)
                 .whenPressed(new InstantCommand(m_shooterSubsystem::runHelper, m_shooterSubsystem))
                 .whenReleased(new InstantCommand(m_shooterSubsystem::stopHelper, m_shooterSubsystem));
         new JoystickButton(m_driverController, Button.kY.value)
-                .whenPressed(new InstantCommand(m_intakeSubsystem::forwardIntake, m_intakeSubsystem))
+                .whenPressed(new InstantCommand(m_intakeSubsystem::runIntake, m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem));
 
     }

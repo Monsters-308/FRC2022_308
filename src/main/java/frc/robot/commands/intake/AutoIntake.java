@@ -15,7 +15,7 @@ public class AutoIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        m_intakeSubsystem.forwardIntake();
+        m_intakeSubsystem.runIntake();
     }
 
     @Override
