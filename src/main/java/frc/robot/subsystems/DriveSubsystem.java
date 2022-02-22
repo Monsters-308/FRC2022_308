@@ -62,8 +62,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getAverageEncoderDistanceInches() {
-        return DriveConstants.kEncoderConversionFactor
-                * ((m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0);
+        double rpm = (m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0;
+        return DriveConstants.kEncoderConversionFactor * rpm;
     }
 
     public void resetEncoders() {
