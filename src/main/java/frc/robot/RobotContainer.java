@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.Constants.IOConstants;
+import static frc.robot.Constants.DriveConstants;
+import static frc.robot.Constants.IOConstants;
 import frc.robot.commands.drive.DefaultDrive;
+import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.RunIndex;
 import frc.robot.commands.index.StopIndex;
@@ -99,6 +101,6 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return null;// to be changed
+        return new DriveTime(1.2, DriveConstants.kAutonDriveSpeed, m_driveSubsystem);// to be changed
     }
 }

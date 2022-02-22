@@ -6,12 +6,12 @@ import frc.robot.subsystems.DriveSubsystem;
 
 // Drives the robot at the specified speed for a particular amount of time
 public class DriveTime extends CommandBase {
-    private final int m_time;
+    private final double m_time;
     private final double m_speed;
     private final DriveSubsystem m_driveSubsystem;
     private Timer m_timer = new Timer();
 
-    public DriveTime(int seconds, double speed, DriveSubsystem driveSubsystem) {
+    public DriveTime(double seconds, double speed, DriveSubsystem driveSubsystem) {
         m_time = seconds;
         m_speed = speed;
         m_driveSubsystem = driveSubsystem;
