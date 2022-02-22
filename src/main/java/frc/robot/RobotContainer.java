@@ -90,6 +90,9 @@ public class RobotContainer {
         new JoystickButton(m_driverController, Button.kX.value)
                 .whenPressed(new InstantCommand(m_shooterSubsystem::runHelper, m_shooterSubsystem))
                 .whenReleased(new InstantCommand(m_shooterSubsystem::stopHelper, m_shooterSubsystem));
+        new JoystickButton(m_driverController, Button.kY.value)
+                .whenPressed(new InstantCommand(m_intakeSubsystem::forwardIntake, m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem));
 
     }
 
