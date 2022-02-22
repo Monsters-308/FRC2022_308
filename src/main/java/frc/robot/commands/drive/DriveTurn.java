@@ -23,7 +23,11 @@ public class DriveTurn extends CommandBase {
 
     @Override
     public void execute() {
-        m_driveSubsystem.arcadeDrive(0, m_speed);
+        if (m_driveSubsystem.getGyroHeading() < m_targetHeading) {
+            m_driveSubsystem.arcadeDrive(0, m_speed);
+        } else {
+            m_driveSubsystem.arcadeDrive(0, -m_speed);
+        }
     }
 
     @Override
