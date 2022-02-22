@@ -52,7 +52,6 @@ public class AutoIndex extends CommandBase {
             case BALL_PRESENT:
                 if (m_indexSubsystem.getUpperBall()) {
                     m_ballStage = BallStage.BALL_INDEXED;
-                    m_indexSubsystem.turnOFF();
                 } else {
                     m_indexSubsystem.turnON();
                     m_intakeSubsystem.forwardIntake();
