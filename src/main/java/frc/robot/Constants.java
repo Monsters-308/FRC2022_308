@@ -19,10 +19,10 @@ package frc.robot;
 public final class Constants {
 
     public static final class DriveConstants {
-        public static final int kLeftMotor1Port = 2;
-        public static final int kLeftMotor2Port = 3;
-        public static final int kRightMotor1Port = 1;
-        public static final int kRightMotor2Port = 4;
+        public static final int kLeftMotor1Port = 1;
+        public static final int kLeftMotor2Port = 4;
+        public static final int kRightMotor1Port = 2;
+        public static final int kRightMotor2Port = 3;
         public static final double kEncoderConversionFactor = 6 * Math.PI; // Wheel diameter * pi = circumference
                                                                            // Diameter may be wrong, I had to guess
         public static final double kAutonDriveSpeed = 0.5;
@@ -30,7 +30,7 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotorCANPort = 5;
-        public static final int kHelperMotorCANPort = 47; // change this when we know the actual port
+        public static final int kHelperMotorCANPort = 6; // change this when we know the actual port
 
         public static final double kF = 0.05;
         public static final double kD = 5.0;
@@ -48,14 +48,14 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorPort = 47; // change this when we know the actual port
+        public static final int kIntakeMotorPort = 8;
         public static final int kRetractMotorPort = 47; // change this when we know the actual port
 
         public static final double kIntakeMotorSpeed = 0.5;
     }
 
     public static final class IndexConstants {
-        public static final int kIndexMotorPort = 47; // change this when we know the actual port
+        public static final int kIndexMotorPort = 7; // change this when we know the actual port
         public static final int kHighSensorPort = 0; // change this when we know the actual port
         public static final int kLowSensorPort = 1; // change this when we know the actual port
 
