@@ -38,8 +38,8 @@ public final class Constants {
         public static final int kIzone = 300;
         public static final int kUnitsPerRotation = 2048;
 
-        public static final double kShooterSpeed = 0.7;
-        public static final double kHelperMotorSpeed = 0.7;
+        public static final double kShooterSpeed = 0.5;
+        public static final double kHelperMotorSpeed = 0.5;
 
         public static final double kMaxIndexTimeSec = 1;
         public static final double kRampTimeSec = 2;
@@ -50,7 +50,7 @@ public final class Constants {
         public static final int kIntakeMotorPort = 47; // change this when we know the actual port
         public static final int kRetractMotorPort = 47; // change this when we know the actual port
 
-        public static final double kIntakeMotorSpeed = 0.7;
+        public static final double kIntakeMotorSpeed = 0.5;
     }
 
     public static final class IndexConstants {
@@ -58,7 +58,7 @@ public final class Constants {
         public static final int kHighSensorPort = 0; // change this when we know the actual port
         public static final int kLowSensorPort = 1; // change this when we know the actual port
 
-        public static final double kIndexMotorSpeed = 0.7;
+        public static final double kIndexMotorSpeed = 0.5;
     }
 
     public static final class IOConstants {
