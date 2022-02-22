@@ -57,11 +57,14 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public double getShooterVelocity() {
-        return m_shooterMotor.getSelectedSensorVelocity();
+        double velocity_RotPer100ms = m_shooterMotor.getSelectedSensorVelocity() / ShooterConstants.kUnitsPerRotation;
+        double velocity_RotPerMin = velocity_RotPer100ms * 10.0 * 60.0;
+        return velocity_RotPerMin;
     }
 
     public void speedControlShooter(double targetVelocity) {
-        m_shooterMotor.set(TalonFXControlMode.Velocity, targetVelocity);
+        double targetVelocity_SensorUnits = targetVelocity * ShooterConstants.kUnitsPerRotation / 600.0;
+        m_shooterMotor.set(TalonFXControlMode.Velocity, targetVelocity_SensorUnits);
     }
 
     @Override
