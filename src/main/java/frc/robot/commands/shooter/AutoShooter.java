@@ -43,16 +43,16 @@ public class AutoShooter extends CommandBase {
         switch (m_shooterStage) {
             case INDEXING:
                 if (m_indexSubsystem.isUpperBallPresent()) {
-                    m_indexSubsystem.turnOFF();
+                    m_indexSubsystem.stopIndex();
                     m_shooterStage = ShooterStage.BALL_READY;
                 } else if (m_timer.hasElapsed(ShooterConstants.kMaxIndexTimeSec)) {
                     m_shooterStage = ShooterStage.EMPTY;
                 } else {
-                    m_indexSubsystem.turnON();
+                    m_indexSubsystem.runIndex();
                 }
                 break;
             case BALL_READY:
-                m_indexSubsystem.turnOFF();
+                m_indexSubsystem.stopIndex();
                 m_shooterSubsystem.runShooter();
                 m_shooterStage = ShooterStage.RAMPING_SHOOTER;
                 m_timer.reset();
@@ -65,18 +65,18 @@ public class AutoShooter extends CommandBase {
                 break;
             case SHOOTING:
                 if (!m_indexSubsystem.isUpperBallPresent() && m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
-                    m_indexSubsystem.turnOFF();
+                    m_indexSubsystem.stopIndex();
                     m_shooterSubsystem.stopHelper();
                     m_shooterStage = ShooterStage.INDEXING;
                     m_timer.reset();
                 } else if (m_indexSubsystem.isUpperBallPresent()) {
-                    m_indexSubsystem.turnON();
+                    m_indexSubsystem.runIndex();
                     m_shooterSubsystem.runHelper();
                     m_timer.reset();
                 }
                 break;
             case EMPTY:
-                m_indexSubsystem.turnOFF();
+                m_indexSubsystem.stopIndex();
                 m_shooterSubsystem.stopHelper();
                 m_shooterSubsystem.stopShooter();
                 m_complete = true;

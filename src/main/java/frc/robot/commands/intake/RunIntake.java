@@ -14,7 +14,7 @@ public class RunIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        m_intakeSubsystem.forwardIntake();
+        m_intakeSubsystem.runIntake();
     }
 
     @Override

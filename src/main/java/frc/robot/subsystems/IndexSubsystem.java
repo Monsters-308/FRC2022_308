@@ -22,15 +22,15 @@ public class IndexSubsystem extends SubsystemBase {
 
     }
 
-    public void turnON() {
+    public void runIndex() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, IndexConstants.kIndexMotorSpeed);
     }
 
-    public void turnREVERSE() {
+    public void reverseIndex() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, -IndexConstants.kIndexMotorSpeed);
     }
 
-    public void turnOFF() {
+    public void stopIndex() {
         m_indexMotor.set(TalonSRXControlMode.PercentOutput, 0.0);
     }
 
