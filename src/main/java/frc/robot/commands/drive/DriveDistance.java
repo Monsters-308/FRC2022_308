@@ -23,7 +23,7 @@ public class DriveDistance extends CommandBase {
 
     @Override
     public void execute() {
-        if (m_driveSubsystem.getAverageEncoderDistance() >= m_distance) {
+        if (m_driveSubsystem.getAverageEncoderDistanceInches() >= m_distance) {
             m_driveSubsystem.tankDrive(0, 0);
             m_complete = true;
         } else {

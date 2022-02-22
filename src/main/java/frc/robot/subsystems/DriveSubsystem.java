@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 // import edu.wpi.first.wpilibj.Solenoid;
 // import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -46,10 +47,6 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightRear.setSmartCurrentLimit(40, 40);
         m_leftRear.follow(m_leftFront);
         m_rightRear.follow(m_rightFront);
-
-        // Set the enconders to output distance in inches travelled
-        m_leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderConversionFactor);
-        m_rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderConversionFactor);
     }
 
     public void arcadeDrive(double fwd, double rot) {
@@ -64,8 +61,9 @@ public class DriveSubsystem extends SubsystemBase {
         m_drive.setMaxOutput(maxOutput);
     }
 
-    public double getAverageEncoderDistance() {
-        return (m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0;
+    public double getAverageEncoderDistanceInches() {
+        return DriveConstants.kEncoderConversionFactor
+                * ((m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0);
     }
 
     public void resetEncoders() {
@@ -75,7 +73,13 @@ public class DriveSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // e
+        SmartDashboard.putNumber("LeftEncoder", m_leftEncoder.getPosition());
+        SmartDashboard.putNumber("LeftVelocity", m_leftEncoder.getVelocity());
+        SmartDashboard.putNumber("RightEncoder", m_rightEncoder.getPosition());
+        SmartDashboard.putNumber("RightVelocity", m_rightEncoder.getVelocity());
+
+        SmartDashboard.putNumber("LeftSpeed", m_leftFront.get());
+        SmartDashboard.putNumber("RightSpeed", m_rightFront.get());
     }
 
 }
