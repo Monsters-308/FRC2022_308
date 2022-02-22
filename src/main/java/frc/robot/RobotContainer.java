@@ -10,15 +10,18 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.IOConstants;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.index.AutoIndex;
+import frc.robot.commands.index.RunIndex;
 import frc.robot.commands.index.StopIndex;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.AutoShooter;
+import frc.robot.commands.shooter.RunShooter;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -64,17 +67,29 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
 
-        new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
-                .whenReleased(new ParallelCommandGroup(
-                        new StopIndex(m_indexSubsystem),
-                        new StopIntake(m_intakeSubsystem)));
+        /*
+         * new JoystickButton(m_driverController, Button.kA.value)
+         * .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
+         * .whenReleased(new ParallelCommandGroup(
+         * new StopIndex(m_indexSubsystem),
+         * new StopIntake(m_intakeSubsystem)));
+         * 
+         * new JoystickButton(m_coDriverController, Button.kB.value)
+         * .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem))
+         * .whenReleased(new ParallelCommandGroup(
+         * new StopIndex(m_indexSubsystem),
+         * new StopShooter(m_shooterSubsystem)));
+         */
 
-        new JoystickButton(m_coDriverController, Button.kB.value)
-                .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem))
-                .whenReleased(new ParallelCommandGroup(
-                        new StopIndex(m_indexSubsystem),
-                        new StopShooter(m_shooterSubsystem)));
+        new JoystickButton(m_driverController, Button.kA.value)
+                .whenPressed(new InstantCommand(m_shooterSubsystem::runShooter, m_shooterSubsystem))
+                .whenReleased(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
+        new JoystickButton(m_driverController, Button.kB.value)
+                .whenPressed(new InstantCommand(m_indexSubsystem::turnON, m_indexSubsystem))
+                .whenReleased(new StopIndex(m_indexSubsystem));
+        new JoystickButton(m_driverController, Button.kX.value)
+                .whenPressed(new InstantCommand(m_shooterSubsystem::runHelper, m_shooterSubsystem))
+                .whenReleased(new InstantCommand(m_shooterSubsystem::stopHelper, m_shooterSubsystem));
 
     }
 
