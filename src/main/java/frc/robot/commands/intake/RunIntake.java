@@ -7,10 +7,10 @@ public class RunIntake extends CommandBase {
     // The subsystem the command runs on
     private final IntakeSubsystem m_intakeSubsystem;
 
-  public RunIntake(IntakeSubsystem subsystem) {
-    m_intakeSubsystem = subsystem;
-    addRequirements(m_intakeSubsystem);
-  }
+    public RunIntake(IntakeSubsystem subsystem) {
+        m_intakeSubsystem = subsystem;
+        addRequirements(m_intakeSubsystem);
+    }
 
     @Override
     public void initialize() {
@@ -19,6 +19,6 @@ public class RunIntake extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }
