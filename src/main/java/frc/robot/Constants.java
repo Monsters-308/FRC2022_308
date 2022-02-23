@@ -30,7 +30,7 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotorCANPort = 5;
-        public static final int kHelperMotorCANPort = 6; // change this when we know the actual port
+        public static final int kHelperMotorCANPort = 6;
 
         public static final double kF = 0.05;
         public static final double kD = 5.0;
@@ -55,7 +55,7 @@ public final class Constants {
     }
 
     public static final class IndexConstants {
-        public static final int kIndexMotorPort = 7; // change this when we know the actual port
+        public static final int kIndexMotorPort = 7;
         public static final int kHighSensorPort = 0; // change this when we know the actual port
         public static final int kLowSensorPort = 1; // change this when we know the actual port
 
