@@ -25,6 +25,12 @@ public class AutoIndex extends CommandBase {
     }
 
     @Override
+    public void end(boolean interrupted) {
+        m_indexSubsystem.stopIndex();
+        m_intakeSubsystem.stopIntake();
+    }
+
+    @Override
     public boolean isFinished() {
         if (m_indexSubsystem.isUpperBallPresent() && m_indexSubsystem.isLowerBallPresent()) {
             return true;
