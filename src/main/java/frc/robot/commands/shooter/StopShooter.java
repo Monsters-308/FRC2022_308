@@ -14,5 +14,6 @@ public class StopShooter extends CommandBase {
     @Override
     public void initialize() {
         m_shooterSubsystem.stopShooter();
+        m_shooterSubsystem.stopHelper();
     }
 }
