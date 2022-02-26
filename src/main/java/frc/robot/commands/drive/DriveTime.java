@@ -11,6 +11,12 @@ public class DriveTime extends CommandBase {
     private final DriveSubsystem m_driveSubsystem;
     private Timer m_timer = new Timer();
 
+    /**
+     * Drives the drivesubsystem for a specified amount of seconds at a certain speed
+     * @param seconds time to drive
+     * @param speed speed of movement (-1 to 1)
+     * @param driveSubsystem the drivesubsystem to be controlled
+     */
     public DriveTime(double seconds, double speed, DriveSubsystem driveSubsystem) {
         m_time = seconds;
         m_speed = speed;
