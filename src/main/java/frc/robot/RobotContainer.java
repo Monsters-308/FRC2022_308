@@ -76,6 +76,11 @@ public class RobotContainer {
          * new StopShooter(m_shooterSubsystem)));
          */
 
+        //controls
+        //A : run shooter
+        //B : run index
+        //X : run helper
+        //Y : run intake
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(new InstantCommand(m_shooterSubsystem::runShooter, m_shooterSubsystem))
                 .whenReleased(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));

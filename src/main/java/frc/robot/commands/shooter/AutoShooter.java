@@ -21,6 +21,11 @@ public class AutoShooter extends CommandBase {
     public Timer m_timer = new Timer();
     public ShooterStage m_shooterStage = ShooterStage.BALL_READY;
 
+    /**
+     * A command that when pressed, will automatically ramp up and feed the shooter with balls.
+     * @param indexSubsystem pass in the indexSubsystem
+     * @param shooterSubsystem pass in the shooterSubsystem
+     */
     public AutoShooter(IndexSubsystem indexSubsystem, ShooterSubsystem shooterSubsystem) {
         m_indexSubsystem = indexSubsystem;
         m_shooterSubsystem = shooterSubsystem;

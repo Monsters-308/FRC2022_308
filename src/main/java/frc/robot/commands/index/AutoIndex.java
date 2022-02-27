@@ -9,6 +9,11 @@ public class AutoIndex extends CommandBase {
     private final IntakeSubsystem m_intakeSubsystem;
     public boolean m_complete = false;
 
+    /**
+     * when initialized, this will run the intexer and intake. when both index sensors return true, it will stop intake/index.
+     * @param indexSubsystem the indexsubsystem
+     * @param intakeSubsystem the intakesubsystem
+     */
     public AutoIndex(IndexSubsystem indexSubsystem, IntakeSubsystem intakeSubsystem) {
         m_indexSubsystem = indexSubsystem;
         m_intakeSubsystem = intakeSubsystem;
@@ -26,7 +31,8 @@ public class AutoIndex extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_indexSubsystem.stopIndex();
+        
+        m_indexSubsystem.stopIndex(); //these lines of code could potentially cause issues with motor jittering. it may be benificial to remove them entirely
         m_intakeSubsystem.stopIntake();
     }
 

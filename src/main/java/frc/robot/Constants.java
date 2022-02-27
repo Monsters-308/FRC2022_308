@@ -48,10 +48,11 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorPort = 8;
-        public static final int kRetractMotorPort = 47; // change this when we know the actual port
+        public static final int kIntakeMotorPort = 11;
+        public static final int kWinchMotorPort = 8;
 
         public static final double kIntakeMotorSpeed = 0.5;
+        public static final double kWinchMotorSpeed = 0.5;
     }
 
     public static final class IndexConstants {
