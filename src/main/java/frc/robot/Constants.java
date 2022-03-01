@@ -23,8 +23,8 @@ public final class Constants {
         public static final int kLeftMotor2Port = 4;
         public static final int kRightMotor1Port = 2;
         public static final int kRightMotor2Port = 3;
-        public static final double kEncoderConversionFactor = 6 * Math.PI; // Wheel diameter * pi = circumference
-                                                                           // Diameter may be wrong, I had to guess
+        public static final double kEncoderConversionFactor = 6.125 * Math.PI; // Wheel diameter * pi = circumference
+        // Diameter may be wrong, I had to guess
         public static final double kAutonDriveSpeed = 0.5;
     }
 
