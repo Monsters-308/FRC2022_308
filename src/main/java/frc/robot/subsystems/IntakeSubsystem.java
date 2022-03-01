@@ -4,12 +4,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
     private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(IntakeConstants.kIntakeMotorPort);
     private final WPI_TalonSRX m_winchMotor = new WPI_TalonSRX(IntakeConstants.kWinchMotorPort);
+    private final DigitalInput m_ballSensor = new DigitalInput(IntakeConstants.kSensorPort);
 
     public IntakeSubsystem() {
         m_intakeMotor.setNeutralMode(NeutralMode.Coast);
@@ -47,6 +49,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void stopWinch() {
         m_winchMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    public boolean isBallPresent() {
+        return !m_ballSensor.get();
     }
 
     @Override
