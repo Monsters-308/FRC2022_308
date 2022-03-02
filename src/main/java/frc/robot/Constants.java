@@ -61,7 +61,7 @@ public final class Constants {
         public static final int kLowSensorPort = 1;
         public static final int kIntakeSensorPort = 0;
 
-        public static final double kIndexMotorSpeed = 0.35;
+        public static final double kIndexMotorSpeed = 0.5;
     }
 
     public static final class IOConstants {
