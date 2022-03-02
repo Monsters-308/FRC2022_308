@@ -22,8 +22,10 @@ public class AutoShooter extends CommandBase {
     public ShooterStage m_shooterStage = ShooterStage.BALL_READY;
 
     /**
-     * A command that when pressed, will automatically ramp up and feed the shooter with balls.
-     * @param indexSubsystem pass in the indexSubsystem
+     * A command that when pressed, will automatically ramp up and feed the shooter
+     * with balls.
+     * 
+     * @param indexSubsystem   pass in the indexSubsystem
      * @param shooterSubsystem pass in the shooterSubsystem
      */
     public AutoShooter(IndexSubsystem indexSubsystem, ShooterSubsystem shooterSubsystem) {
@@ -92,5 +94,12 @@ public class AutoShooter extends CommandBase {
     @Override
     public boolean isFinished() {
         return m_complete;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        m_indexSubsystem.stopIndex();
+        m_shooterSubsystem.stopHelper();
+        m_shooterSubsystem.stopShooter();
     }
 }
