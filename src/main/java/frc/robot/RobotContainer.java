@@ -11,13 +11,16 @@ import static frc.robot.Constants.DriveConstants;
 import static frc.robot.Constants.IOConstants;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveTime;
+import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
+import frc.robot.commands.intake.StopIntake;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -93,6 +96,12 @@ public class RobotContainer {
         new JoystickButton(m_driverController, Button.kY.value)
                 .whenPressed(new InstantCommand(m_intakeSubsystem::runIntake, m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem));
+        new JoystickButton(m_coDriverController, Button.kA.value)
+                .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
+                .whenReleased(new ParallelCommandGroup(
+                    new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)
+                ) 
+            );
 
     }
 
