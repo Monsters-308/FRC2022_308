@@ -68,4 +68,9 @@ public final class Constants {
         public static final int controllerDrivePort = 0;
         public static final int controllerCoPort = 1;
     }
+
+    public static final class LEDConstants {
+        public static final int kLEDPWMPort = 0;
+        public static final int kLEDCount = 82;
+    }
 }
