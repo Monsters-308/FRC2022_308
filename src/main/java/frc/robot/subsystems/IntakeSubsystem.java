@@ -12,7 +12,6 @@ import static frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
     private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(IntakeConstants.kIntakeMotorPort);
     private final WPI_TalonSRX m_winchMotor = new WPI_TalonSRX(IntakeConstants.kWinchMotorPort);
-    private final DigitalInput m_ballSensor = new DigitalInput(IntakeConstants.kSensorPort);
 
     public IntakeSubsystem() {
         m_intakeMotor.setNeutralMode(NeutralMode.Coast);
@@ -52,12 +51,7 @@ public class IntakeSubsystem extends SubsystemBase {
         m_winchMotor.set(ControlMode.PercentOutput, 0);
     }
 
-    public boolean isBallPresent() {
-        return !m_ballSensor.get();
-    }
-
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("intakeball", isBallPresent());
     }
 }
