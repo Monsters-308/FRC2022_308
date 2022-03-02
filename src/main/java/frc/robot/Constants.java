@@ -50,7 +50,6 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeMotorPort = 11;
         public static final int kWinchMotorPort = 8;
-        public static final int kSensorPort = 0;
 
         public static final double kIntakeMotorSpeed = 0.5;
         public static final double kWinchMotorSpeed = 0.5;
@@ -58,14 +57,15 @@ public final class Constants {
 
     public static final class IndexConstants {
         public static final int kIndexMotorPort = 7;
-        public static final int kHighSensorPort = 2; // change this when we know the actual port
-        public static final int kLowSensorPort = 1; // change this when we know the actual port
+        public static final int kHighSensorPort = 2;
+        public static final int kLowSensorPort = 1;
+        public static final int kIntakeSensorPort = 0;
 
         public static final double kIndexMotorSpeed = 0.5;
     }
 
     public static final class IOConstants {
         public static final int controllerDrivePort = 0;
-        public static final int controllerCoPort = 1;// probably
+        public static final int controllerCoPort = 1;
     }
 }

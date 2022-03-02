@@ -13,6 +13,7 @@ public class IndexSubsystem extends SubsystemBase {
     private final TalonSRX m_indexMotor = new TalonSRX(IndexConstants.kIndexMotorPort);
     private final DigitalInput m_highSensor = new DigitalInput(IndexConstants.kHighSensorPort);
     private final DigitalInput m_lowSensor = new DigitalInput(IndexConstants.kLowSensorPort);
+    private final DigitalInput m_intakeSensor = new DigitalInput(IndexConstants.kIntakeSensorPort);
 
     public IndexSubsystem() {
         TalonSRXConfiguration config = new TalonSRXConfiguration();
@@ -45,9 +46,14 @@ public class IndexSubsystem extends SubsystemBase {
         return !m_lowSensor.get();
     }
 
+    public boolean isIntakeBallPresent() {
+        return !m_intakeSensor.get();
+    }
+
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("upperball", isUpperBallPresent());
-        SmartDashboard.putBoolean("lowerball", isLowerBallPresent());
+        SmartDashboard.putBoolean("UpperBall", isUpperBallPresent());
+        SmartDashboard.putBoolean("LowerBall", isLowerBallPresent());
+        SmartDashboard.putBoolean("IntakeBall", isIntakeBallPresent());
     }
 }
