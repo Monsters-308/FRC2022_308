@@ -62,9 +62,7 @@ public class AutoIndex extends CommandBase {
                     m_indexStage = IndexStage.FULL;
                 } else if (m_indexSubsystem.isLowerBallPresent()) {
                     m_indexStage = IndexStage.LOWBALL;
-                } else if (m_indexSubsystem.isIntakeBallPresent()) {
-                    m_indexStage = IndexStage.INTAKEBALL;
-                }
+                } 
 
                 break;
             case INTAKEBALL:
@@ -72,11 +70,8 @@ public class AutoIndex extends CommandBase {
                 m_intakeSubsystem.runIntake();
                 if (m_indexSubsystem.isUpperBallPresent()) {
                     m_indexStage = IndexStage.FULL;
-                } else if (m_indexSubsystem.isIntakeBallPresent()) {
-                    m_indexStage = IndexStage.INTAKEBALL;
-                } else if (m_indexSubsystem.isLowerBallPresent()) {
-                    m_indexStage = IndexStage.LOWBALL;
                 }
+                break;
             case LOWBALL:
                 m_intakeSubsystem.runIntake();
                 m_indexSubsystem.stopIndex();
