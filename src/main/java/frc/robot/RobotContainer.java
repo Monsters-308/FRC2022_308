@@ -14,6 +14,8 @@ import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
 import frc.robot.commands.intake.StopIntake;
+import frc.robot.commands.shooter.AutoShooter;
+import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -79,11 +81,11 @@ public class RobotContainer {
          * new StopShooter(m_shooterSubsystem)));
          */
 
-        //controls
-        //A : run shooter
-        //B : run index
-        //X : run helper
-        //Y : run intake
+        // controls
+        // A : run shooter
+        // B : run index
+        // X : run helper
+        // Y : run intake
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(new InstantCommand(m_shooterSubsystem::runShooter, m_shooterSubsystem))
                 .whenReleased(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
@@ -99,9 +101,11 @@ public class RobotContainer {
         new JoystickButton(m_coDriverController, Button.kA.value)
                 .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
                 .whenReleased(new ParallelCommandGroup(
-                    new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)
-                ) 
-            );
+                        new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)));
+        new JoystickButton(m_coDriverController, Button.kB.value)
+                .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem))
+                .whenReleased(
+                        new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem)));
 
     }
 
