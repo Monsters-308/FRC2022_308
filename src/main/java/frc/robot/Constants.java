@@ -39,12 +39,12 @@ public final class Constants {
         public static final int kIzone = 300;
         public static final int kUnitsPerRotation = 2048;
 
-        public static final double kShooterSpeed = 0.5;
+        public static final double kShooterSpeed = 0.65;
         public static final double kHelperMotorSpeed = 0.5;
 
         public static final double kMaxIndexTimeSec = 1;
         public static final double kRampTimeSec = 2;
-        public static final double kMaxReleaseTimeSec = 1;
+        public static final double kMaxReleaseTimeSec = 0.1;
     }
 
     public static final class IntakeConstants {

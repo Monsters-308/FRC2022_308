@@ -50,7 +50,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void tankDrive(double left, double right) {
-        m_drive.tankDrive(left, -right);
+        m_drive.tankDrive(right, -left);
     }
 
     public void setMaxOutput(double maxOutput) {

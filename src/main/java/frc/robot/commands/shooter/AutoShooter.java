@@ -71,7 +71,7 @@ public class AutoShooter extends CommandBase {
                 }
                 break;
             case SHOOTING:
-                if (!m_indexSubsystem.isUpperBallPresent() && m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
+                if (m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
                     m_indexSubsystem.stopIndex();
                     m_shooterSubsystem.stopHelper();
                     m_shooterStage = ShooterStage.INDEXING;
@@ -101,5 +101,7 @@ public class AutoShooter extends CommandBase {
         m_indexSubsystem.stopIndex();
         m_shooterSubsystem.stopHelper();
         m_shooterSubsystem.stopShooter();
+        m_timer.reset();
+        m_complete = false;
     }
 }

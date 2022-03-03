@@ -30,6 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_configs.peakOutputReverse = 0.0; // dont allow reverse
 
         m_shooterMotor.configAllSettings(m_configs, 20);
+        m_shooterMotor.setInverted(true);
         m_shooterMotor.config_kF(0, ShooterConstants.kF, 20);
         m_shooterMotor.config_kD(0, ShooterConstants.kD, 20);
         m_shooterMotor.config_kP(0, ShooterConstants.kP, 20);
