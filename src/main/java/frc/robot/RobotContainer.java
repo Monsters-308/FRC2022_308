@@ -66,21 +66,6 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
      */
     private void configureButtonBindings() {
-
-        /*
-         * new JoystickButton(m_driverController, Button.kA.value)
-         * .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
-         * .whenReleased(new ParallelCommandGroup(
-         * new StopIndex(m_indexSubsystem),
-         * new StopIntake(m_intakeSubsystem)));
-         * 
-         * new JoystickButton(m_coDriverController, Button.kB.value)
-         * .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem))
-         * .whenReleased(new ParallelCommandGroup(
-         * new StopIndex(m_indexSubsystem),
-         * new StopShooter(m_shooterSubsystem)));
-         */
-
         // controls
         // A : run shooter
         // B : run index
@@ -101,16 +86,14 @@ public class RobotContainer {
         new JoystickButton(m_driverController, Button.kY.value)
                 .whenPressed(new InstantCommand(m_intakeSubsystem::runIntake, m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem));
+
         new JoystickButton(m_coDriverController, Button.kY.value)
-                .whenPressed(new InstantCommand(m_intakeSubsystem::reverseIntake,
-                        m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopIntake,
-                        m_intakeSubsystem));
-        new JoystickButton(m_coDriverController, Button.kX.value)
-                .whenPressed(new InstantCommand(m_indexSubsystem::reverseIndex,
-                        m_indexSubsystem))
-                .whenReleased(new InstantCommand(m_indexSubsystem::stopIndex,
-                        m_indexSubsystem));
+                .whenPressed(new ParallelCommandGroup(
+                        new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
+                        new InstantCommand(m_indexSubsystem::reverseIndex, m_indexSubsystem)))
+                .whenReleased(new ParallelCommandGroup(
+                        new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem),
+                        new InstantCommand(m_indexSubsystem::stopIndex, m_indexSubsystem)));
         new JoystickButton(m_coDriverController, Button.kA.value)
                 .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
                 .whenReleased(new ParallelCommandGroup(
