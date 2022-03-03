@@ -46,14 +46,7 @@ public class AutoIndex extends CommandBase {
     }
 
     @Override
-    public void end(boolean interrupted) {
-
-        m_indexSubsystem.stopIndex();
-        m_intakeSubsystem.stopIntake();
-    }
-
-    @Override
-    public boolean isFinished() {
+    public void execute() {
         switch (m_indexStage) {
             case NONE:
                 m_indexSubsystem.runIndex();
@@ -62,14 +55,6 @@ public class AutoIndex extends CommandBase {
                     m_indexStage = IndexStage.FULL;
                 } else if (m_indexSubsystem.isLowerBallPresent()) {
                     m_indexStage = IndexStage.LOWBALL;
-                } 
-
-                break;
-            case INTAKEBALL:
-                m_indexSubsystem.runIndex();
-                m_intakeSubsystem.runIntake();
-                if (m_indexSubsystem.isUpperBallPresent()) {
-                    m_indexStage = IndexStage.FULL;
                 }
                 break;
             case LOWBALL:
@@ -83,18 +68,27 @@ public class AutoIndex extends CommandBase {
                     m_indexStage = IndexStage.NONE;
                 }
                 break;
+            case INTAKEBALL:
+                m_indexSubsystem.runIndex();
+                m_intakeSubsystem.runIntake();
+                if (m_indexSubsystem.isUpperBallPresent()) {
+                    m_indexStage = IndexStage.FULL;
+                }
+                break;
             case FULL:
-                m_indexSubsystem.stopIndex();
-                m_intakeSubsystem.stopIntake();
-                return true;
+                m_complete = true;
         }
-        return false; // by default return false
+    }
 
-        // if (m_indexSubsystem.isUpperBallPresent() &&
-        // m_indexSubsystem.isLowerBallPresent()) { //old code
-        // return true;
-        // } else {
-        // return false;
-        // }
+    @Override
+    public boolean isFinished() {
+        return m_complete;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+
+        m_indexSubsystem.stopIndex();
+        m_intakeSubsystem.stopIntake();
     }
 }
