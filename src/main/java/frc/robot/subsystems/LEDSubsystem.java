@@ -8,6 +8,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 
 public class LEDSubsystem extends SubsystemBase {
+    public enum LEDState {
+        NONE,
+        RAINBOW,
+        FRENZY,
+        RED,
+        GREEN,
+        BLUE,
+        PURPLE,
+        RED_PULSE,
+        RED_STREAK,
+        GREEN_STREAK,
+        BLUE_STREAK,
+        RED_BLINK,
+        GREEN_BLINK,
+        BLUE_BLINK,
+        PURPLE_BLINK
+    }
+
     private AddressableLED m_led;
     private AddressableLEDBuffer m_ledBuffer;
     // Store what the last hue of the first pixel is
@@ -17,7 +35,7 @@ public class LEDSubsystem extends SubsystemBase {
     private int greenStreakLED = 0;
     private int blueStreakLED = 0;
     private int numLoops = 0;
-    private int m_led_mode_state = 1; // used for loop modes of the led's
+    private LEDState m_led_mode_state = LEDState.RAINBOW; // used for loop modes of the led's
     private int led_loop_count = 0; // used for loop modes of the led's
 
     public LEDSubsystem() {
@@ -43,130 +61,75 @@ public class LEDSubsystem extends SubsystemBase {
         // here we will create a state system to have the external command system
         // opperate new states
         switch (m_led_mode_state) {
-            case 1: // rainbow
+            case RAINBOW:
                 rainbow();
                 break;
-            case 2: // frenzy
+            case FRENZY:
                 Random rand = new Random();
                 if (led_loop_count++ % 10 == 0) {
                     frenzy(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
 
                 }
                 break;
-            case 3: // red
+            case RED:
                 red();
                 break;
-            case 4: // green
+            case GREEN:
                 green();
                 break;
-            case 5: // blue
+            case BLUE:
                 blue();
                 break;
-            case 6: // purple
+            case PURPLE:
                 purple();
                 break;
-            case 7: // redPulse
+            case RED_PULSE:
                 redPulse();
                 break;
-            case 8: // redstreak
+            case RED_STREAK:
                 redStreak();
                 break;
-            case 9: // greenstreak
+            case GREEN_STREAK:
                 greenStreak();
                 break;
-            case 10: // bluestreak
+            case BLUE_STREAK:
                 blueStreak();
                 break;
-            case 11: // red
+            case RED_BLINK:
                 if (led_loop_count++ % 20 == 0) {
                     red();
                 } else if (led_loop_count % 10 == 0) {
                     clearAll();
                 }
                 break;
-            case 12: // green
+            case GREEN_BLINK:
                 if (led_loop_count++ % 20 == 0) {
                     green();
                 } else if (led_loop_count % 10 == 0) {
                     clearAll();
                 }
                 break;
-            case 13: // blue
+            case BLUE_BLINK:
                 if (led_loop_count++ % 20 == 0) {
                     blue();
                 } else if (led_loop_count % 10 == 0) {
                     clearAll();
                 }
                 break;
-            case 14: // purple
+            case PURPLE_BLINK:
                 if (led_loop_count++ % 20 == 0) {
                     purple();
                 } else if (led_loop_count % 10 == 0) {
                     clearAll();
                 }
                 break;
-            case 0: // do nothing
-                break;
-
-            default:// do nothing
+            case NONE:
                 break;
         }
     }
 
-    public void setRainbow() {
-        m_led_mode_state = 1;
-    }
-
-    public void setFrenzy() {
-        m_led_mode_state = 2;
-    }
-
-    public void setRed() {
-        m_led_mode_state = 3;
-    }
-
-    public void setGreen() {
-        m_led_mode_state = 4;
-    }
-
-    public void setBlue() {
-        m_led_mode_state = 5;
-    }
-
-    public void setPurple() {
-        m_led_mode_state = 6;
-    }
-
-    public void setRedPulse() {
-        m_led_mode_state = 7;
-    }
-
-    public void setRedStreak() {
-        m_led_mode_state = 8;
-    }
-
-    public void setGreenStreak() {
-        m_led_mode_state = 9;
-    }
-
-    public void setBlueStreak() {
-        m_led_mode_state = 10;
-    }
-
-    public void setRedBlink() {
-        m_led_mode_state = 11;
-    }
-
-    public void setGreenBlink() {
-        m_led_mode_state = 12;
-    }
-
-    public void setBlueBlink() {
-        m_led_mode_state = 13;
-    }
-
-    public void setPurpleBlink() {
-        m_led_mode_state = 14;
+    public void setLEDState(LEDState ledState) {
+        m_led_mode_state = ledState;
     }
 
     public void rainbow() {
