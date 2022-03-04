@@ -30,8 +30,6 @@ public class DriveSubsystem extends SubsystemBase {
     private RelativeEncoder m_leftEncoder = m_leftFront.getEncoder();
     private RelativeEncoder m_rightEncoder = m_rightFront.getEncoder();
 
-    private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
         m_leftRear.restoreFactoryDefaults();
@@ -68,11 +66,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getGyroHeading() {
-        return m_gyro.getAngle();
+        return 0;
     }
 
     public void resetGyro() {
-        m_gyro.reset();
     }
 
     @Override
