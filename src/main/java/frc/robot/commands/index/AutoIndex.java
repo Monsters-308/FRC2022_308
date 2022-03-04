@@ -3,15 +3,21 @@ package frc.robot.commands.index;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.LEDSubsystem.LEDState;
 
 public class AutoIndex extends CommandBase {
+    public enum IndexStage {
+        NONE,
+        INTAKEBALL,
+        LOWBALL,
+        FULL
+    }
+
     private final IndexSubsystem m_indexSubsystem;
     private final IntakeSubsystem m_intakeSubsystem;
+    private final LEDSubsystem m_ledSubsystem;
     public boolean m_complete = false;
-
-    public enum IndexStage {
-        NONE, INTAKEBALL, LOWBALL, FULL
-    }
 
     IndexStage m_indexStage = IndexStage.NONE;
 
@@ -19,14 +25,15 @@ public class AutoIndex extends CommandBase {
      * when initialized, this will run the intexer and intake. when both index
      * sensors return true, it will stop intake/index.
      * 
-     * @param indexSubsystem  the indexsubsystem
-     * @param intakeSubsystem the intakesubsystem
+     * @param indexSubsystem  the Index subsystem
+     * @param intakeSubsystem the Intake subsystem
+     * @param ledSubsystem the LED subsystem
      */
-    public AutoIndex(IndexSubsystem indexSubsystem, IntakeSubsystem intakeSubsystem) {
+    public AutoIndex(IndexSubsystem indexSubsystem, IntakeSubsystem intakeSubsystem, LEDSubsystem ledSubsystem) {
         m_indexSubsystem = indexSubsystem;
         m_intakeSubsystem = intakeSubsystem;
-
-        addRequirements(m_indexSubsystem, m_intakeSubsystem);
+        m_ledSubsystem = ledSubsystem;
+        addRequirements(m_indexSubsystem, m_intakeSubsystem, m_ledSubsystem);
     }
 
     @Override
@@ -58,6 +65,7 @@ public class AutoIndex extends CommandBase {
                 }
                 break;
             case LOWBALL:
+                m_ledSubsystem.setLEDState(LEDState.PURPLE);
                 m_intakeSubsystem.runIntake();
                 m_indexSubsystem.stopIndex();
                 if (m_indexSubsystem.isUpperBallPresent()) {
@@ -76,6 +84,7 @@ public class AutoIndex extends CommandBase {
                 }
                 break;
             case FULL:
+                m_ledSubsystem.setLEDState(LEDState.GREEN);
                 m_complete = true;
         }
     }

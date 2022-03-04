@@ -20,6 +20,7 @@ public class LEDSubsystem extends SubsystemBase {
         RED_STREAK,
         GREEN_STREAK,
         BLUE_STREAK,
+        PURPLE_STREAK,
         RED_BLINK,
         GREEN_BLINK,
         BLUE_BLINK,
@@ -34,6 +35,7 @@ public class LEDSubsystem extends SubsystemBase {
     private int redStreakLED = 0;
     private int greenStreakLED = 0;
     private int blueStreakLED = 0;
+    private int purpleStreakLED = 0;
     private int numLoops = 0;
     private LEDState m_led_mode_state = LEDState.RAINBOW; // used for loop modes of the led's
     private int led_loop_count = 0; // used for loop modes of the led's
@@ -94,6 +96,9 @@ public class LEDSubsystem extends SubsystemBase {
                 break;
             case BLUE_STREAK:
                 blueStreak();
+                break;
+            case PURPLE_STREAK:
+                purpleStreak();
                 break;
             case RED_BLINK:
                 if (led_loop_count++ % 20 == 0) {
@@ -266,6 +271,28 @@ public class LEDSubsystem extends SubsystemBase {
             blueStreakLED += 1;
             // Check bounds
             blueStreakLED %= m_ledBuffer.getLength();
+        }
+
+        m_led.setData(m_ledBuffer);
+
+        numLoops += 1;
+
+    }
+
+    public void purpleStreak() {
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+            // Sets the specified LED to the RGB values for purple
+            m_ledBuffer.setRGB(i, 148, 0, 211);
+        }
+
+        // turns one led off
+        m_ledBuffer.setRGB(purpleStreakLED, 0, 0, 0);
+
+        // increase brightness
+        if (numLoops % 3 == 0) {
+            purpleStreakLED += 1;
+            // Check bounds
+            purpleStreakLED %= m_ledBuffer.getLength();
         }
 
         m_led.setData(m_ledBuffer);
