@@ -14,6 +14,7 @@ import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
 import frc.robot.commands.intake.StopIntake;
+import frc.robot.commands.led.DefaultLED;
 import frc.robot.commands.shooter.AutoShooter;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.DriveSubsystem;
@@ -103,7 +104,7 @@ public class RobotContainer {
         new JoystickButton(m_coDriverController, Button.kB.value)
                 .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
                 .whenReleased(
-                        new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem)));
+                        new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem), new DefaultLED(m_ledSubsystem)));
 
     }
 
