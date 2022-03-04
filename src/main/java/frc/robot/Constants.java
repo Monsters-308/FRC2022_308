@@ -52,6 +52,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeMotorPort = 11;
         public static final int kWinchMotorPort = 8;
+        public static final int kLoweredSwitchPort = 3;
+        public static final int kRaisedSwitchPort = 4;
 
         public static final double kIntakeMotorSpeed = 0.5;
         public static final double kWinchMotorSpeed = 0.5;

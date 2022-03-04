@@ -3,12 +3,16 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
     private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(IntakeConstants.kIntakeMotorPort);
     private final WPI_TalonSRX m_winchMotor = new WPI_TalonSRX(IntakeConstants.kWinchMotorPort);
+    private final DigitalInput m_loweredLimitSwitch = new DigitalInput(IntakeConstants.kLoweredSwitchPort);
+    private final DigitalInput m_raisedLimitSwitch = new DigitalInput(IntakeConstants.kRaisedSwitchPort);
 
     public IntakeSubsystem() {
         m_intakeMotor.setNeutralMode(NeutralMode.Coast);
@@ -46,6 +50,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void stopWinch() {
         m_winchMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    public boolean isLowered() {
+        return m_loweredLimitSwitch.get();
+    }
+
+    public boolean isRaised() {
+        return m_raisedLimitSwitch.get();
     }
 
     @Override
