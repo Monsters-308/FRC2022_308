@@ -19,6 +19,7 @@ import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -39,6 +40,7 @@ public class RobotContainer {
     private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
     private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+    private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
 
     XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
 
@@ -99,7 +101,7 @@ public class RobotContainer {
                 .whenReleased(new ParallelCommandGroup(
                         new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)));
         new JoystickButton(m_coDriverController, Button.kB.value)
-                .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem))
+                .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem)));
 

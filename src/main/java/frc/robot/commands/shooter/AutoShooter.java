@@ -4,7 +4,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.LEDSubsystem.LEDState;
 
 public class AutoShooter extends CommandBase {
     public enum ShooterStage {
@@ -17,6 +19,7 @@ public class AutoShooter extends CommandBase {
 
     public final IndexSubsystem m_indexSubsystem;
     public final ShooterSubsystem m_shooterSubsystem;
+    public final LEDSubsystem m_ledSubsystem;
     public boolean m_complete = false;
     public Timer m_timer = new Timer();
     public ShooterStage m_shooterStage = ShooterStage.BALL_READY;
@@ -27,12 +30,13 @@ public class AutoShooter extends CommandBase {
      * 
      * @param indexSubsystem   pass in the indexSubsystem
      * @param shooterSubsystem pass in the shooterSubsystem
+     * @param ledSubsystem pass in the ledSubsystem
      */
-    public AutoShooter(IndexSubsystem indexSubsystem, ShooterSubsystem shooterSubsystem) {
+    public AutoShooter(IndexSubsystem indexSubsystem, ShooterSubsystem shooterSubsystem, LEDSubsystem ledSubsystem) {
         m_indexSubsystem = indexSubsystem;
         m_shooterSubsystem = shooterSubsystem;
-
-        addRequirements(m_indexSubsystem, m_shooterSubsystem);
+        m_ledSubsystem = ledSubsystem;
+        addRequirements(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem);
     }
 
     @Override
@@ -66,6 +70,7 @@ public class AutoShooter extends CommandBase {
                 m_timer.reset();
                 break;
             case RAMPING_SHOOTER:
+                m_ledSubsystem.setLEDState(LEDState.RED);
                 if (m_timer.hasElapsed(ShooterConstants.kRampTimeSec)) {
                     m_shooterStage = ShooterStage.SHOOTING;
                     m_timer.reset();
@@ -76,6 +81,7 @@ public class AutoShooter extends CommandBase {
                 } */
                 break;
             case SHOOTING:
+                m_ledSubsystem.setLEDState(LEDState.GREEN);
                 if (m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
                     m_indexSubsystem.stopIndex();
                     m_shooterSubsystem.stopHelper();
