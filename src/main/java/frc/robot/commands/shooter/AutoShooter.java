@@ -61,6 +61,7 @@ public class AutoShooter extends CommandBase {
             case BALL_READY:
                 m_indexSubsystem.stopIndex();
                 m_shooterSubsystem.runShooter();
+                // m_shooterSubsystem.speedControlShooter(ShooterConstants.kShooterSpeedRPM);
                 m_shooterStage = ShooterStage.RAMPING_SHOOTER;
                 m_timer.reset();
                 break;
@@ -69,6 +70,10 @@ public class AutoShooter extends CommandBase {
                     m_shooterStage = ShooterStage.SHOOTING;
                     m_timer.reset();
                 }
+                /* if(m_shooterSubsystem.getShooterVelocity() > ShooterConstants.kShooterSpeedRPM || m_timer.hasElapsed(ShooterConstants.kMaxRampTime)) {
+                    m_shooterStage = ShooterStage.SHOOTING;
+                    m_timer.reset();
+                } */
                 break;
             case SHOOTING:
                 if (m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
