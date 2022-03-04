@@ -97,7 +97,7 @@ public class RobotContainer {
                         new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem),
                         new InstantCommand(m_indexSubsystem::stopIndex, m_indexSubsystem)));
         new JoystickButton(m_coDriverController, Button.kA.value)
-                .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem))
+                .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem, m_ledSubsystem))
                 .whenReleased(new ParallelCommandGroup(
                         new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)));
         new JoystickButton(m_coDriverController, Button.kB.value)
