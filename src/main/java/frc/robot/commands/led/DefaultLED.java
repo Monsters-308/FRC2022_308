@@ -25,4 +25,9 @@ public class DefaultLED extends CommandBase {
                 m_ledSubsystem.setLEDState(LEDState.RED_BLINK);
         }
     }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }
