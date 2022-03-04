@@ -17,12 +17,12 @@ public class AutoShooter extends CommandBase {
         EMPTY
     }
 
-    public final IndexSubsystem m_indexSubsystem;
-    public final ShooterSubsystem m_shooterSubsystem;
-    public final LEDSubsystem m_ledSubsystem;
-    public boolean m_complete = false;
-    public Timer m_timer = new Timer();
-    public ShooterStage m_shooterStage = ShooterStage.BALL_READY;
+    private final IndexSubsystem m_indexSubsystem;
+    private final ShooterSubsystem m_shooterSubsystem;
+    private final LEDSubsystem m_ledSubsystem;
+    private boolean m_complete = false;
+    private Timer m_timer = new Timer();
+    private ShooterStage m_shooterStage = ShooterStage.BALL_READY;
 
     /**
      * A command that when pressed, will automatically ramp up and feed the shooter
@@ -30,7 +30,7 @@ public class AutoShooter extends CommandBase {
      * 
      * @param indexSubsystem   pass in the indexSubsystem
      * @param shooterSubsystem pass in the shooterSubsystem
-     * @param ledSubsystem pass in the ledSubsystem
+     * @param ledSubsystem     pass in the ledSubsystem
      */
     public AutoShooter(IndexSubsystem indexSubsystem, ShooterSubsystem shooterSubsystem, LEDSubsystem ledSubsystem) {
         m_indexSubsystem = indexSubsystem;
@@ -75,10 +75,14 @@ public class AutoShooter extends CommandBase {
                     m_shooterStage = ShooterStage.SHOOTING;
                     m_timer.reset();
                 }
-                /* if(m_shooterSubsystem.getShooterVelocity() > ShooterConstants.kShooterSpeedRPM || m_timer.hasElapsed(ShooterConstants.kMaxRampTime)) {
-                    m_shooterStage = ShooterStage.SHOOTING;
-                    m_timer.reset();
-                } */
+                /*
+                 * if(m_shooterSubsystem.getShooterVelocity() >
+                 * ShooterConstants.kShooterSpeedRPM ||
+                 * m_timer.hasElapsed(ShooterConstants.kMaxRampTime)) {
+                 * m_shooterStage = ShooterStage.SHOOTING;
+                 * m_timer.reset();
+                 * }
+                 */
                 break;
             case SHOOTING:
                 m_ledSubsystem.setLEDState(LEDState.GREEN);
