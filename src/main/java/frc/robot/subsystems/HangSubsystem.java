@@ -19,14 +19,19 @@ public class HangSubsystem extends SubsystemBase {
     public HangSubsystem() {
         m_hangMotorLeft.setNeutralMode(NeutralMode.Brake);
         m_hangMotorRight.setNeutralMode(NeutralMode.Brake);
+        m_hangMotorLeft.setInverted(true);
     }
 
     public void runHang() {
-        if (!isLeftRaised() && !isRightRaised()) {
+        if (!isLeftRaised()) {
             m_hangMotorLeft.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
-            m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
         } else {
             m_hangMotorLeft.set(ControlMode.PercentOutput, 0);
+        }
+
+        if (!isRightRaised()) {
+            m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+        } else {
             m_hangMotorRight.set(ControlMode.PercentOutput, 0);
         }
     }
