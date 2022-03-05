@@ -59,6 +59,21 @@ public class DriveTurn extends CommandBase {
                 }
 
             }
+        } else {
+            if (percentOff > 1 / 0.65) {
+                if (m_currentSpeed < Math.abs(m_speed)) {
+                    m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
+                } else {
+                    m_currentSpeed = Math.abs(m_speed);
+                }
+            } else {
+                if (m_currentSpeed > 0.2) {
+                    m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
+                } else {
+                    m_currentSpeed = 0.2;
+                }
+
+            }
         }
         if ((m_speed < 0) ^ (m_degreesTurned > m_targetHeading)) {
             m_driveSubsystem.tankDrive(m_currentSpeed * -1, m_currentSpeed); // turn left sometimes
