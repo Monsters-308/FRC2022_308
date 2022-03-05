@@ -2,7 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants;
@@ -29,6 +30,8 @@ public class DriveSubsystem extends SubsystemBase {
     private RelativeEncoder m_leftEncoder = m_leftFront.getEncoder();
     private RelativeEncoder m_rightEncoder = m_rightFront.getEncoder();
 
+    private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
         m_leftRear.restoreFactoryDefaults();
@@ -40,6 +43,8 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightRear.setSmartCurrentLimit(40, 40);
         m_leftRear.follow(m_leftFront);
         m_rightRear.follow(m_rightFront);
+        m_rightFront.setInverted(true);
+        m_gyro.calibrate();
     }
 
     public void arcadeDrive(double fwd, double rot) {
@@ -47,7 +52,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void tankDrive(double left, double right) {
-        m_drive.tankDrive(right, -left);
+        m_drive.tankDrive(left, right);
     }
 
     public void setMaxOutput(double maxOutput) {
@@ -55,7 +60,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getAverageEncoderDistanceInches() {
-        double rpm = (m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0;
+        double rpm = (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
         return DriveConstants.kEncoderConversionFactor * rpm;
     }
 
@@ -65,10 +70,15 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getGyroHeading() {
-        return 0;
+        return m_gyro.getAngle();
+    }
+
+    public double getGyroRate() {
+        return m_gyro.getRate();
     }
 
     public void resetGyro() {
+        m_gyro.reset();
     }
 
     @Override
@@ -80,6 +90,9 @@ public class DriveSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("LeftSpeed", m_leftFront.get());
         SmartDashboard.putNumber("RightSpeed", m_rightFront.get());
+
+        SmartDashboard.putNumber("GyroHeading", getGyroHeading());
+        SmartDashboard.putNumber("GyroRate", getGyroRate());
     }
 
 }
