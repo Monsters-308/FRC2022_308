@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
 import static frc.robot.Constants.DriveConstants;
 import static frc.robot.Constants.IOConstants;
 
@@ -52,7 +54,8 @@ public class RobotContainer {
     XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
 
     XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
-
+    
+    SendableChooser<Command> m_chooser = new SendableChooser<>();
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -64,6 +67,14 @@ public class RobotContainer {
                         m_driveSubsystem,
                         m_driverController::getLeftY,
                         m_driverController::getRightY));
+        // m_chooser.addOption("Move Off Line", m_simpleAuto);
+        // m_chooser.addOption("Shoot Straight(right)", m_complexAutoRight);
+        // m_chooser.addOption("Near Trench", m_autoNearTrench);
+        // m_chooser.addOption("Far Trench", m_autoFarTrench);
+        // m_chooser.addOption("Shoot Straight(left)", m_complexAutoLeft);
+
+        // // Put the chooser on the dashboard
+        // Shuffleboard.getTab("Autonomous").add(m_chooser);
     }
 
     /**
