@@ -10,8 +10,8 @@ public class DriveTurn extends CommandBase {
     private final double m_accel;
     private double m_currentSpeed = 0;
     private final double m_initialHeading;
-    private double percentOff;
-    private double gyroHead;
+    private double m_degreesTurned;
+    private final double m_maxError = 0.5;
 
     /**
      * this command will turn the robot smoothly
@@ -42,12 +42,29 @@ public class DriveTurn extends CommandBase {
 
     @Override
     public void execute() {
+        m_degreesTurned = Math.abs(m_driveSubsystem.getGyroHeading() - m_initialHeading);
+        double percentOff = m_degreesTurned / m_targetHeading;
+        if (m_degreesTurned < m_targetHeading) {
+            if (percentOff < 0.65) {
+                if (m_currentSpeed < Math.abs(m_speed)) {
+                    m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
+                } else {
+                    m_currentSpeed = Math.abs(m_speed);
+                }
+            } else {
+                if (m_currentSpeed > 0.2) {
+                    m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
+                } else {
+                    m_currentSpeed = 0.2;
+                }
 
-        // if (m_driveSubsystem.getGyroHeading() < m_targetHeading) {
-        // m_driveSubsystem.tankDrive(left, right);
-        // } else {
-        // m_driveSubsystem.tankDrive(left, right);
-        // }
+            }
+        }
+        if ((m_speed < 0) ^ (m_degreesTurned > m_targetHeading)) {
+            m_driveSubsystem.tankDrive(m_currentSpeed * -1, m_currentSpeed); // turn left sometimes
+        } else {
+            m_driveSubsystem.tankDrive(m_currentSpeed, m_currentSpeed * -1); // turn right occasionally
+        }
     }
 
     @Override
@@ -57,39 +74,9 @@ public class DriveTurn extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        gyroHead = m_driveSubsystem.getGyroHeading();
-        percentOff = Math.abs(gyroHead - m_initialHeading) / m_targetHeading;
-        if (Math.abs(gyroHead - m_initialHeading) < m_targetHeading) {
-            if (percentOff < 0.65) {
-                if (m_currentSpeed < m_speed) {
-                    m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
-                } else {
-                    m_currentSpeed = m_speed;
-                }
-            } 
-            else {
-                if (m_currentSpeed > 0.2) {
-                    m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
-                } 
-                else {
-                    m_currentSpeed = 0.2;
-                }
-
-            }
-        } else {
+        if (Math.abs(m_degreesTurned - m_targetHeading) < m_maxError) {
             return true;
         }
-        if (m_speed < 0) {
-            m_driveSubsystem.tankDrive(m_currentSpeed * -1, m_currentSpeed); // turn left sometimes
-        } else {
-            m_driveSubsystem.tankDrive(m_currentSpeed, m_currentSpeed * -1); // turn right occasionally
-        }
         return false;
-        // if (Math.abs(m_driveSubsystem.getGyroHeading() - m_targetHeading) <
-        // m_maxHeadingError) {
-        // return true;
-        // } else {
-        // return false;
-        // }
     }
 }
