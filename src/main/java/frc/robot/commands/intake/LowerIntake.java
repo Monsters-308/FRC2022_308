@@ -14,12 +14,14 @@ public class LowerIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        m_intakeSubsystem.reverseWinch();
+        if (!m_intakeSubsystem.isLowered()) {
+            m_intakeSubsystem.reverseWinch();
+        }
     }
 
     @Override
     public boolean isFinished() {
-        return m_intakeSubsystem.isRaised();
+        return m_intakeSubsystem.isLowered();
     }
 
     @Override
