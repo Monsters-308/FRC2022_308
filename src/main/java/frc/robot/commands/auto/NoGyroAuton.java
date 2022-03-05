@@ -9,20 +9,18 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class NoGyroAuton extends SequentialCommandGroup {
-  /**
-   * Creates a new ComplexAuto.
-   *
-   * @param drive   The drive subsystem this command will run on
-   * @param indexer The indexer subsystem this command will run on
-   * @param shooter The shooter subsystem this command will run on
-   */
-  public NoGyroAuton(DriveSubsystem drive, ShooterSubsystem shooter, IndexSubsystem index, LEDSubsystem leads) {
-    addCommands(
-        new SequentialCommandGroup(
-        new DriveDistance(20, -0.5, drive),
-        new AutoShooter(index, shooter, leads)
-      )
-    );
-  }
+    /**
+     * Creates a new ComplexAuto.
+     *
+     * @param drive   The drive subsystem this command will run on
+     * @param indexer The indexer subsystem this command will run on
+     * @param shooter The shooter subsystem this command will run on
+     */
+    public NoGyroAuton(DriveSubsystem drive, ShooterSubsystem shooter, IndexSubsystem index, LEDSubsystem leads) {
+        addCommands(
+                new SequentialCommandGroup(
+                        new DriveDistance(20, -0.5, drive),
+                        new AutoShooter(index, shooter, leads)));
+    }
 
 }
