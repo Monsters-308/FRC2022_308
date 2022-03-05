@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants;
@@ -29,7 +30,7 @@ public class DriveSubsystem extends SubsystemBase {
     private RelativeEncoder m_leftEncoder = m_leftFront.getEncoder();
     private RelativeEncoder m_rightEncoder = m_rightFront.getEncoder();
 
-    private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+    private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
