@@ -19,6 +19,7 @@ public class HangSubsystem extends SubsystemBase {
     public HangSubsystem() {
         m_hangMotorLeft.setNeutralMode(NeutralMode.Brake);
         m_hangMotorRight.setNeutralMode(NeutralMode.Brake);
+        m_hangMotorLeft.setInverted(true);
     }
 
     public void runHang() {
