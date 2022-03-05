@@ -73,26 +73,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         // controls
-        // A : run shooter
-        // B : run index
-        // X : run helper
-        // Y : run intake
         // co A : run auto index
         // co B : run auto shooter
         // co Y : reverse all
-        new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(new InstantCommand(m_shooterSubsystem::runShooter, m_shooterSubsystem))
-                .whenReleased(new InstantCommand(m_shooterSubsystem::stopShooter, m_shooterSubsystem));
-        new JoystickButton(m_driverController, Button.kB.value)
-                .whenPressed(new InstantCommand(m_indexSubsystem::runIndex, m_indexSubsystem))
-                .whenReleased(new StopIndex(m_indexSubsystem));
-        new JoystickButton(m_driverController, Button.kX.value)
-                .whenPressed(new InstantCommand(m_shooterSubsystem::runHelper, m_shooterSubsystem))
-                .whenReleased(new InstantCommand(m_shooterSubsystem::stopHelper, m_shooterSubsystem));
-        new JoystickButton(m_driverController, Button.kY.value)
-                .whenPressed(new InstantCommand(m_intakeSubsystem::runIntake, m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem));
-
         new JoystickButton(m_coDriverController, Button.kY.value)
                 .whenPressed(new ParallelCommandGroup(
                         new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
