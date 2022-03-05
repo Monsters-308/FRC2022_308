@@ -96,6 +96,12 @@ public class RobotContainer {
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
+        new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
+                .whenPressed(new RaiseIntake(m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
+        new JoystickButton(m_coDriverController, Button.kRightBumper.value)
+                .whenPressed(new LowerIntake(m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
 
     }
 
