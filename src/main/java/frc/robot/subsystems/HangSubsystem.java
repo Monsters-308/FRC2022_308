@@ -22,11 +22,15 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public void runHang() {
-        if (!isLeftRaised() && !isRightRaised()) {
+        if (!isLeftRaised()) {
             m_hangMotorLeft.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
-            m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
         } else {
             m_hangMotorLeft.set(ControlMode.PercentOutput, 0);
+        }
+
+        if (!isRightRaised()) {
+            m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+        } else {
             m_hangMotorRight.set(ControlMode.PercentOutput, 0);
         }
     }
