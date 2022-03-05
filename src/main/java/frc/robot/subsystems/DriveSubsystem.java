@@ -10,6 +10,7 @@ import static frc.robot.Constants.DriveConstants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -44,6 +45,10 @@ public class DriveSubsystem extends SubsystemBase {
         m_leftRear.follow(m_leftFront);
         m_rightRear.follow(m_rightFront);
         m_rightFront.setInverted(true);
+        m_leftFront.setIdleMode(IdleMode.kBrake);
+        m_leftRear.setIdleMode(IdleMode.kBrake);
+        m_rightFront.setIdleMode(IdleMode.kBrake);
+        m_rightRear.setIdleMode(IdleMode.kBrake);
         m_gyro.calibrate();
     }
 
