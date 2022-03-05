@@ -63,9 +63,18 @@ public class DriveTurn extends CommandBase {
             if (percentOff < 0.65) {
                 if (m_currentSpeed < m_speed) {
                     m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
+                } else {
+                    m_currentSpeed = m_speed;
                 }
-            } else {
-                m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
+            } 
+            else {
+                if (m_currentSpeed > 0.2) {
+                    m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
+                } 
+                else {
+                    m_currentSpeed = 0.2;
+                }
+
             }
         } else {
             return true;
