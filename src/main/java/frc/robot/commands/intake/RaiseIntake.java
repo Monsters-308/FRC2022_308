@@ -14,7 +14,9 @@ public class RaiseIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        m_intakeSubsystem.runWinch();
+        if (!m_intakeSubsystem.isRaised()) {
+            m_intakeSubsystem.runWinch();
+        }
     }
 
     @Override
