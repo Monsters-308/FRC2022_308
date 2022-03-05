@@ -74,6 +74,13 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightEncoder.setPosition(0);
     }
 
+    public void setBrakeMode(IdleMode idle){
+        m_leftFront.setIdleMode(idle);
+        m_leftRear.setIdleMode(idle);
+        m_rightFront.setIdleMode(idle);
+        m_rightRear.setIdleMode(idle);
+    }
+
     public double getGyroHeading() {
         return m_gyro.getAngle();
     }
