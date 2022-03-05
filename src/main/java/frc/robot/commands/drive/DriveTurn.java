@@ -59,7 +59,7 @@ public class DriveTurn extends CommandBase {
     public boolean isFinished() {
         gyroHead = m_driveSubsystem.getGyroHeading();
         percentOff = m_targetHeading / Math.abs(gyroHead - m_initialHeading);
-        if (Math.abs(gyroHead - m_initialHeading) > m_targetHeading) {
+        if (Math.abs(gyroHead - m_initialHeading) < m_targetHeading) {
             if (percentOff > 0.5) {
                 if (m_currentSpeed < m_speed) {
                     m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
