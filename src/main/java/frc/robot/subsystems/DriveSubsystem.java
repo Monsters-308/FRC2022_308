@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants;
@@ -28,6 +28,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     private RelativeEncoder m_leftEncoder = m_leftFront.getEncoder();
     private RelativeEncoder m_rightEncoder = m_rightFront.getEncoder();
+
+    private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
@@ -65,10 +67,15 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getGyroHeading() {
-        return 0;
+        return m_gyro.getAngle();
+    }
+
+    public double getGyroRate() {
+        return m_gyro.getRate();
     }
 
     public void resetGyro() {
+        m_gyro.reset();
     }
 
     @Override
@@ -80,6 +87,9 @@ public class DriveSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("LeftSpeed", m_leftFront.get());
         SmartDashboard.putNumber("RightSpeed", m_rightFront.get());
+
+        SmartDashboard.putNumber("GyroHeading", getGyroHeading());
+        SmartDashboard.putNumber("GyroRate", getGyroRate());
     }
 
 }
