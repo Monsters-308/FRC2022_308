@@ -42,6 +42,8 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightRear.setSmartCurrentLimit(40, 40);
         m_leftRear.follow(m_leftFront);
         m_rightRear.follow(m_rightFront);
+        m_rightFront.setInverted(true);
+        m_gyro.calibrate();
     }
 
     public void arcadeDrive(double fwd, double rot) {
@@ -49,7 +51,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public void tankDrive(double left, double right) {
-        m_drive.tankDrive(right, -left);
+        m_drive.tankDrive(left, right);
     }
 
     public void setMaxOutput(double maxOutput) {
@@ -57,7 +59,7 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
     public double getAverageEncoderDistanceInches() {
-        double rpm = (m_leftEncoder.getPosition() - m_rightEncoder.getPosition()) / 2.0;
+        double rpm = (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
         return DriveConstants.kEncoderConversionFactor * rpm;
     }
 
