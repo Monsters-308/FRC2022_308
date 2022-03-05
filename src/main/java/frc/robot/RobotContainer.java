@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import static frc.robot.Constants.DriveConstants;
 import static frc.robot.Constants.IOConstants;
 
+import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveTime;
@@ -125,6 +126,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new DriveTime(1.2, DriveConstants.kAutonDriveSpeed, m_driveSubsystem);// to be changed
+        return new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem,
+                m_ledSubsystem);
     }
 }
