@@ -68,6 +68,15 @@ public final class Constants {
         public static final double kIndexMotorSpeed = 0.5;
     }
 
+    public static final class HangConstants {
+        public static final int kLeftMotorPort = 47; // change when we know the port
+        public static final int kRightMotorPort = 47; // change when we know the port
+        public static final int kLeftSwitchPort = 47; // change when we know the port
+        public static final int kRightSwitchPort = 47; // change when we know the port
+
+        public static final double kHangMotorSpeed = 1.0;
+    }
+
     public static final class IOConstants {
         public static final int controllerDrivePort = 0;
         public static final int controllerCoPort = 1;
