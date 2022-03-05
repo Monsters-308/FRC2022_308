@@ -30,7 +30,7 @@ public class DriveTurn extends CommandBase {
         m_targetHeading = heading;
         m_initialHeading = driveSubsystem.getGyroHeading();
         m_speed = maxSpeed;
-        m_accel=accel;
+        m_accel = accel;
         m_driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
     }
@@ -58,16 +58,14 @@ public class DriveTurn extends CommandBase {
     @Override
     public boolean isFinished() {
         gyroHead = m_driveSubsystem.getGyroHeading();
-        percentOff = Math.abs(gyroHead - m_initialHeading)/m_targetHeading;
+        percentOff = Math.abs(gyroHead - m_initialHeading) / m_targetHeading;
         if (Math.abs(gyroHead - m_initialHeading) < m_targetHeading) {
-            if (percentOff < 0.5) {
+            if (percentOff < 0.75) {
                 if (m_currentSpeed < m_speed) {
                     m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
                 }
             } else {
-                if (m_currentSpeed > 0.25) { // minimum speed
-                    m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
-                }
+                m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
             }
         } else {
             return true;
