@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import static frc.robot.Constants.DriveConstants;
 import static frc.robot.Constants.IOConstants;
+
+import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.index.AutoIndex;
@@ -59,8 +61,8 @@ public class RobotContainer {
         m_driveSubsystem.setDefaultCommand(
                 new DefaultDrive(
                         m_driveSubsystem,
-                        () -> m_driverController.getLeftY(),
-                        () -> m_driverController.getRightY()));
+                        m_driverController::getLeftY,
+                        m_driverController::getRightY));
     }
 
     /**
@@ -105,6 +107,16 @@ public class RobotContainer {
                 .whenPressed(new LowerIntake(m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
 
+    }
+
+    public void setDefaultDrive(boolean arcadeDrive) {
+        if (arcadeDrive) {
+            m_driveSubsystem.setDefaultCommand(
+                    new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getLeftX));
+        } else {
+            m_driveSubsystem.setDefaultCommand(
+                    new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY));
+        }
     }
 
     /**
