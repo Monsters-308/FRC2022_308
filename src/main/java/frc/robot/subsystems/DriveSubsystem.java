@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -33,6 +36,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
+    private final NetworkTable m_visionTable;
+    private final NetworkTableEntry m_visionYaw;
+
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
         m_leftRear.restoreFactoryDefaults();
@@ -50,6 +56,9 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightFront.setIdleMode(IdleMode.kBrake);
         m_rightRear.setIdleMode(IdleMode.kBrake);
         m_gyro.calibrate();
+
+        m_visionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("ShootCam");
+        m_visionYaw = m_visionTable.getEntry("yaw");
     }
 
     public void arcadeDrive(double fwd, double rot) {
@@ -74,7 +83,7 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightEncoder.setPosition(0);
     }
 
-    public void setBrakeMode(IdleMode idle){
+    public void setBrakeMode(IdleMode idle) {
         m_leftFront.setIdleMode(idle);
         m_leftRear.setIdleMode(idle);
         m_rightFront.setIdleMode(idle);
@@ -93,6 +102,10 @@ public class DriveSubsystem extends SubsystemBase {
         m_gyro.reset();
     }
 
+    public double getVisionYaw() {
+        return m_visionYaw.getDouble(0);
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putNumber("LeftEncoder", m_leftEncoder.getPosition());
@@ -105,6 +118,8 @@ public class DriveSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("GyroHeading", getGyroHeading());
         SmartDashboard.putNumber("GyroRate", getGyroRate());
+
+        SmartDashboard.putNumber("VisionYaw", getVisionYaw());
     }
 
 }
