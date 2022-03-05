@@ -67,7 +67,6 @@ public class AutoShooter extends CommandBase {
                 m_shooterSubsystem.runShooter();
                 // m_shooterSubsystem.speedControlShooter(ShooterConstants.kShooterSpeedRPM);
                 m_shooterStage = ShooterStage.RAMPING_SHOOTER;
-                m_timer.reset();
                 break;
             case RAMPING_SHOOTER:
                 m_ledSubsystem.setLEDState(LEDState.PURPLE_STREAK);

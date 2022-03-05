@@ -1,5 +1,6 @@
 package frc.robot.commands.index;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -43,6 +44,7 @@ public class AutoIndex extends CommandBase {
         // m_indexSubsystem.runIndex();
         // m_intakeSubsystem.runIntake();
         // }
+        m_complete = false;
         if (m_indexSubsystem.isUpperBallPresent()) {
             m_indexStage = IndexStage.FULL;
         } else if (m_indexSubsystem.isLowerBallPresent()) {
@@ -54,6 +56,7 @@ public class AutoIndex extends CommandBase {
 
     @Override
     public void execute() {
+        SmartDashboard.putString("AutoIndexState", m_indexStage.toString());
         switch (m_indexStage) {
             case NONE:
                 m_indexSubsystem.runIndex();

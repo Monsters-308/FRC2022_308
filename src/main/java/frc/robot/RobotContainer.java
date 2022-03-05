@@ -25,6 +25,7 @@ import frc.robot.commands.led.DefaultLED;
 import frc.robot.commands.shooter.AutoShooter;
 import frc.robot.commands.shooter.StopShooter;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -50,12 +51,14 @@ public class RobotContainer {
     private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
+    private final HangSubsystem m_hangSubsystem = new HangSubsystem();
 
     XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
 
     XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
-    
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+    SendableChooser<Command> auton_chooser = new SendableChooser<>();
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -97,38 +100,35 @@ public class RobotContainer {
                         new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
                         new InstantCommand(m_indexSubsystem::reverseIndex, m_indexSubsystem)))
                 .whenReleased(new ParallelCommandGroup(
-                        new InstantCommand(m_intakeSubsystem::stopIntake, m_intakeSubsystem),
-                        new InstantCommand(m_indexSubsystem::stopIndex, m_indexSubsystem)));
+                        new StopIntake(m_intakeSubsystem), new StopIndex(m_indexSubsystem)));
+        
         new JoystickButton(m_coDriverController, Button.kA.value)
-                .whenPressed(new SequentialCommandGroup(
-                        new LowerIntake(m_intakeSubsystem),
-                        new AutoIndex(m_indexSubsystem, m_intakeSubsystem, m_ledSubsystem),
-                        new RaiseIntake(m_intakeSubsystem)))
-                .whenReleased(new SequentialCommandGroup(
-                        new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)),
-                        new RaiseIntake(m_intakeSubsystem)));
+                .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem, m_ledSubsystem))
+                .whenReleased(
+                        new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)));
+        
         new JoystickButton(m_coDriverController, Button.kB.value)
                 .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
-        new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
-                .whenPressed(new RaiseIntake(m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
-        new JoystickButton(m_coDriverController, Button.kRightBumper.value)
-                .whenPressed(new LowerIntake(m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
 
-    }
+        new JoystickButton(m_driverController, Button.kY.value)
+            .whenPressed(new InstantCommand(m_hangSubsystem::runHang, m_hangSubsystem))
+            .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
-    public void setDefaultDrive(boolean arcadeDrive) {
-        if (arcadeDrive) {
-            m_driveSubsystem.setDefaultCommand(
-                    new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getLeftX));
-        } else {
-            m_driveSubsystem.setDefaultCommand(
-                    new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY));
-        }
+        new JoystickButton(m_driverController, Button.kA.value)
+                .whenPressed(new InstantCommand(m_hangSubsystem::reverseHang, m_hangSubsystem))
+                .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+
+        // new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
+        //         .whenPressed(new RaiseIntake(m_intakeSubsystem))
+        //         .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
+
+        // new JoystickButton(m_coDriverController, Button.kRightBumper.value)
+        //         .whenPressed(new LowerIntake(m_intakeSubsystem))
+        //         .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
+
     }
 
     /**

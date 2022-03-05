@@ -30,7 +30,7 @@ public class HangSubsystem extends SubsystemBase {
         }
 
         if (!isRightRaised()) {
-            m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+            m_hangMotorRight.set(ControlMode.PercentOutput, 0.5*HangConstants.kHangMotorSpeed);
         } else {
             m_hangMotorRight.set(ControlMode.PercentOutput, 0);
         }
@@ -38,7 +38,7 @@ public class HangSubsystem extends SubsystemBase {
 
     public void reverseHang() {
         m_hangMotorLeft.set(ControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
-        m_hangMotorRight.set(ControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
+        m_hangMotorRight.set(ControlMode.PercentOutput, -0.5*HangConstants.kHangMotorSpeed);
     }
 
     public void stopHang() {
@@ -47,11 +47,11 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public boolean isLeftRaised() {
-        return m_leftLimitSwitch.get();
+        return !m_leftLimitSwitch.get();
     }
 
     public boolean isRightRaised() {
-        return m_rightLimitSwitch.get();
+        return !m_rightLimitSwitch.get();
     }
 
     @Override

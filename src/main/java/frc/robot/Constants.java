@@ -43,7 +43,7 @@ public final class Constants {
         public static final double kHelperMotorSpeed = 0.5;
         public static final double kShooterSpeedRPM = 0;
 
-        public static final double kRampTimeSec = 1;
+        public static final double kRampTimeSec = 2;
         public static final double kMaxIndexTimeSec = 1;
         public static final double kMaxRampTime = 2;
         public static final double kMaxReleaseTimeSec = 0.1;

@@ -54,16 +54,16 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public boolean isLowered() {
-        return m_loweredLimitSwitch.get();
+        return !m_loweredLimitSwitch.get();
     }
 
     public boolean isRaised() {
-        return m_raisedLimitSwitch.get();
+        return !m_raisedLimitSwitch.get();
     }
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("RaisedLimitSwitch", isRaised());
-        SmartDashboard.putBoolean("LoweredLimitSwitch", isLowered());
+        SmartDashboard.putBoolean("RaisedSwitch", isRaised());
+        SmartDashboard.putBoolean("LoweredSwitch", isLowered());
     }
 }
