@@ -47,6 +47,7 @@ public class AutoShooter extends CommandBase {
             m_shooterStage = ShooterStage.INDEXING;
         }
         m_timer.start();
+        m_timer.reset();
     }
 
     @Override
@@ -113,7 +114,7 @@ public class AutoShooter extends CommandBase {
         m_indexSubsystem.stopIndex();
         m_shooterSubsystem.stopHelper();
         m_shooterSubsystem.stopShooter();
-        m_timer.reset();
+        m_timer.stop();
         m_complete = false;
     }
 }
