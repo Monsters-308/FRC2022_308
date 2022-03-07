@@ -6,7 +6,6 @@ import frc.robot.commands.drive.DriveDistance;
 import frc.robot.commands.drive.DriveTurn;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.intake.LowerIntake;
-import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.shooter.AutoShooter;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;

@@ -1,7 +1,6 @@
 package frc.robot.commands.hang;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.subsystems.HangSubsystem;
 
 public class RaiseHang extends CommandBase {

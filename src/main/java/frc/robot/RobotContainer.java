@@ -9,18 +9,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
-import static frc.robot.Constants.DriveConstants;
 import static frc.robot.Constants.IOConstants;
 
 import frc.robot.commands.auto.NoAutoAimAuton;
-import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
-import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.hang.RaiseHang;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
-import frc.robot.commands.intake.LowerIntake;
-import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.led.DefaultLED;
 import frc.robot.commands.shooter.AutoShooter;
@@ -34,7 +29,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
