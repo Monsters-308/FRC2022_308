@@ -7,11 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import static frc.robot.Constants.IOConstants;
 
 import frc.robot.commands.auto.NoAutoAimAuton;
+import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.hang.RaiseHang;
 import frc.robot.commands.index.AutoIndex;
@@ -52,7 +54,9 @@ public class RobotContainer {
 
     XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
 
-    SendableChooser<Command> auton_chooser = new SendableChooser<>();
+    SendableChooser<Command> m_autonChooser = new SendableChooser<>();
+
+    SendableChooser<Command> m_driveChooser = new SendableChooser<>();
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -60,19 +64,21 @@ public class RobotContainer {
     public RobotContainer() {
         configureButtonBindings();
 
-        m_driveSubsystem.setDefaultCommand(
-                new DefaultDrive(
-                        m_driveSubsystem,
-                        m_driverController::getLeftY,
-                        m_driverController::getRightY));
-        // m_chooser.addOption("Move Off Line", m_simpleAuto);
-        // m_chooser.addOption("Shoot Straight(right)", m_complexAutoRight);
-        // m_chooser.addOption("Near Trench", m_autoNearTrench);
-        // m_chooser.addOption("Far Trench", m_autoFarTrench);
-        // m_chooser.addOption("Shoot Straight(left)", m_complexAutoLeft);
+        m_driveChooser.setDefaultOption("Tank Drive",
+                new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY));
+        m_driveChooser.addOption("Arcade Drive",
+                new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getLeftX));
+
+        Shuffleboard.getTab("Teleop").add(m_driveChooser);
+
+        // m_autonChooser.addOption("Move Off Line", m_simpleAuto);
+        // m_autonChooser.addOption("Shoot Straight(right)", m_complexAutoRight);
+        // m_autonChooser.addOption("Near Trench", m_autoNearTrench);
+        // m_autonChooser.addOption("Far Trench", m_autoFarTrench);
+        // m_autonChooser.addOption("Shoot Straight(left)", m_complexAutoLeft);
 
         // // Put the chooser on the dashboard
-        // Shuffleboard.getTab("Autonomous").add(m_chooser);
+        // Shuffleboard.getTab("Autonomous").add(m_autonChooser);
     }
 
     /**
@@ -136,5 +142,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem,
                 m_ledSubsystem);
+    }
+
+    public void setDefaultDrive() {
+        m_driveSubsystem.setDefaultCommand(m_driveChooser.getSelected());
     }
 }
