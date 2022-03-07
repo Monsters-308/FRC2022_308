@@ -36,8 +36,10 @@ public class DriveSubsystem extends SubsystemBase {
 
     private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 
-    private final NetworkTable m_visionTable;
-    private final NetworkTableEntry m_visionYaw;
+    private final NetworkTable m_shootVisionTable;
+    private final NetworkTableEntry m_shootVisionYaw;
+    private final NetworkTable m_intakeVisionTable;
+    private final NetworkTableEntry m_intakeVisionYaw;
 
     public DriveSubsystem() {
         m_leftFront.restoreFactoryDefaults();
@@ -57,8 +59,10 @@ public class DriveSubsystem extends SubsystemBase {
         m_rightRear.setIdleMode(IdleMode.kBrake);
         m_gyro.calibrate();
 
-        m_visionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("ShootCam");
-        m_visionYaw = m_visionTable.getEntry("yaw");
+        m_shootVisionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("ShootCam");
+        m_shootVisionYaw = m_shootVisionTable.getEntry("yaw");
+        m_intakeVisionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("IntakeCam");
+        m_intakeVisionYaw = m_intakeVisionTable.getEntry("yaw");
     }
 
     public void arcadeDrive(double fwd, double rot) {
@@ -102,8 +106,12 @@ public class DriveSubsystem extends SubsystemBase {
         m_gyro.reset();
     }
 
-    public double getVisionYaw() {
-        return m_visionYaw.getDouble(0);
+    public double getShootVisionYaw() {
+        return m_shootVisionYaw.getDouble(0);
+    }
+
+    public double getIntakeVisionYaw() {
+        return m_intakeVisionYaw.getDouble(0);
     }
 
     @Override
@@ -119,7 +127,8 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("GyroHeading", getGyroHeading());
         SmartDashboard.putNumber("GyroRate", getGyroRate());
 
-        SmartDashboard.putNumber("VisionYaw", getVisionYaw());
+        SmartDashboard.putNumber("ShootVisionYaw", getShootVisionYaw());
+        SmartDashboard.putNumber("IntakeVisionYaw", getIntakeVisionYaw());
     }
 
 }
