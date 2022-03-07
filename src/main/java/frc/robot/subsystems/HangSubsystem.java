@@ -23,22 +23,13 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public void runHang() {
-        if (!isLeftRaised()) {
-            m_hangMotorLeft.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
-        } else {
-            m_hangMotorLeft.set(ControlMode.PercentOutput, 0);
-        }
-
-        if (!isRightRaised()) {
-            m_hangMotorRight.set(ControlMode.PercentOutput, 0.5*HangConstants.kHangMotorSpeed);
-        } else {
-            m_hangMotorRight.set(ControlMode.PercentOutput, 0);
-        }
+        m_hangMotorLeft.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+        m_hangMotorRight.set(ControlMode.PercentOutput, 0.5 * HangConstants.kHangMotorSpeed);
     }
 
     public void reverseHang() {
         m_hangMotorLeft.set(ControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
-        m_hangMotorRight.set(ControlMode.PercentOutput, -0.5*HangConstants.kHangMotorSpeed);
+        m_hangMotorRight.set(ControlMode.PercentOutput, -0.5 * HangConstants.kHangMotorSpeed);
     }
 
     public void stopHang() {

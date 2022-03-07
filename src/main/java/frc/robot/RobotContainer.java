@@ -16,6 +16,7 @@ import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveTime;
+import frc.robot.commands.hang.RaiseHang;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
 import frc.robot.commands.intake.LowerIntake;
@@ -101,12 +102,12 @@ public class RobotContainer {
                         new InstantCommand(m_indexSubsystem::reverseIndex, m_indexSubsystem)))
                 .whenReleased(new ParallelCommandGroup(
                         new StopIntake(m_intakeSubsystem), new StopIndex(m_indexSubsystem)));
-        
+
         new JoystickButton(m_coDriverController, Button.kA.value)
                 .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem, m_ledSubsystem))
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopIntake(m_intakeSubsystem)));
-        
+
         new JoystickButton(m_coDriverController, Button.kB.value)
                 .whenPressed(new AutoShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
                 .whenReleased(
@@ -114,20 +115,22 @@ public class RobotContainer {
                                 new DefaultLED(m_ledSubsystem)));
 
         new JoystickButton(m_driverController, Button.kY.value)
-            .whenPressed(new InstantCommand(m_hangSubsystem::runHang, m_hangSubsystem))
-            .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+                .whenPressed(new RaiseHang(m_hangSubsystem))
+                .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(new InstantCommand(m_hangSubsystem::reverseHang, m_hangSubsystem))
                 .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
         // new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
-        //         .whenPressed(new RaiseIntake(m_intakeSubsystem))
-        //         .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
+        // .whenPressed(new RaiseIntake(m_intakeSubsystem))
+        // .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
+        // m_intakeSubsystem));
 
         // new JoystickButton(m_coDriverController, Button.kRightBumper.value)
-        //         .whenPressed(new LowerIntake(m_intakeSubsystem))
-        //         .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
+        // .whenPressed(new LowerIntake(m_intakeSubsystem))
+        // .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
+        // m_intakeSubsystem));
 
     }
 
