@@ -26,6 +26,7 @@ public class DriveDistance extends CommandBase {
 
     @Override
     public void initialize() {
+        m_complete = false;
         // m_driveSubsystem.resetEncoders(); //this takes 200ms and can cause problems, get encoders and find difference instead
     }
 

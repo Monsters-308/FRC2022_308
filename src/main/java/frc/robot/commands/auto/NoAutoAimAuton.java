@@ -22,7 +22,6 @@ public class NoAutoAimAuton extends SequentialCommandGroup {
                         new ParallelCommandGroup(
                                 new DriveDistance(35, 0.45, drive),
                                 new AutoIndex(index, intake, leads)),
-                        // new RaiseIntake(intake),
                         new DriveTurn(180, 0.4, 0.02, drive),
                         new DriveDistance(25, 0.45, drive),
                         new AutoShooter(index, shooter, leads)));

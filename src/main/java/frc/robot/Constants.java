@@ -41,9 +41,9 @@ public final class Constants {
 
         public static final double kShooterSpeed = 0.65;
         public static final double kHelperMotorSpeed = 0.5;
-        public static final double kShooterSpeedRPM = 3000;
+        public static final double kShooterSpeedRPM = 3200;
 
-        public static final double kRampTimeSec = 1;
+        public static final double kRampTimeSec = 2;
         public static final double kMaxIndexTimeSec = 1;
         public static final double kMaxRampTime = 2;
         public static final double kMaxReleaseTimeSec = 0.1;
@@ -55,8 +55,8 @@ public final class Constants {
         public static final int kLoweredSwitchPort = 3;
         public static final int kRaisedSwitchPort = 4;
 
-        public static final double kIntakeMotorSpeed = 0.5;
-        public static final double kWinchMotorSpeed = 0.5;
+        public static final double kIntakeMotorSpeed = 0.7;
+        public static final double kWinchMotorSpeed = 1.0;
     }
 
     public static final class IndexConstants {
@@ -69,8 +69,8 @@ public final class Constants {
     }
 
     public static final class HangConstants {
-        public static final int kLeftMotorPort = 12; // change when we know the port
-        public static final int kRightMotorPort = 13; // change when we know the port
+        public static final int kLeftMotorPort = 12; 
+        public static final int kRightMotorPort = 13;
         public static final int kLeftSwitchPort = 5; // change when we know the port
         public static final int kRightSwitchPort = 6; // change when we know the port
 
@@ -84,6 +84,6 @@ public final class Constants {
 
     public static final class LEDConstants {
         public static final int kLEDPWMPort = 0;
-        public static final int kLEDCount = 82;
+        public static final int kLEDCount = 79;
     }
 }

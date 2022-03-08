@@ -27,6 +27,7 @@ public class DriveTime extends CommandBase {
     @Override
     public void initialize() {
         m_timer.start();
+        m_timer.reset();
     }
 
     @Override

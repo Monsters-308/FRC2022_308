@@ -15,9 +15,14 @@ import static frc.robot.Constants.IOConstants;
 import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
+import frc.robot.commands.drive.DriveDistance;
+import frc.robot.commands.drive.DriveTime;
+import frc.robot.commands.drive.DriveTurn;
 import frc.robot.commands.hang.RaiseHang;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
+import frc.robot.commands.intake.LowerIntake;
+import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.led.DefaultLED;
 import frc.robot.commands.shooter.AutoShooter;
@@ -67,9 +72,19 @@ public class RobotContainer {
         m_driveChooser.setDefaultOption("Tank Drive",
                 new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY));
         m_driveChooser.addOption("Arcade Drive",
-                new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getLeftX));
+                new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX));
 
         Shuffleboard.getTab("Teleop").add(m_driveChooser);
+
+        m_autonChooser.addOption("TEST DriveTurn 90", new DriveTurn(90, .4, .02, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn(180, .4, .02, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveTurn -90", new DriveTurn(90, -.4, .02, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveTime 4 sec", new DriveTime(4, .4, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10, .45, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
+        m_autonChooser.addOption("TEST NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
+        Shuffleboard.getTab("Teleop").add(m_autonChooser);
 
         // m_autonChooser.addOption("Move Off Line", m_simpleAuto);
         // m_autonChooser.addOption("Shoot Straight(right)", m_complexAutoRight);
@@ -114,23 +129,28 @@ public class RobotContainer {
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
 
+        // new JoystickButton(m_driverController, Button.kY.value)
+        //         .whenPressed(new RaiseHang(m_hangSubsystem))
+        //         .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+
+        //Temporarily remove safety to remove switches
         new JoystickButton(m_driverController, Button.kY.value)
-                .whenPressed(new RaiseHang(m_hangSubsystem))
-                .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+            .whenPressed(new InstantCommand(m_hangSubsystem::runHang, m_hangSubsystem))
+            .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(new InstantCommand(m_hangSubsystem::reverseHang, m_hangSubsystem))
                 .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
-        // new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
-        // .whenPressed(new RaiseIntake(m_intakeSubsystem))
-        // .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
-        // m_intakeSubsystem));
+        new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
+        .whenPressed(new RaiseIntake(m_intakeSubsystem))
+        .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
+        m_intakeSubsystem));
 
-        // new JoystickButton(m_coDriverController, Button.kRightBumper.value)
-        // .whenPressed(new LowerIntake(m_intakeSubsystem))
-        // .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
-        // m_intakeSubsystem));
+        new JoystickButton(m_coDriverController, Button.kRightBumper.value)
+        .whenPressed(new LowerIntake(m_intakeSubsystem))
+        .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
+        m_intakeSubsystem));
 
     }
 
@@ -140,8 +160,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        return new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem,
-                m_ledSubsystem);
+        return m_autonChooser.getSelected();
     }
 
     public void setDefaultDrive() {

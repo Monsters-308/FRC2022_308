@@ -27,6 +27,6 @@ public class ArcadeDrive extends CommandBase {
 
     @Override
     public void execute() {
-        m_driveSubsystem.arcadeDrive(m_fwd.getAsDouble(), m_rot.getAsDouble());
+        m_driveSubsystem.arcadeDrive(m_fwd.getAsDouble(), -0.75*m_rot.getAsDouble());
     }
 }

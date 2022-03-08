@@ -46,23 +46,25 @@ public class DriveSubsystem extends SubsystemBase {
         m_leftRear.restoreFactoryDefaults();
         m_rightFront.restoreFactoryDefaults();
         m_rightRear.restoreFactoryDefaults();
+
         m_leftFront.setSmartCurrentLimit(40, 40);
         m_leftRear.setSmartCurrentLimit(40, 40);
         m_rightFront.setSmartCurrentLimit(40, 40);
         m_rightRear.setSmartCurrentLimit(40, 40);
-        m_leftRear.follow(m_leftFront);
-        m_rightRear.follow(m_rightFront);
+        m_leftRear.setInverted(true);
         m_leftFront.setInverted(true);
+
         m_leftFront.setIdleMode(IdleMode.kBrake);
         m_leftRear.setIdleMode(IdleMode.kBrake);
         m_rightFront.setIdleMode(IdleMode.kBrake);
         m_rightRear.setIdleMode(IdleMode.kBrake);
+
         m_gyro.calibrate();
 
         m_shootVisionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("ShootCam");
-        m_shootVisionYaw = m_shootVisionTable.getEntry("yaw");
+        m_shootVisionYaw = m_shootVisionTable.getEntry("targetYaw");
         m_intakeVisionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("IntakeCam");
-        m_intakeVisionYaw = m_intakeVisionTable.getEntry("yaw");
+        m_intakeVisionYaw = m_intakeVisionTable.getEntry("targetYaw");
     }
 
     public void arcadeDrive(double fwd, double rot) {
