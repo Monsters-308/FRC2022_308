@@ -83,8 +83,8 @@ public class RobotContainer {
         m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10, .45, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
-        m_autonChooser.addOption("TEST NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
-        Shuffleboard.getTab("Teleop").add(m_autonChooser);
+        m_autonChooser.addOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
+                m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
 
         // m_autonChooser.addOption("Move Off Line", m_simpleAuto);
         // m_autonChooser.addOption("Shoot Straight(right)", m_complexAutoRight);
@@ -92,8 +92,8 @@ public class RobotContainer {
         // m_autonChooser.addOption("Far Trench", m_autoFarTrench);
         // m_autonChooser.addOption("Shoot Straight(left)", m_complexAutoLeft);
 
-        // // Put the chooser on the dashboard
-        // Shuffleboard.getTab("Autonomous").add(m_autonChooser);
+        // Put the chooser on the dashboard
+        Shuffleboard.getTab("Autonomous").add(m_autonChooser);
     }
 
     /**
@@ -130,27 +130,28 @@ public class RobotContainer {
                                 new DefaultLED(m_ledSubsystem)));
 
         // new JoystickButton(m_driverController, Button.kY.value)
-        //         .whenPressed(new RaiseHang(m_hangSubsystem))
-        //         .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+        // .whenPressed(new RaiseHang(m_hangSubsystem))
+        // .whenReleased(new InstantCommand(m_hangSubsystem::stopHang,
+        // m_hangSubsystem));
 
-        //Temporarily remove safety to remove switches
+        // Temporarily remove safety to remove switches
         new JoystickButton(m_driverController, Button.kY.value)
-            .whenPressed(new InstantCommand(m_hangSubsystem::runHang, m_hangSubsystem))
-            .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+                .whenPressed(new InstantCommand(m_hangSubsystem::runHang, m_hangSubsystem))
+                .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(new InstantCommand(m_hangSubsystem::reverseHang, m_hangSubsystem))
                 .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
 
         new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
-        .whenPressed(new RaiseIntake(m_intakeSubsystem))
-        .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
-        m_intakeSubsystem));
+                .whenPressed(new RaiseIntake(m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
+                        m_intakeSubsystem));
 
         new JoystickButton(m_coDriverController, Button.kRightBumper.value)
-        .whenPressed(new LowerIntake(m_intakeSubsystem))
-        .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
-        m_intakeSubsystem));
+                .whenPressed(new LowerIntake(m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
+                        m_intakeSubsystem));
 
     }
 
