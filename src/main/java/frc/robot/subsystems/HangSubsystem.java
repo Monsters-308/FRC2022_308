@@ -57,7 +57,9 @@ public class HangSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("LeftHangArm", isLeftRaised());
-        SmartDashboard.putBoolean("RightHangArm", isRightRaised());
+        SmartDashboard.putBoolean("LeftArmRaised", isLeftRaised());
+        SmartDashboard.putBoolean("RightArmRaised", isRightRaised());
+        SmartDashboard.putBoolean("LeftArmLowered", isLeftLowered());
+        SmartDashboard.putBoolean("RightArmLowered", isRightLowered());
     }
 }
