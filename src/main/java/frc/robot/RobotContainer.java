@@ -115,8 +115,8 @@ public class RobotContainer {
         // co A : run auto index
         // co B : run auto shooter
         // co Y : reverse all
-        // co LBumper : lower intake
-        // co RBumper : raise intake
+        // co LBumper : raise intake
+        // co RBumper : lower intake
         // driver Y : raise hang
         // driver A : lower hang
         new JoystickButton(m_coDriverController, Button.kY.value)
