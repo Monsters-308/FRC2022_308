@@ -51,8 +51,8 @@ public class DriveSubsystem extends SubsystemBase {
         m_leftRear.setSmartCurrentLimit(40, 40);
         m_rightFront.setSmartCurrentLimit(40, 40);
         m_rightRear.setSmartCurrentLimit(40, 40);
-        m_leftRear.setInverted(true);
-        m_leftFront.setInverted(true);
+        m_rightRear.setInverted(true);
+        m_rightFront.setInverted(true);
 
         m_leftFront.setIdleMode(IdleMode.kBrake);
         m_leftRear.setIdleMode(IdleMode.kBrake);

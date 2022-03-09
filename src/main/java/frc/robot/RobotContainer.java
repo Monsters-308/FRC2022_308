@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.robot.Constants.IOConstants;
 
+import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
@@ -159,6 +161,7 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        SmartDashboard.putString("AutonMode", m_autonChooser.getSelected().toString());
         return m_autonChooser.getSelected();
     }
 

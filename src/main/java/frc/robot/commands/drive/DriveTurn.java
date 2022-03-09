@@ -9,7 +9,7 @@ public class DriveTurn extends CommandBase {
     private final double m_speed;
     private final double m_accel;
     private double m_currentSpeed = 0;
-    private final double m_initialHeading;
+    private double m_initialHeading;
     private double m_degreesTurned;
     private final double m_maxError = 0.5;
 
@@ -28,7 +28,6 @@ public class DriveTurn extends CommandBase {
      */
     public DriveTurn(double heading, double maxSpeed, double accel, DriveSubsystem driveSubsystem) {
         m_targetHeading = heading;
-        m_initialHeading = driveSubsystem.getGyroHeading();
         m_speed = maxSpeed;
         m_accel = accel;
         m_driveSubsystem = driveSubsystem;
@@ -37,7 +36,7 @@ public class DriveTurn extends CommandBase {
 
     @Override
     public void initialize() {
-        // init
+        m_initialHeading = m_driveSubsystem.getGyroHeading();
     }
 
     @Override

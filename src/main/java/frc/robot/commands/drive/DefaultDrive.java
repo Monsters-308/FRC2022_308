@@ -36,6 +36,6 @@ public class DefaultDrive extends CommandBase {
         if (m_slowMode.getAsBoolean()) {
             speedMult = DriveConstants.kSlowModeMultiplier;
         }
-        m_driveSubsystem.tankDrive(speedMult * m_left.getAsDouble(), speedMult * m_right.getAsDouble());
+        m_driveSubsystem.tankDrive(-speedMult * m_left.getAsDouble(), -speedMult * m_right.getAsDouble());
     }
 }

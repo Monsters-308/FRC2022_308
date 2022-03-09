@@ -21,12 +21,12 @@ public class DriveDistance extends CommandBase {
         m_speed = speed;
         m_driveSubsystem = driveSubsystem;
         addRequirements(m_driveSubsystem);
-        start_encoders=m_driveSubsystem.getAverageEncoderDistanceInches();
     }
 
     @Override
     public void initialize() {
         m_complete = false;
+        start_encoders = m_driveSubsystem.getAverageEncoderDistanceInches();
         // m_driveSubsystem.resetEncoders(); //this takes 200ms and can cause problems, get encoders and find difference instead
     }
 

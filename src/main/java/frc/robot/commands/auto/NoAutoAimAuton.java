@@ -6,6 +6,7 @@ import frc.robot.commands.drive.DriveDistance;
 import frc.robot.commands.drive.DriveTurn;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.intake.LowerIntake;
+import frc.robot.commands.led.DefaultLED;
 import frc.robot.commands.shooter.AutoShooter;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
@@ -18,13 +19,14 @@ public class NoAutoAimAuton extends SequentialCommandGroup {
             LEDSubsystem leads) {
         addCommands(
                 new SequentialCommandGroup(
-                        new LowerIntake(intake),
+                        //new LowerIntake(intake),
                         new ParallelCommandGroup(
                                 new DriveDistance(35, 0.45, drive),
                                 new AutoIndex(index, intake, leads)),
                         new DriveTurn(180, 0.4, 0.02, drive),
                         new DriveDistance(25, 0.45, drive),
-                        new AutoShooter(index, shooter, leads)));
+                        new AutoShooter(index, shooter, leads),
+                        new DefaultLED(leads)));
 
     }
 }
