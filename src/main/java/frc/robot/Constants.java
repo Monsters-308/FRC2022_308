@@ -69,10 +69,12 @@ public final class Constants {
     }
 
     public static final class HangConstants {
-        public static final int kLeftMotorPort = 12; 
+        public static final int kLeftMotorPort = 12;
         public static final int kRightMotorPort = 13;
-        public static final int kLeftSwitchPort = 5; // change when we know the port
-        public static final int kRightSwitchPort = 6; // change when we know the port
+        public static final int kUpperLeftSwitchPort = 5; // change when we know the port
+        public static final int kLowerLeftSwitchPort = 6; // change when we know the port
+        public static final int kUpperRightSwitchPort = 7; // change when we know the port
+        public static final int kLowerRightSwitchPort = 8; // change when we know the port
 
         public static final double kHangMotorSpeed = 1.0;
     }

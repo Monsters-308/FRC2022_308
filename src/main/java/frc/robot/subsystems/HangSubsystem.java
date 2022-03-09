@@ -13,8 +13,10 @@ public class HangSubsystem extends SubsystemBase {
     private final TalonSRX m_hangMotorLeft = new TalonSRX(HangConstants.kLeftMotorPort);
     private final TalonSRX m_hangMotorRight = new TalonSRX(HangConstants.kRightMotorPort);
 
-    private final DigitalInput m_leftLimitSwitch = new DigitalInput(HangConstants.kLeftSwitchPort);
-    private final DigitalInput m_rightLimitSwitch = new DigitalInput(HangConstants.kRightSwitchPort);
+    private final DigitalInput m_upperLeftSwitch = new DigitalInput(HangConstants.kUpperLeftSwitchPort);
+    private final DigitalInput m_lowerLeftSwitch = new DigitalInput(HangConstants.kLowerLeftSwitchPort);
+    private final DigitalInput m_upperRightSwitch = new DigitalInput(HangConstants.kUpperRightSwitchPort);
+    private final DigitalInput m_lowerRightSwitch = new DigitalInput(HangConstants.kLowerRightSwitchPort);
 
     public HangSubsystem() {
         m_hangMotorLeft.setNeutralMode(NeutralMode.Brake);
@@ -38,11 +40,19 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public boolean isLeftRaised() {
-        return m_leftLimitSwitch.get();
+        return m_upperLeftSwitch.get();
+    }
+
+    public boolean isLeftLowered() {
+        return m_lowerLeftSwitch.get();
     }
 
     public boolean isRightRaised() {
-        return m_rightLimitSwitch.get();
+        return m_upperRightSwitch.get();
+    }
+
+    public boolean isRightLowered() {
+        return m_lowerRightSwitch.get();
     }
 
     @Override
