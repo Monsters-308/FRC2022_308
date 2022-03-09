@@ -51,7 +51,7 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public boolean isLeftRaised() {
-        return m_upperLeftSwitch.get();
+        return !m_upperLeftSwitch.get();
     }
 
     public boolean isLeftLowered() {
@@ -59,11 +59,11 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public boolean isRightRaised() {
-        return m_upperRightSwitch.get();
+        return !m_upperRightSwitch.get();
     }
 
     public boolean isRightLowered() {
-        return m_lowerRightSwitch.get();
+        return !m_lowerRightSwitch.get();
     }
 
     @Override
