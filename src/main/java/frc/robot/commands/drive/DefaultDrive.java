@@ -1,5 +1,6 @@
 package frc.robot.commands.drive;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -9,6 +10,7 @@ public class DefaultDrive extends CommandBase {
     private DriveSubsystem m_driveSubsystem;
     private DoubleSupplier m_left;
     private DoubleSupplier m_right;
+    private BooleanSupplier m_slowMode;
 
     /**
      * Tank drive that constantly sets the drive motors with the left and right
@@ -18,15 +20,21 @@ public class DefaultDrive extends CommandBase {
      * @param left           doulbe supplier for the left motor (-1 to 1)
      * @param right          doulbe supplier for the right motor (-1 to 1)
      */
-    public DefaultDrive(DriveSubsystem driveSubsystem, DoubleSupplier left, DoubleSupplier right) {
+    public DefaultDrive(DriveSubsystem driveSubsystem, DoubleSupplier left, DoubleSupplier right,
+            BooleanSupplier slowMode) {
         m_driveSubsystem = driveSubsystem;
         m_left = left;
         m_right = right;
+        m_slowMode = slowMode;
         addRequirements(m_driveSubsystem);
     }
 
     @Override
     public void execute() {
-        m_driveSubsystem.tankDrive(m_left.getAsDouble(), m_right.getAsDouble());
+        double speedMult = 1.0;
+        if (m_slowMode.getAsBoolean()) {
+            speedMult = 0.5;
+        }
+        m_driveSubsystem.tankDrive(speedMult * m_left.getAsDouble(), speedMult * m_right.getAsDouble());
     }
 }

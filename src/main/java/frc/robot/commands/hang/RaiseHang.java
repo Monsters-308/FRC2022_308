@@ -2,14 +2,18 @@ package frc.robot.commands.hang;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HangSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.LEDSubsystem.LEDState;
 
 public class RaiseHang extends CommandBase {
     private final HangSubsystem m_hangSubsystem;
+    private final LEDSubsystem m_ledSubsystem;
 
-    public RaiseHang(HangSubsystem hangSubsystem) {
+    public RaiseHang(HangSubsystem hangSubsystem, LEDSubsystem ledSubsystem) {
         m_hangSubsystem = hangSubsystem;
+        m_ledSubsystem = ledSubsystem;
 
-        addRequirements(m_hangSubsystem);
+        addRequirements(m_hangSubsystem, m_ledSubsystem);
     }
 
     @Override
@@ -41,5 +45,7 @@ public class RaiseHang extends CommandBase {
     public void end(boolean interrupted) {
         m_hangSubsystem.stopLeftHang();
         m_hangSubsystem.stopRightHang();
+        m_ledSubsystem.setLEDState(LEDState.GREEN);
+
     }
 }

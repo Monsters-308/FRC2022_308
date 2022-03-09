@@ -16,14 +16,7 @@ public class DefaultLED extends CommandBase {
 
     @Override
     public void initialize() {
-        switch (DriverStation.getAlliance()) {
-            case Red:
-                m_ledSubsystem.setLEDState(LEDState.RED);
-            case Blue:
-                m_ledSubsystem.setLEDState(LEDState.BLUE);
-            case Invalid:
-                m_ledSubsystem.setLEDState(LEDState.RED);
-        }
+        m_ledSubsystem.setLEDState(LEDState.RED);
     }
 
     @Override

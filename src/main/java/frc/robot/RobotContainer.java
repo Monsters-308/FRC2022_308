@@ -72,7 +72,8 @@ public class RobotContainer {
         configureButtonBindings();
 
         m_driveChooser.setDefaultOption("Tank Drive",
-                new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY));
+                new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY,
+                        m_driverController::getRightBumper));
         m_driveChooser.addOption("Arcade Drive",
                 new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX));
 
@@ -131,19 +132,13 @@ public class RobotContainer {
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
 
-        // new JoystickButton(m_driverController, Button.kY.value)
-        // .whenPressed(new RaiseHang(m_hangSubsystem))
-        // .whenReleased(new InstantCommand(m_hangSubsystem::stopHang,
-        // m_hangSubsystem));
-
-        // Temporarily remove safety to remove switches
         new JoystickButton(m_driverController, Button.kY.value)
-                .whenPressed(new RaiseHang(m_hangSubsystem))
+                .whenPressed(new RaiseHang(m_hangSubsystem, m_ledSubsystem))
                 .whenReleased(new StopHang(m_hangSubsystem));
 
         new JoystickButton(m_driverController, Button.kA.value)
                 .whenPressed(new LowerHang(m_hangSubsystem))
-                .whenReleased(new StopHang(m_hangSubsystem));
+                .whenReleased(new ParallelCommandGroup(new StopHang(m_hangSubsystem), new DefaultLED(m_ledSubsystem)));
 
         new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
                 .whenPressed(new RaiseIntake(m_intakeSubsystem))
