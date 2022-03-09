@@ -14,12 +14,23 @@ public class RaiseHang extends CommandBase {
 
     @Override
     public void initialize() {
-        m_hangSubsystem.runHang();
+        m_hangSubsystem.runLeftHang();
+        m_hangSubsystem.runRightHang();
+    }
+
+    @Override
+    public void execute() {
+        if (m_hangSubsystem.isLeftRaised()) {
+            m_hangSubsystem.stopLeftHang();
+        }
+        if (m_hangSubsystem.isRightRaised()) {
+            m_hangSubsystem.stopRightHang();
+        }
     }
 
     @Override
     public boolean isFinished() {
-        if (m_hangSubsystem.isLeftRaised() || m_hangSubsystem.isRightRaised()) {
+        if (m_hangSubsystem.isLeftRaised() && m_hangSubsystem.isRightRaised()) {
             return true;
         } else {
             return false;
@@ -28,6 +39,7 @@ public class RaiseHang extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_hangSubsystem.stopHang();
+        m_hangSubsystem.stopLeftHang();
+        m_hangSubsystem.stopRightHang();
     }
 }

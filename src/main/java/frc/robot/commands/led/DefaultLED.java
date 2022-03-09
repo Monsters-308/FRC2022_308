@@ -22,7 +22,7 @@ public class DefaultLED extends CommandBase {
             case Blue:
                 m_ledSubsystem.setLEDState(LEDState.BLUE);
             case Invalid:
-                m_ledSubsystem.setLEDState(LEDState.RED_BLINK);
+                m_ledSubsystem.setLEDState(LEDState.RED);
         }
     }
 
