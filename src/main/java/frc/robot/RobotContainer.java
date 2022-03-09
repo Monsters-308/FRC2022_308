@@ -18,7 +18,9 @@ import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveDistance;
 import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.drive.DriveTurn;
+import frc.robot.commands.hang.LowerHang;
 import frc.robot.commands.hang.RaiseHang;
+import frc.robot.commands.hang.StopHang;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
 import frc.robot.commands.intake.LowerIntake;
@@ -136,12 +138,12 @@ public class RobotContainer {
 
         // Temporarily remove safety to remove switches
         new JoystickButton(m_driverController, Button.kY.value)
-                .whenPressed(new InstantCommand(m_hangSubsystem::runHang, m_hangSubsystem))
-                .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+                .whenPressed(new RaiseHang(m_hangSubsystem))
+                .whenReleased(new StopHang(m_hangSubsystem));
 
         new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(new InstantCommand(m_hangSubsystem::reverseHang, m_hangSubsystem))
-                .whenReleased(new InstantCommand(m_hangSubsystem::stopHang, m_hangSubsystem));
+                .whenPressed(new LowerHang(m_hangSubsystem))
+                .whenReleased(new StopHang(m_hangSubsystem));
 
         new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
                 .whenPressed(new RaiseIntake(m_intakeSubsystem))

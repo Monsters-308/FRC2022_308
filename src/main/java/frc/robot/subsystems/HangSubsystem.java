@@ -24,19 +24,30 @@ public class HangSubsystem extends SubsystemBase {
         m_hangMotorLeft.setInverted(true);
     }
 
-    public void runHang() {
+    public void runLeftHang() {
         m_hangMotorLeft.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
-        m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
     }
 
-    public void reverseHang() {
+    public void runRightHang() {
+        m_hangMotorRight.set(ControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+
+    }
+
+    public void reverseLeftHang() {
         m_hangMotorLeft.set(ControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
+    }
+
+    public void reverseRightHang() {
         m_hangMotorRight.set(ControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
     }
 
-    public void stopHang() {
+    public void stopLeftHang() {
         m_hangMotorLeft.set(ControlMode.PercentOutput, 0);
+    }
+
+    public void stopRightHang() {
         m_hangMotorRight.set(ControlMode.PercentOutput, 0);
+
     }
 
     public boolean isLeftRaised() {
@@ -57,7 +68,9 @@ public class HangSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("LeftHangArm", isLeftRaised());
-        SmartDashboard.putBoolean("RightHangArm", isRightRaised());
+        SmartDashboard.putBoolean("LeftArmRaised", isLeftRaised());
+        SmartDashboard.putBoolean("RightArmRaised", isRightRaised());
+        SmartDashboard.putBoolean("LeftArmLowered", isLeftLowered());
+        SmartDashboard.putBoolean("RightArmLowered", isRightLowered());
     }
 }

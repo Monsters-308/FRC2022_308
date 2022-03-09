@@ -14,12 +14,23 @@ public class LowerHang extends CommandBase {
 
     @Override
     public void initialize() {
-        m_hangSubsystem.reverseHang();
+        m_hangSubsystem.reverseLeftHang();
+        m_hangSubsystem.reverseRightHang();
+    }
+
+    @Override
+    public void execute() {
+        if (m_hangSubsystem.isLeftLowered()) {
+            m_hangSubsystem.stopLeftHang();
+        }
+        if (m_hangSubsystem.isRightLowered()) {
+            m_hangSubsystem.stopRightHang();
+        }
     }
 
     @Override
     public boolean isFinished() {
-        if (m_hangSubsystem.isLeftLowered() || m_hangSubsystem.isRightLowered()) {
+        if (m_hangSubsystem.isLeftLowered() && m_hangSubsystem.isRightLowered()) {
             return true;
         } else {
             return false;
@@ -28,6 +39,7 @@ public class LowerHang extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        m_hangSubsystem.stopHang();
+        m_hangSubsystem.stopLeftHang();
+        m_hangSubsystem.stopRightHang();
     }
 }
