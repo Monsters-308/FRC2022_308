@@ -27,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_configs.nominalOutputForward = 0.0;
         m_configs.nominalOutputReverse = 0.0;
         m_configs.peakOutputForward = 1.0;
-        m_configs.peakOutputReverse = 0.0; // dont allow reverse
+        m_configs.peakOutputReverse = -1.0; // dont allow reverse
 
         m_shooterMotor.configAllSettings(m_configs, 20);
         m_shooterMotor.setInverted(true);
@@ -50,12 +50,20 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooterMotor.set(TalonFXControlMode.PercentOutput, 0);
     }
 
+    public void reverseShooter() {
+        m_shooterMotor.set(TalonFXControlMode.PercentOutput, ShooterConstants.kShooterReverseSpeed);
+    }
+
     public void runHelper() {
         m_helperMotor.set(TalonSRXControlMode.PercentOutput, ShooterConstants.kHelperMotorSpeed);
     }
 
     public void stopHelper() {
         m_helperMotor.set(TalonSRXControlMode.PercentOutput, 0);
+    }
+
+    public void reverseHelper() {
+        m_helperMotor.set(TalonSRXControlMode.PercentOutput, -ShooterConstants.kHelperMotorSpeed);
     }
 
     public double getShooterVelocity() {
