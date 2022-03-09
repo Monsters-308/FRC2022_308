@@ -75,7 +75,8 @@ public class RobotContainer {
                 new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY,
                         m_driverController::getRightBumper));
         m_driveChooser.addOption("Arcade Drive",
-                new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX));
+                new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX,
+                        m_driverController::getRightBumper));
 
         Shuffleboard.getTab("Teleop").add(m_driveChooser);
 

@@ -4,6 +4,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DefaultDrive extends CommandBase {
@@ -33,7 +34,7 @@ public class DefaultDrive extends CommandBase {
     public void execute() {
         double speedMult = 1.0;
         if (m_slowMode.getAsBoolean()) {
-            speedMult = 0.5;
+            speedMult = DriveConstants.kSlowModeMultiplier;
         }
         m_driveSubsystem.tankDrive(speedMult * m_left.getAsDouble(), speedMult * m_right.getAsDouble());
     }
