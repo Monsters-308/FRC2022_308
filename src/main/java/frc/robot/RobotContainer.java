@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -40,6 +41,8 @@ import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -67,6 +70,8 @@ public class RobotContainer {
 
     SendableChooser<Command> m_driveChooser = new SendableChooser<>();
 
+    NetworkTableEntry m_autonWaitTime = Shuffleboard.getTab("Autonomous").add("WaitTime", 0.0).getEntry();
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -91,12 +96,6 @@ public class RobotContainer {
         m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
         m_autonChooser.addOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
                 m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
-
-        // m_autonChooser.addOption("Move Off Line", m_simpleAuto);
-        // m_autonChooser.addOption("Shoot Straight(right)", m_complexAutoRight);
-        // m_autonChooser.addOption("Near Trench", m_autoNearTrench);
-        // m_autonChooser.addOption("Far Trench", m_autoFarTrench);
-        // m_autonChooser.addOption("Shoot Straight(left)", m_complexAutoLeft);
 
         // Put the chooser on the dashboard
         Shuffleboard.getTab("Autonomous").add(m_autonChooser);
@@ -161,8 +160,8 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
-        SmartDashboard.putString("AutonMode", m_autonChooser.getSelected().toString());
-        return m_autonChooser.getSelected();
+        double waitTime = m_autonWaitTime.getDouble(0);
+        return new SequentialCommandGroup(new WaitCommand(waitTime), m_autonChooser.getSelected());
     }
 
     public void setDefaultDrive() {
