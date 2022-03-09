@@ -115,8 +115,10 @@ public class RobotContainer {
         // co A : run auto index
         // co B : run auto shooter
         // co Y : reverse all
-        // co LBumper : raise intake
-        // co RBumper : lower intake
+        // co LBumper : lower intake
+        // co RBumper : raise intake
+        // driver Y : raise hang
+        // driver A : lower hang
         new JoystickButton(m_coDriverController, Button.kY.value)
                 .whenPressed(new ParallelCommandGroup(
                         new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
