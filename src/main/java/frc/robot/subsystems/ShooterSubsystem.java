@@ -46,6 +46,10 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooterMotor.set(TalonFXControlMode.PercentOutput, ShooterConstants.kShooterSpeed);
     }
 
+    public void runShooterSlow() {
+        m_shooterMotor.set(TalonFXControlMode.PercentOutput, ShooterConstants.kShooterLowGoalSpeed);
+    }
+
     public void stopShooter() {
         m_shooterMotor.set(TalonFXControlMode.PercentOutput, 0);
     }
