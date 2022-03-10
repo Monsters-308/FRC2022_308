@@ -28,6 +28,7 @@ import frc.robot.commands.intake.LowerIntake;
 import frc.robot.commands.intake.RaiseIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.led.DefaultLED;
+import frc.robot.commands.shooter.AutoLowShooter;
 import frc.robot.commands.shooter.AutoShooter;
 import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.StopShooter;
@@ -154,6 +155,11 @@ public class RobotContainer {
                 .whenPressed(new LowerIntake(m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
                         m_intakeSubsystem));
+        new JoystickButton(m_coDriverController, Button.kX.value)
+                .whenPressed(new AutoLowShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
+                .whenReleased(
+                        new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
+                                new DefaultLED(m_ledSubsystem)));
 
     }
 
