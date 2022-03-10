@@ -219,8 +219,9 @@ public class LEDSubsystem extends SubsystemBase {
             m_ledBuffer.setRGB(i, 255, 0, 0);
         }
 
-        // turns one led off
-        m_ledBuffer.setRGB(redStreakLED, 0, 0, 0);
+        for (int i = 0; i < 4; i++) {
+            m_ledBuffer.setRGB((redStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
+        }
 
         // increase brightness
         if (numLoops % 3 == 0) {
@@ -241,8 +242,9 @@ public class LEDSubsystem extends SubsystemBase {
             m_ledBuffer.setRGB(i, 0, 255, 0);
         }
 
-        // turns one led off
-        m_ledBuffer.setRGB(greenStreakLED, 0, 0, 0);
+        for (int i = 0; i < 4; i++) {
+            m_ledBuffer.setRGB((greenStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
+        }
 
         // increase brightness
         if (numLoops % 3 == 0) {
@@ -263,8 +265,10 @@ public class LEDSubsystem extends SubsystemBase {
             m_ledBuffer.setRGB(i, 0, 0, 255);
         }
 
-        // turns one led off
-        m_ledBuffer.setRGB(blueStreakLED, 0, 0, 0);
+        // turns 4 leds off
+        for (int i = 0; i < 4; i++) {
+            m_ledBuffer.setRGB((blueStreakLED+i)%m_ledBuffer.getLength(), 0, 0, 0);
+        }
 
         // increase brightness
         if (numLoops % 3 == 0) {
@@ -285,8 +289,9 @@ public class LEDSubsystem extends SubsystemBase {
             m_ledBuffer.setRGB(i, 148, 0, 211);
         }
 
-        // turns one led off
-        m_ledBuffer.setRGB(purpleStreakLED, 0, 0, 0);
+        for (int i = 0; i < 4; i++) {
+            m_ledBuffer.setRGB((purpleStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
+        }
 
         // increase brightness
         if (numLoops % 3 == 0) {

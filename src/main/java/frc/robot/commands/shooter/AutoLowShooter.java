@@ -70,7 +70,7 @@ public class AutoLowShooter extends CommandBase {
                 m_shooterStage = ShooterStage.RAMPING_SHOOTER;
                 break;
             case RAMPING_SHOOTER:
-                m_ledSubsystem.setLEDState(LEDState.PURPLE_STREAK);
+                m_ledSubsystem.setLEDState(LEDState.BLUE_STREAK);
                 if (m_timer.hasElapsed(ShooterConstants.kRampTimeSec)) {
                     m_shooterStage = ShooterStage.SHOOTING;
                     m_timer.reset();

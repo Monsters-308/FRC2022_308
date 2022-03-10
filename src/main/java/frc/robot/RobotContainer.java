@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import static frc.robot.Constants.IOConstants;
 
+import frc.robot.commands.auto.NoAimOneBallAuton;
 import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
@@ -96,6 +97,7 @@ public class RobotContainer {
         m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
         m_autonChooser.setDefaultOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
                 m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
+        m_autonChooser.addOption("NoAimOneBallAuton", new NoAimOneBallAuton(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
 
         // Put the chooser on the dashboard
         Shuffleboard.getTab("Autonomous").add(m_autonChooser).withSize(2, 1);
@@ -125,7 +127,7 @@ public class RobotContainer {
                         new ReverseShooter(m_shooterSubsystem)))
                 .whenReleased(new ParallelCommandGroup(
                         new StopIntake(m_intakeSubsystem), new StopIndex(m_indexSubsystem),
-                        new StopShooter(m_shooterSubsystem)));
+                        new StopShooter(m_shooterSubsystem), new DefaultLED(m_ledSubsystem)));
 
         new JoystickButton(m_coDriverController, Button.kA.value)
                 .whenPressed(new AutoIndex(m_indexSubsystem, m_intakeSubsystem, m_ledSubsystem))
@@ -155,6 +157,7 @@ public class RobotContainer {
                 .whenPressed(new LowerIntake(m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
                         m_intakeSubsystem));
+
         new JoystickButton(m_coDriverController, Button.kX.value)
                 .whenPressed(new AutoLowShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
                 .whenReleased(
