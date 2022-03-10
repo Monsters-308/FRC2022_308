@@ -10,11 +10,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.robot.Constants.IOConstants;
 
-import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.DefaultDrive;
@@ -86,7 +84,7 @@ public class RobotContainer {
                 new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX,
                         m_driverController::getRightBumper));
 
-        Shuffleboard.getTab("Teleop").add(m_driveChooser);
+        Shuffleboard.getTab("Teleop").add(m_driveChooser).withSize(2, 1);
 
         m_autonChooser.addOption("TEST DriveTurn 90", new DriveTurn(90, .4, .02, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn(180, .4, .02, m_driveSubsystem));
@@ -95,11 +93,11 @@ public class RobotContainer {
         m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10, .45, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
-        m_autonChooser.addOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
+        m_autonChooser.setDefaultOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
                 m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
 
         // Put the chooser on the dashboard
-        Shuffleboard.getTab("Autonomous").add(m_autonChooser);
+        Shuffleboard.getTab("Autonomous").add(m_autonChooser).withSize(2, 1);
     }
 
     /**

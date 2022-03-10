@@ -16,7 +16,6 @@ public class IntakeSubsystem extends SubsystemBase {
     private final DigitalInput m_raisedLimitSwitch = new DigitalInput(IntakeConstants.kRaisedSwitchPort);
 
     public IntakeSubsystem() {
-        m_winchMotor.setInverted(true);
         m_intakeMotor.setNeutralMode(NeutralMode.Coast);
         m_winchMotor.setNeutralMode(NeutralMode.Coast);
     }
