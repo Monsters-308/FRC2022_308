@@ -116,6 +116,7 @@ public class RobotContainer {
         // co A : run auto index
         // co B : run auto shooter
         // co Y : reverse all
+        // co X : low shooter (speed not tuned)
         // co LBumper : raise intake
         // co RBumper : lower intake
         // driver Y : raise hang

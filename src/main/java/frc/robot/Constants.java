@@ -41,7 +41,7 @@ public final class Constants {
         public static final int kUnitsPerRotation = 2048;
 
         public static final double kShooterSpeed = 0.65;
-        public static final double kShooterLowGoalSpeed = 0.3;
+        public static final double kShooterLowGoalSpeed = 0.4;
         public static final double kHelperMotorSpeed = 0.5;
         public static final double kShooterReverseSpeed = -0.4;
         public static final double kShooterSpeedRPM = 3200;
