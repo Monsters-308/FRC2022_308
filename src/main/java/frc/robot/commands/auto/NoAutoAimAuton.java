@@ -19,7 +19,7 @@ public class NoAutoAimAuton extends SequentialCommandGroup {
             LEDSubsystem leads) {
         addCommands(
                 new SequentialCommandGroup(
-                        //new LowerIntake(intake),
+                        new LowerIntake(intake),
                         new ParallelCommandGroup(
                                 new DriveDistance(75, 0.45, drive),
                                 new AutoIndex(index, intake, leads)),
