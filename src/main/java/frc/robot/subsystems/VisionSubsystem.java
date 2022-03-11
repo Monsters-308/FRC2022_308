@@ -9,16 +9,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class VisionSubsystem extends SubsystemBase {
     private final PowerDistribution m_powerDistribution = new PowerDistribution(16, ModuleType.kRev);
-    private final NetworkTable m_shootVisionTable;
-    private final NetworkTableEntry m_shootVisionYaw;
-    private final NetworkTable m_intakeVisionTable;
-    private final NetworkTableEntry m_intakeVisionYaw;
+    private final NetworkTable m_visionTable;
+    private final NetworkTableEntry m_visionYaw;
+    private final NetworkTableEntry m_hasTarget;
+    private final NetworkTableEntry m_driverMode;
 
     public VisionSubsystem() {
-        m_shootVisionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("ShootCam");
-        m_shootVisionYaw = m_shootVisionTable.getEntry("targetYaw");
-        m_intakeVisionTable = NetworkTableInstance.getDefault().getTable("photon-vision").getSubTable("IntakeCam");
-        m_intakeVisionYaw = m_intakeVisionTable.getEntry("targetYaw");
+        m_visionTable = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ShootCam");
+        m_visionYaw = m_visionTable.getEntry("targetYaw");
+        m_hasTarget = m_visionTable.getEntry("hasTarget");
+        m_driverMode = m_visionTable.getEntry("driverMode");
     }
 
     public void ledOn() {
@@ -29,12 +29,20 @@ public class VisionSubsystem extends SubsystemBase {
         m_powerDistribution.setSwitchableChannel(false);
     }
 
-    public double getShootVisionYaw() {
-        return m_shootVisionYaw.getDouble(0);
+    public boolean hasTarget() {
+        return m_hasTarget.getBoolean(false);
     }
 
-    public double getIntakeVisionYaw() {
-        return m_intakeVisionYaw.getDouble(0);
+    public double getYaw() {
+        return m_visionYaw.getDouble(0);
+    }
+
+    public void enableDriverMode() {
+        m_driverMode.setBoolean(true);
+    }
+
+    public void disableDriverMode() {
+        m_driverMode.setBoolean(false);
     }
 
 }

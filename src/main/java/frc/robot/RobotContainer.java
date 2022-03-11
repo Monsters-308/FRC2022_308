@@ -16,6 +16,7 @@ import static frc.robot.Constants.IOConstants;
 import frc.robot.commands.auto.NoAimOneBallAuton;
 import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.drive.ArcadeDrive;
+import frc.robot.commands.drive.AutoAim;
 import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveDistance;
 import frc.robot.commands.drive.DriveTime;
@@ -39,6 +40,7 @@ import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -62,6 +64,7 @@ public class RobotContainer {
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
     private final HangSubsystem m_hangSubsystem = new HangSubsystem();
+    private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
 
     XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
 
@@ -77,6 +80,7 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        m_visionSubsystem.ledOff();
         configureButtonBindings();
 
         m_driveChooser.setDefaultOption("Tank Drive",
@@ -121,6 +125,7 @@ public class RobotContainer {
         // co RBumper : lower intake
         // driver Y : raise hang
         // driver A : lower hang
+        // driver B : auto aim
         new JoystickButton(m_coDriverController, Button.kY.value)
                 .whenPressed(new ParallelCommandGroup(
                         new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
@@ -164,6 +169,9 @@ public class RobotContainer {
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
+
+        new JoystickButton(m_driverController, Button.kB.value)
+            .whenPressed(new AutoAim(0.2, m_driveSubsystem, m_visionSubsystem));
 
     }
 
