@@ -15,6 +15,7 @@ import static frc.robot.Constants.IOConstants;
 
 import frc.robot.commands.auto.NoAimOneBallAuton;
 import frc.robot.commands.auto.NoAutoAimAuton;
+import frc.robot.commands.auto.TwoBallAuton;
 import frc.robot.commands.drive.ArcadeDrive;
 import frc.robot.commands.drive.AutoAim;
 import frc.robot.commands.drive.DefaultDrive;
@@ -92,16 +93,17 @@ public class RobotContainer {
 
         Shuffleboard.getTab("Teleop").add(m_driveChooser).withSize(2, 1);
 
-        m_autonChooser.addOption("TEST DriveTurn 90", new DriveTurn(90, .4, .02, m_driveSubsystem));
-        m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn(180, .4, .02, m_driveSubsystem));
-        m_autonChooser.addOption("TEST DriveTurn -90", new DriveTurn(90, -.4, .02, m_driveSubsystem));
-        m_autonChooser.addOption("TEST DriveTime 4 sec", new DriveTime(4, .4, m_driveSubsystem));
-        m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45, m_driveSubsystem));
-        m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10, .45, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTurn 90", new DriveTurn(90, .4, .02, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn(180, .4, .02, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTurn -90", new DriveTurn(90, -.4, .02, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTime 4 sec", new DriveTime(4, .4, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10, .45, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
         m_autonChooser.setDefaultOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
                 m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
         m_autonChooser.addOption("NoAimOneBallAuton", new NoAimOneBallAuton(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
+        m_autonChooser.addOption("TwoBallAuton", new TwoBallAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem, m_visionSubsystem));
 
         // Put the chooser on the dashboard
         Shuffleboard.getTab("Autonomous").add(m_autonChooser).withSize(2, 1);
