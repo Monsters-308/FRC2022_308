@@ -3,15 +3,15 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveTurn extends CommandBase {
+public class DriveTurn2 extends CommandBase {
     private final DriveSubsystem m_driveSubsystem;
     private final double m_targetHeading;
     private final double m_speed;
     private final double m_accel;
     private double m_currentSpeed = 0;
     private double m_initialHeading;
-    private double m_degreesTurned;
     private final double m_maxError = 0.5;
+    private boolean m_finished = false;
 
     /**
      * this command will turn the robot smoothly
@@ -26,7 +26,7 @@ public class DriveTurn extends CommandBase {
      * @param accel          how fast the robot accellerates when it turns
      * @param driveSubsystem the drivesubsystem
      */
-    public DriveTurn(double heading, double maxSpeed, double accel, DriveSubsystem driveSubsystem) {
+    public DriveTurn2(double heading, double maxSpeed, double accel, DriveSubsystem driveSubsystem) {
         m_targetHeading = heading;
         m_speed = maxSpeed;
         m_accel = accel;
@@ -37,12 +37,12 @@ public class DriveTurn extends CommandBase {
     @Override
     public void initialize() {
         m_initialHeading = m_driveSubsystem.getGyroHeading();
-        m_degreesTurned = 0;
+        m_finished = false;
     }
 
     @Override
     public void execute() {
-        m_degreesTurned = Math.abs(m_driveSubsystem.getGyroHeading() - m_initialHeading);
+        double m_degreesTurned = Math.abs(m_driveSubsystem.getGyroHeading() - m_initialHeading);
         double percentOff = m_degreesTurned / m_targetHeading;
         if (m_degreesTurned < m_targetHeading) {
             if (percentOff < 0.65) {
@@ -52,31 +52,16 @@ public class DriveTurn extends CommandBase {
                     m_currentSpeed = Math.abs(m_speed);
                 }
             } else {
-                if (m_currentSpeed > 0.25) {
+                if (m_currentSpeed > 0.3) {
                     m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
                 } else {
-                    m_currentSpeed = 0.25;
+                    m_currentSpeed = 0.3;
                 }
-
             }
-        } 
-        else {
-            if (percentOff > 1 / 0.65) {
-                if (m_currentSpeed < Math.abs(m_speed)) {
-                    m_currentSpeed = m_currentSpeed + m_accel; // ramp up turn speed
-                } else {
-                    m_currentSpeed = Math.abs(m_speed);
-                }
-            } else {
-                if (m_currentSpeed > 0.25) {
-                    m_currentSpeed = m_currentSpeed - m_accel; // ramp down turn speed
-                } else {
-                    m_currentSpeed = 0.25;
-                }
-
-            }
+        } else {
+            m_finished = true;
         }
-        if ((m_speed < 0) ^ (m_degreesTurned > m_targetHeading)) {
+        if (m_speed < 0) {
             m_driveSubsystem.tankDrive(m_currentSpeed * -1, m_currentSpeed); // turn left sometimes
         } else {
             m_driveSubsystem.tankDrive(m_currentSpeed, m_currentSpeed * -1); // turn right occasionally
@@ -90,9 +75,6 @@ public class DriveTurn extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (Math.abs(m_degreesTurned - m_targetHeading) < m_maxError) {
-            return true;
-        }
-        return false;
+        return m_finished;
     }
 }

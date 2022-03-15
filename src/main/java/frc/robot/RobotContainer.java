@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 import static frc.robot.Constants.IOConstants;
 
+import java.util.Map;
+
+import frc.robot.commands.auto.LowBall;
 import frc.robot.commands.auto.NoAimOneBallAuton;
 import frc.robot.commands.auto.NoAutoAimAuton;
 import frc.robot.commands.auto.TwoBallAuton;
@@ -22,6 +25,8 @@ import frc.robot.commands.drive.DefaultDrive;
 import frc.robot.commands.drive.DriveDistance;
 import frc.robot.commands.drive.DriveTime;
 import frc.robot.commands.drive.DriveTurn;
+import frc.robot.commands.drive.DriveTurn2;
+import frc.robot.commands.drive.StopDrive;
 import frc.robot.commands.hang.LowerHang;
 import frc.robot.commands.hang.RaiseHang;
 import frc.robot.commands.hang.StopHang;
@@ -35,6 +40,8 @@ import frc.robot.commands.shooter.AutoLowShooter;
 import frc.robot.commands.shooter.AutoShooter;
 import frc.robot.commands.shooter.ReverseShooter;
 import frc.robot.commands.shooter.StopShooter;
+import frc.robot.commands.vision.DriverMode;
+import frc.robot.commands.vision.LimeLight;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
@@ -42,6 +49,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.LEDSubsystem.LEDState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -82,6 +90,7 @@ public class RobotContainer {
      */
     public RobotContainer() {
         m_visionSubsystem.ledOff();
+        m_ledSubsystem.setLEDState(LEDState.RAINBOW);
         configureButtonBindings();
 
         m_driveChooser.setDefaultOption("Tank Drive",
@@ -91,22 +100,45 @@ public class RobotContainer {
                 new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX,
                         m_driverController::getRightBumper));
 
-        Shuffleboard.getTab("Teleop").add(m_driveChooser).withSize(2, 1);
+        Shuffleboard.getTab("Teleop").add(m_driveChooser).withSize(2, 1)
+                .withProperties(Map.of("Title", "Drive Controls"));
 
-        // m_autonChooser.addOption("TEST DriveTurn 90", new DriveTurn(90, .4, .02, m_driveSubsystem));
-        // m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn(180, .4, .02, m_driveSubsystem));
-        // m_autonChooser.addOption("TEST DriveTurn -90", new DriveTurn(90, -.4, .02, m_driveSubsystem));
-        // m_autonChooser.addOption("TEST DriveTime 4 sec", new DriveTime(4, .4, m_driveSubsystem));
-        // m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45, m_driveSubsystem));
-        // m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10, .45, m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTurn 90", new DriveTurn(90, .4, .02,
+        // m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn(180, .4, .02,
+        // m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTurn -90", new DriveTurn(90, -.4, .02,
+        // m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveTime 4 sec", new DriveTime(4, .4,
+        // m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveDistance 5 in", new DriveDistance(5, .45,
+        // m_driveSubsystem));
+        // m_autonChooser.addOption("TEST DriveDistance 10 in", new DriveDistance(10,
+        // .45, m_driveSubsystem));
+        m_autonChooser.addOption("LowONE", new LowBall(m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
+        m_autonChooser.addOption("NONE", null);
+        m_autonChooser.addOption("Taxi Reverse", new DriveDistance(32, -0.35, m_driveSubsystem));
+        m_autonChooser.addOption("TEST DriveTurn 180", new DriveTurn2(180, 0.4, 0.02, m_driveSubsystem));
         m_autonChooser.addOption("TEST DriveDistance 20 in", new DriveDistance(20, .45, m_driveSubsystem));
-        m_autonChooser.setDefaultOption("NoAutoAimAuton", new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
-                m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
-        m_autonChooser.addOption("NoAimOneBallAuton", new NoAimOneBallAuton(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
-        m_autonChooser.addOption("TwoBallAuton", new TwoBallAuton(m_driveSubsystem, m_intakeSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem, m_visionSubsystem));
+        m_autonChooser.addOption("One Ball Simple Auton",
+                new NoAimOneBallAuton(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
+        m_autonChooser.addOption("One Ball Simple Auton",
+                new NoAimOneBallAuton(m_driveSubsystem, m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem));
+        m_autonChooser.setDefaultOption("Two Ball Gryo Auton (170)",
+                new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
+                        m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem, 170));
+        m_autonChooser.addOption("Two Ball Gryo Auton (175)",
+                new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
+                        m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem, 175));
+        m_autonChooser.addOption("Two Ball Gryo Auton (180)",
+                new NoAutoAimAuton(m_driveSubsystem, m_intakeSubsystem,
+                        m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem, 180));
+        m_autonChooser.addOption("Two Ball Vision Auton", new TwoBallAuton(m_driveSubsystem, m_intakeSubsystem,
+                m_shooterSubsystem, m_indexSubsystem, m_ledSubsystem, m_visionSubsystem));
 
         // Put the chooser on the dashboard
-        Shuffleboard.getTab("Autonomous").add(m_autonChooser).withSize(2, 1);
+        Shuffleboard.getTab("Autonomous").add(m_autonChooser).withSize(2, 1)
+                .withProperties(Map.of("Title", "Auton Command"));
     }
 
     /**
@@ -173,8 +205,24 @@ public class RobotContainer {
                                 new DefaultLED(m_ledSubsystem)));
 
         new JoystickButton(m_driverController, Button.kB.value)
-            .whenPressed(new AutoAim(0.2, m_driveSubsystem, m_visionSubsystem));
+                .whenPressed(new SequentialCommandGroup(
+                        new DriverMode(m_visionSubsystem, false),
+                        new LimeLight(m_visionSubsystem, true),
+                        new AutoAim(0.35, m_driveSubsystem, m_visionSubsystem),
+                        new DriverMode(m_visionSubsystem, true),
+                        new LimeLight(m_visionSubsystem, false)))
+                .whenReleased(new SequentialCommandGroup(
+                        new StopDrive(m_driveSubsystem),
+                        new DriverMode(m_visionSubsystem, true),
+                        new LimeLight(m_visionSubsystem, false)));
 
+        new JoystickButton(m_coDriverController, Button.kLeftStick.value)
+                .whenPressed(new InstantCommand(m_intakeSubsystem::runWinch, m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
+
+        new JoystickButton(m_coDriverController, Button.kRightStick.value)
+                .whenPressed(new InstantCommand(m_intakeSubsystem::reverseWinch, m_intakeSubsystem))
+                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
     }
 
     /**

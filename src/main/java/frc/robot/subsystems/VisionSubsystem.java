@@ -15,7 +15,7 @@ public class VisionSubsystem extends SubsystemBase {
     private final NetworkTableEntry m_driverMode;
 
     public VisionSubsystem() {
-        m_visionTable = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ShootCam");
+        m_visionTable = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ShooterCam");
         m_visionYaw = m_visionTable.getEntry("targetYaw");
         m_hasTarget = m_visionTable.getEntry("hasTarget");
         m_driverMode = m_visionTable.getEntry("driverMode");

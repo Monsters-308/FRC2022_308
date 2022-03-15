@@ -19,8 +19,9 @@ public class NoGyroAuton extends SequentialCommandGroup {
     public NoGyroAuton(DriveSubsystem drive, ShooterSubsystem shooter, IndexSubsystem index, LEDSubsystem leads) {
         addCommands(
                 new SequentialCommandGroup(
-                        new DriveDistance(20, -0.5, drive),
-                        new AutoShooter(index, shooter, leads)));
+                        new DriveDistance(16, -0.5, drive),
+                        new AutoShooter(index, shooter, leads),
+                        new DriveDistance(90, -0.5, drive)));
     }
 
 }

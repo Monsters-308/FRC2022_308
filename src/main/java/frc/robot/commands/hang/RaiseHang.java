@@ -35,6 +35,7 @@ public class RaiseHang extends CommandBase {
     @Override
     public boolean isFinished() {
         if (m_hangSubsystem.isLeftRaised() && m_hangSubsystem.isRightRaised()) {
+            m_ledSubsystem.setLEDState(LEDState.GREEN);
             return true;
         } else {
             return false;
@@ -45,7 +46,5 @@ public class RaiseHang extends CommandBase {
     public void end(boolean interrupted) {
         m_hangSubsystem.stopLeftHang();
         m_hangSubsystem.stopRightHang();
-        m_ledSubsystem.setLEDState(LEDState.GREEN);
-
     }
 }
