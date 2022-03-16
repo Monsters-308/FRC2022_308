@@ -4,6 +4,7 @@ import java.util.Random;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.LEDConstants;
 
@@ -12,19 +13,10 @@ public class LEDSubsystem extends SubsystemBase {
         NONE,
         RAINBOW,
         FRENZY,
-        RED,
-        GREEN,
-        BLUE,
-        PURPLE,
-        RED_PULSE,
-        RED_STREAK,
-        GREEN_STREAK,
-        BLUE_STREAK,
-        PURPLE_STREAK,
-        RED_BLINK,
-        GREEN_BLINK,
-        BLUE_BLINK,
-        PURPLE_BLINK
+        SOLID,
+        PULSE,
+        STREAK,
+        BLINK
     }
 
     private AddressableLED m_led;
@@ -32,12 +24,15 @@ public class LEDSubsystem extends SubsystemBase {
     // Store what the last hue of the first pixel is
     private int m_rainbowFirstPixelHue;
     private int redPulseBrightness = 0;
+    private int greenPulseBrightness = 0;
+    private int bluePulseBrightness = 0;
     private int redStreakLED = 0;
     private int greenStreakLED = 0;
     private int blueStreakLED = 0;
     private int purpleStreakLED = 0;
     private int numLoops = 0;
-    private LEDState m_led_mode_state = LEDState.RAINBOW; // used for loop modes of the led's
+    private LEDState m_ledMode = LEDState.RAINBOW; // used for loop modes of the led's
+    private Color m_ledColor = Color.kRed;
     private int led_loop_count = 0; // used for loop modes of the led's
 
     public LEDSubsystem() {
@@ -62,7 +57,7 @@ public class LEDSubsystem extends SubsystemBase {
 
         // here we will create a state system to have the external command system
         // opperate new states
-        switch (m_led_mode_state) {
+        switch (m_ledMode) {
             case RAINBOW:
                 rainbow();
                 break;
@@ -70,60 +65,20 @@ public class LEDSubsystem extends SubsystemBase {
                 Random rand = new Random();
                 if (led_loop_count++ % 10 == 0) {
                     frenzy(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-
                 }
                 break;
-            case RED:
-                red();
+            case SOLID:
+                solid();
                 break;
-            case GREEN:
-                green();
+            case PULSE:
+                pulse();
                 break;
-            case BLUE:
-                blue();
-                break;
-            case PURPLE:
-                purple();
-                break;
-            case RED_PULSE:
-                redPulse();
-                break;
-            case RED_STREAK:
+            case STREAK:
                 redStreak();
                 break;
-            case GREEN_STREAK:
-                greenStreak();
-                break;
-            case BLUE_STREAK:
-                blueStreak();
-                break;
-            case PURPLE_STREAK:
-                purpleStreak();
-                break;
-            case RED_BLINK:
+            case BLINK:
                 if (led_loop_count++ % 20 == 0) {
-                    red();
-                } else if (led_loop_count % 10 == 0) {
-                    clearAll();
-                }
-                break;
-            case GREEN_BLINK:
-                if (led_loop_count++ % 20 == 0) {
-                    green();
-                } else if (led_loop_count % 10 == 0) {
-                    clearAll();
-                }
-                break;
-            case BLUE_BLINK:
-                if (led_loop_count++ % 20 == 0) {
-                    blue();
-                } else if (led_loop_count % 10 == 0) {
-                    clearAll();
-                }
-                break;
-            case PURPLE_BLINK:
-                if (led_loop_count++ % 20 == 0) {
-                    purple();
+                    solid();
                 } else if (led_loop_count % 10 == 0) {
                     clearAll();
                 }
@@ -133,8 +88,17 @@ public class LEDSubsystem extends SubsystemBase {
         }
     }
 
-    public void setLEDState(LEDState ledState) {
-        m_led_mode_state = ledState;
+    public void setLEDState(LEDState mode) {
+        m_ledMode = mode;
+    }
+
+    public void setLEDState(Color color) {
+        m_ledColor = color;
+    }
+
+    public void setLEDState(Color color, LEDState mode) {
+        m_ledColor = color;
+        m_ledMode = mode;
     }
 
     public void rainbow() {
@@ -163,52 +127,30 @@ public class LEDSubsystem extends SubsystemBase {
         m_led.setData(m_ledBuffer);
     }
 
-    public void red() {
+    public void solid() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
-            m_ledBuffer.setRGB(i, 255, 0, 0);
+            m_ledBuffer.setRGB(i, (int) m_ledColor.red, (int) m_ledColor.green, (int) m_ledColor.blue);
         }
 
         m_led.setData(m_ledBuffer);
     }
 
-    public void blue() {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for red
-            m_ledBuffer.setRGB(i, 0, 0, 255);
-        }
-
-        m_led.setData(m_ledBuffer);
-    }
-
-    public void green() {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for red
-            m_ledBuffer.setRGB(i, 0, 255, 0);
-        }
-
-        m_led.setData(m_ledBuffer);
-    }
-
-    public void purple() {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for purple
-            m_ledBuffer.setRGB(i, 148, 0, 211);
-        }
-        m_led.setData(m_ledBuffer);
-    }
-
-    public void redPulse() {
+    public void pulse() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for blue
             m_ledBuffer.setRGB(i, redPulseBrightness, 0, 0);
         }
 
         // increase brightness
-        redPulseBrightness += 5;
+        redPulseBrightness += 5 * (m_ledColor.red / 255);
+        greenPulseBrightness += 5 * (m_ledColor.green / 255);
+        bluePulseBrightness += 5 * (m_ledColor.blue / 255);
 
         // Check bounds
-        redPulseBrightness %= 255;
+        redPulseBrightness %= (int) m_ledColor.red;
+        greenPulseBrightness %= (int) m_ledColor.green;
+        bluePulseBrightness %= (int) m_ledColor.blue;
 
         m_led.setData(m_ledBuffer);
     }
@@ -267,7 +209,7 @@ public class LEDSubsystem extends SubsystemBase {
 
         // turns 4 leds off
         for (int i = 0; i < 4; i++) {
-            m_ledBuffer.setRGB((blueStreakLED+i)%m_ledBuffer.getLength(), 0, 0, 0);
+            m_ledBuffer.setRGB((blueStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
         }
 
         // increase brightness
