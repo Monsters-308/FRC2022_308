@@ -21,18 +21,17 @@ public class LEDSubsystem extends SubsystemBase {
 
     private AddressableLED m_led;
     private AddressableLEDBuffer m_ledBuffer;
+
+    private LEDState m_ledMode = LEDState.RAINBOW;
+    private Color m_ledColor = Color.kRed;
+
     // Store what the last hue of the first pixel is
     private int m_rainbowFirstPixelHue;
     private int redPulseBrightness = 0;
     private int greenPulseBrightness = 0;
     private int bluePulseBrightness = 0;
     private int streakLED = 0;
-    private int greenStreakLED = 0;
-    private int blueStreakLED = 0;
-    private int purpleStreakLED = 0;
     private int numLoops = 0;
-    private LEDState m_ledMode = LEDState.RAINBOW; // used for loop modes of the led's
-    private Color m_ledColor = Color.kRed;
     private int led_loop_count = 0; // used for loop modes of the led's
 
     public LEDSubsystem() {
@@ -139,7 +138,7 @@ public class LEDSubsystem extends SubsystemBase {
     public void pulse() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for blue
-            m_ledBuffer.setRGB(i, redPulseBrightness, 0, 0);
+            m_ledBuffer.setRGB(i, redPulseBrightness, greenPulseBrightness, bluePulseBrightness);
         }
 
         // increase brightness
@@ -178,79 +177,8 @@ public class LEDSubsystem extends SubsystemBase {
 
     }
 
-    public void greenStreak() {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for blue
-            m_ledBuffer.setRGB(i, 0, 255, 0);
-        }
-
-        for (int i = 0; i < 4; i++) {
-            m_ledBuffer.setRGB((greenStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
-        }
-
-        // increase brightness
-        if (numLoops % 3 == 0) {
-            greenStreakLED += 1;
-            // Check bounds
-            greenStreakLED %= m_ledBuffer.getLength();
-        }
-
-        m_led.setData(m_ledBuffer);
-
-        numLoops += 1;
-
-    }
-
-    public void blueStreak() {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for blue
-            m_ledBuffer.setRGB(i, 0, 0, 255);
-        }
-
-        // turns 4 leds off
-        for (int i = 0; i < 4; i++) {
-            m_ledBuffer.setRGB((blueStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
-        }
-
-        // increase brightness
-        if (numLoops % 3 == 0) {
-            blueStreakLED += 1;
-            // Check bounds
-            blueStreakLED %= m_ledBuffer.getLength();
-        }
-
-        m_led.setData(m_ledBuffer);
-
-        numLoops += 1;
-
-    }
-
-    public void purpleStreak() {
-        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for purple
-            m_ledBuffer.setRGB(i, 148, 0, 211);
-        }
-
-        for (int i = 0; i < 4; i++) {
-            m_ledBuffer.setRGB((purpleStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
-        }
-
-        // increase brightness
-        if (numLoops % 3 == 0) {
-            purpleStreakLED += 1;
-            // Check bounds
-            purpleStreakLED %= m_ledBuffer.getLength();
-        }
-
-        m_led.setData(m_ledBuffer);
-
-        numLoops += 1;
-
-    }
-
     public void clearAll() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-            // Sets the specified LED to the RGB values for purple
             m_ledBuffer.setRGB(i, 0, 0, 0);
         }
         m_led.setData(m_ledBuffer);
@@ -268,14 +196,13 @@ public class LEDSubsystem extends SubsystemBase {
         }
 
         for (var i = startLED; i < endLED; i++) {
-            // Sets the specified LED to the RGB values for purple
             m_ledBuffer.setRGB(i, 0, 0, 0);
         }
         m_led.setData(m_ledBuffer);
 
     }
 
-    public void setRedRange(int startIdx, int endIdx) {
+    public void setRange(int startIdx, int endIdx) {
         int startLED = startIdx < endIdx ? startIdx : endIdx;
         int endLED = startIdx < endIdx ? endIdx : startIdx;
         if (startLED < 0 || startLED >= LEDConstants.kLEDCount) {
@@ -287,46 +214,9 @@ public class LEDSubsystem extends SubsystemBase {
 
         for (var i = startLED; i < endLED; i++) {
             // Sets the specified LED to the RGB values for purple
-            m_ledBuffer.setRGB(i, 255, 0, 0);
+            m_ledBuffer.setRGB(i, (int) m_ledColor.red, (int) m_ledColor.green, (int) m_ledColor.blue);
         }
         m_led.setData(m_ledBuffer);
 
     }
-
-    public void setGreenRange(int startIdx, int endIdx) {
-        int startLED = startIdx < endIdx ? startIdx : endIdx;
-        int endLED = startIdx < endIdx ? endIdx : startIdx;
-        if (startLED < 0 || startLED >= LEDConstants.kLEDCount) {
-            startLED = 0;
-        }
-        if (endLED < 0 || endLED >= LEDConstants.kLEDCount) {
-            endLED = LEDConstants.kLEDCount;
-        }
-
-        for (var i = startLED; i < endLED; i++) {
-            // Sets the specified LED to the RGB values for purple
-            m_ledBuffer.setRGB(i, 0, 255, 0);
-        }
-        m_led.setData(m_ledBuffer);
-
-    }
-
-    public void setBlueRange(int startIdx, int endIdx) {
-        int startLED = startIdx < endIdx ? startIdx : endIdx;
-        int endLED = startIdx < endIdx ? endIdx : startIdx;
-        if (startLED < 0 || startLED >= LEDConstants.kLEDCount) {
-            startLED = 0;
-        }
-        if (endLED < 0 || endLED >= LEDConstants.kLEDCount) {
-            endLED = LEDConstants.kLEDCount;
-        }
-
-        for (var i = startLED; i < endLED; i++) {
-            // Sets the specified LED to the RGB values for purple
-            m_ledBuffer.setRGB(i, 0, 0, 255);
-        }
-        m_led.setData(m_ledBuffer);
-
-    }
-
 }
