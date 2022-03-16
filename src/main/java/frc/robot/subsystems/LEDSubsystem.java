@@ -61,8 +61,8 @@ public class LEDSubsystem extends SubsystemBase {
                 rainbow();
                 break;
             case FRENZY:
-                Random rand = new Random();
                 if (led_loop_count++ % 10 == 0) {
+                    Random rand = new Random();
                     frenzy(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
                 }
                 break;
