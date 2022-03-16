@@ -26,7 +26,7 @@ public class LEDSubsystem extends SubsystemBase {
     private int redPulseBrightness = 0;
     private int greenPulseBrightness = 0;
     private int bluePulseBrightness = 0;
-    private int redStreakLED = 0;
+    private int streakLED = 0;
     private int greenStreakLED = 0;
     private int blueStreakLED = 0;
     private int purpleStreakLED = 0;
@@ -74,7 +74,7 @@ public class LEDSubsystem extends SubsystemBase {
                 pulse();
                 break;
             case STREAK:
-                redStreak();
+                streak();
                 break;
             case BLINK:
                 if (led_loop_count++ % 20 == 0) {
@@ -155,21 +155,21 @@ public class LEDSubsystem extends SubsystemBase {
         m_led.setData(m_ledBuffer);
     }
 
-    public void redStreak() {
+    public void streak() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for blue
-            m_ledBuffer.setRGB(i, 255, 0, 0);
+            m_ledBuffer.setRGB(i, (int) m_ledColor.red, (int) m_ledColor.green, (int) m_ledColor.blue);
         }
 
         for (int i = 0; i < 4; i++) {
-            m_ledBuffer.setRGB((redStreakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
+            m_ledBuffer.setRGB((streakLED + i) % m_ledBuffer.getLength(), 0, 0, 0);
         }
 
         // increase brightness
         if (numLoops % 3 == 0) {
-            redStreakLED += 1;
+            streakLED += 1;
             // Check bounds
-            redStreakLED %= m_ledBuffer.getLength();
+            streakLED %= m_ledBuffer.getLength();
         }
 
         m_led.setData(m_ledBuffer);
