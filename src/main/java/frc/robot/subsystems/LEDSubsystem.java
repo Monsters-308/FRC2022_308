@@ -5,6 +5,7 @@ import java.util.Random;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.LEDConstants;
 
@@ -23,7 +24,7 @@ public class LEDSubsystem extends SubsystemBase {
     private AddressableLEDBuffer m_ledBuffer;
 
     private LEDState m_ledMode = LEDState.RAINBOW;
-    private Color m_ledColor = Color.kRed;
+    private Color8Bit m_ledColor = new Color8Bit(Color.kRed);
 
     // Store what the last hue of the first pixel is
     private int m_rainbowFirstPixelHue;
@@ -91,11 +92,12 @@ public class LEDSubsystem extends SubsystemBase {
         m_ledMode = mode;
     }
 
-    public void setLEDState(Color color) {
-        m_ledColor = color;
+    public void setLEDState(Color color, LEDState mode) {
+        m_ledColor = new Color8Bit(color);
+        m_ledMode = mode;
     }
 
-    public void setLEDState(Color color, LEDState mode) {
+    public void setLEDState(Color8Bit color, LEDState mode) {
         m_ledColor = color;
         m_ledMode = mode;
     }
@@ -129,7 +131,7 @@ public class LEDSubsystem extends SubsystemBase {
     public void solid() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
-            m_ledBuffer.setRGB(i, (int) m_ledColor.red, (int) m_ledColor.green, (int) m_ledColor.blue);
+            m_ledBuffer.setRGB(i, m_ledColor.red, m_ledColor.green, m_ledColor.blue);
         }
 
         m_led.setData(m_ledBuffer);
@@ -147,9 +149,9 @@ public class LEDSubsystem extends SubsystemBase {
         bluePulseBrightness += 5 * (m_ledColor.blue / 255);
 
         // Check bounds
-        redPulseBrightness %= (int) m_ledColor.red;
-        greenPulseBrightness %= (int) m_ledColor.green;
-        bluePulseBrightness %= (int) m_ledColor.blue;
+        redPulseBrightness %= m_ledColor.red;
+        greenPulseBrightness %= m_ledColor.green;
+        bluePulseBrightness %= m_ledColor.blue;
 
         m_led.setData(m_ledBuffer);
     }
@@ -157,7 +159,7 @@ public class LEDSubsystem extends SubsystemBase {
     public void streak() {
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for blue
-            m_ledBuffer.setRGB(i, (int) m_ledColor.red, (int) m_ledColor.green, (int) m_ledColor.blue);
+            m_ledBuffer.setRGB(i, m_ledColor.red, m_ledColor.green, m_ledColor.blue);
         }
 
         for (int i = 0; i < 4; i++) {
@@ -214,7 +216,7 @@ public class LEDSubsystem extends SubsystemBase {
 
         for (var i = startLED; i < endLED; i++) {
             // Sets the specified LED to the RGB values for purple
-            m_ledBuffer.setRGB(i, (int) m_ledColor.red, (int) m_ledColor.green, (int) m_ledColor.blue);
+            m_ledBuffer.setRGB(i, m_ledColor.red, m_ledColor.green, m_ledColor.blue);
         }
         m_led.setData(m_ledBuffer);
 
