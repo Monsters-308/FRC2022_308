@@ -4,9 +4,12 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveConstants;
+
+import javax.sound.midi.ControllerEventListener;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -32,8 +35,10 @@ public class DriveSubsystem extends SubsystemBase {
     private RelativeEncoder m_rightEncoder = m_rightFront.getEncoder();
 
     private ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
+    XboxController controllertest;
 
-    public DriveSubsystem() {
+    public DriveSubsystem(XboxController controllertest) {
+        this.controllertest=controllertest;
         m_leftFront.restoreFactoryDefaults();
         m_leftRear.restoreFactoryDefaults();
         m_rightFront.restoreFactoryDefaults();
@@ -107,6 +112,8 @@ public class DriveSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("GyroHeading", getGyroHeading());
         SmartDashboard.putNumber("GyroRate", getGyroRate());
+
+        SmartDashboard.putNumber("DPAD (0)", controllertest.getPOV(0));
     }
 
 }

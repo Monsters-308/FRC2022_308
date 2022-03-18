@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.robot.Constants.IOConstants;
 
@@ -56,6 +57,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -67,17 +69,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+
+    XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
+
+    XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
+
+    private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(m_driverController);
     private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
     private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
     private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
     private final HangSubsystem m_hangSubsystem = new HangSubsystem();
     private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
-
-    XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
-
-    XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
 
     SendableChooser<Command> m_autonChooser = new SendableChooser<>();
 
@@ -160,6 +163,8 @@ public class RobotContainer {
         // driver Y : raise hang
         // driver A : lower hang
         // driver B : auto aim
+        //SmartDashboard.putString();
+        //System.out.println(Button.values()); // get ALL values of button on controller (D-Pad test)
         new JoystickButton(m_coDriverController, Button.kY.value)
                 .whenPressed(new ParallelCommandGroup(
                         new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
