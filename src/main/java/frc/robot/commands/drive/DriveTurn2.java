@@ -10,7 +10,6 @@ public class DriveTurn2 extends CommandBase {
     private final double m_accel;
     private double m_currentSpeed = 0;
     private double m_initialHeading;
-    private final double m_maxError = 0.5;
     private boolean m_finished = false;
 
     /**
