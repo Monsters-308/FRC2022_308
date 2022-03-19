@@ -14,7 +14,7 @@ public class DriveTurn extends CommandBase {
     private final double m_maxError = 0.5;
 
     /**
-     * this command will turn the robot smoothly
+     * this command will probably not work
      * 
      * @param heading        how far (in degrees) that you want to turn, leave this
      *                       positive even if you want to turn in the opposite

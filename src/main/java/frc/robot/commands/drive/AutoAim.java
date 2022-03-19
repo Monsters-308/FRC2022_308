@@ -34,8 +34,8 @@ public class AutoAim extends CommandBase {
         double yaw = m_visionSubsystem.getYaw();
         double direction = yaw < 0 ? -1 : 1;
 
-        if (Math.abs(yaw) > 5) {
-            m_driveSubsystem.tankDrive(direction * m_maxSpeed, -direction * m_maxSpeed);
+        if (Math.abs(yaw) > 1) {
+            m_driveSubsystem.tankDrive(direction * m_maxSpeed, -1 * direction * m_maxSpeed);
         } else {
             m_complete = true;
         }

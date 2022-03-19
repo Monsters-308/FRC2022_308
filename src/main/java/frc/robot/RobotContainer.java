@@ -161,8 +161,32 @@ public class RobotContainer {
         // driver Y : raise hang
         // driver A : lower hang
         // driver B : auto aim
-        //SmartDashboard.putString();
-        //System.out.println(Button.values()); // get ALL values of button on controller (D-Pad test)
+        // SmartDashboard.putString();
+        // System.out.println(Button.values()); // get ALL values of button on
+        // controller (D-Pad test)
+
+        // DRIVER CONTROLLS ------------------------------------------------------
+        new JoystickButton(m_driverController, Button.kA.value)
+                .whenPressed(new LowerHang(m_hangSubsystem))
+                .whenReleased(new ParallelCommandGroup(new StopHang(m_hangSubsystem), new DefaultLED(m_ledSubsystem)));
+
+        new JoystickButton(m_driverController, Button.kY.value)
+                .whenPressed(new RaiseHang(m_hangSubsystem, m_ledSubsystem))
+                .whenReleased(new StopHang(m_hangSubsystem));
+
+        new JoystickButton(m_driverController, Button.kB.value)
+                .whenPressed(new SequentialCommandGroup(
+                        new DriverMode(m_visionSubsystem, false),
+                        new LimeLight(m_visionSubsystem, true),
+                        new AutoAim(0.35, m_driveSubsystem, m_visionSubsystem),
+                        new DriverMode(m_visionSubsystem, true),
+                        new LimeLight(m_visionSubsystem, false)))
+                .whenReleased(new SequentialCommandGroup(
+                        new StopDrive(m_driveSubsystem),
+                        new DriverMode(m_visionSubsystem, true),
+                        new LimeLight(m_visionSubsystem, false)));
+
+        // CO DRIVER CONTROLLS ------------------------------------------------------
         new JoystickButton(m_coDriverController, Button.kY.value)
                 .whenPressed(new ParallelCommandGroup(
                         new InstantCommand(m_intakeSubsystem::reverseIntake, m_intakeSubsystem),
@@ -183,14 +207,6 @@ public class RobotContainer {
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
 
-        new JoystickButton(m_driverController, Button.kY.value)
-                .whenPressed(new RaiseHang(m_hangSubsystem, m_ledSubsystem))
-                .whenReleased(new StopHang(m_hangSubsystem));
-
-        new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(new LowerHang(m_hangSubsystem))
-                .whenReleased(new ParallelCommandGroup(new StopHang(m_hangSubsystem), new DefaultLED(m_ledSubsystem)));
-
         new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
                 .whenPressed(new RaiseIntake(m_intakeSubsystem))
                 .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
@@ -206,18 +222,6 @@ public class RobotContainer {
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
-
-        new JoystickButton(m_driverController, Button.kB.value)
-                .whenPressed(new SequentialCommandGroup(
-                        new DriverMode(m_visionSubsystem, false),
-                        new LimeLight(m_visionSubsystem, true),
-                        new AutoAim(0.35, m_driveSubsystem, m_visionSubsystem),
-                        new DriverMode(m_visionSubsystem, true),
-                        new LimeLight(m_visionSubsystem, false)))
-                .whenReleased(new SequentialCommandGroup(
-                        new StopDrive(m_driveSubsystem),
-                        new DriverMode(m_visionSubsystem, true),
-                        new LimeLight(m_visionSubsystem, false)));
 
         new JoystickButton(m_coDriverController, Button.kLeftStick.value)
                 .whenPressed(new InstantCommand(m_intakeSubsystem::runWinch, m_intakeSubsystem))
