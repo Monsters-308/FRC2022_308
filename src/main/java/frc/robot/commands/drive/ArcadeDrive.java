@@ -36,6 +36,6 @@ public class ArcadeDrive extends CommandBase {
         if (m_slowMode.getAsBoolean()) {
             speedMultiplier = DriveConstants.kSlowModeMultiplier;
         }
-        m_driveSubsystem.arcadeDrive(-speedMultiplier * m_fwd.getAsDouble(), -0.75 * m_rot.getAsDouble());
+        m_driveSubsystem.arcadeDrive(-speedMultiplier * m_fwd.getAsDouble(), 1 * m_rot.getAsDouble());
     }
 }

@@ -5,6 +5,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class VisionSubsystem extends SubsystemBase {
@@ -13,12 +14,14 @@ public class VisionSubsystem extends SubsystemBase {
     private final NetworkTableEntry m_visionYaw;
     private final NetworkTableEntry m_hasTarget;
     private final NetworkTableEntry m_driverMode;
+    //PhotonCamera camera = new PhotonCamera("photonvision");
 
     public VisionSubsystem() {
         m_visionTable = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("ShooterCam");
         m_visionYaw = m_visionTable.getEntry("targetYaw");
         m_hasTarget = m_visionTable.getEntry("hasTarget");
         m_driverMode = m_visionTable.getEntry("driverMode");
+        //SmartDashboard.putString("KEYS", m_visionTable.getKeys().toString());
     }
 
     public void ledOn() {
