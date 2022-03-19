@@ -178,13 +178,17 @@ public class RobotContainer {
                 .whenPressed(new SequentialCommandGroup(
                         new DriverMode(m_visionSubsystem, false),
                         new LimeLight(m_visionSubsystem, true),
+                        new WaitCommand(0.2),
                         new AutoAim(0.35, m_driveSubsystem, m_visionSubsystem),
-                        new DriverMode(m_visionSubsystem, true),
+                        //new DriverMode(m_visionSubsystem, true),
                         new LimeLight(m_visionSubsystem, false)))
                 .whenReleased(new SequentialCommandGroup(
                         new StopDrive(m_driveSubsystem),
-                        new DriverMode(m_visionSubsystem, true),
+                        //new DriverMode(m_visionSubsystem, true),
                         new LimeLight(m_visionSubsystem, false)));
+        
+        new JoystickButton(m_driverController, Button.kX.value)
+        .whenPressed(new LimeLight(m_visionSubsystem, true));
 
         // CO DRIVER CONTROLLS ------------------------------------------------------
         new JoystickButton(m_coDriverController, Button.kY.value)
