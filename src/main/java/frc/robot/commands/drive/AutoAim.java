@@ -31,7 +31,7 @@ public class AutoAim extends CommandBase {
             return;
         }
 
-        double yaw = m_visionSubsystem.getYaw();
+        double yaw = m_visionSubsystem.getAverageYaw();
         double direction = yaw < 0 ? -1 : 1;
 
         if (Math.abs(yaw) > 1) {
