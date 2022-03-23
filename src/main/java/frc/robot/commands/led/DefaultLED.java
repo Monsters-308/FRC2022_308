@@ -1,5 +1,6 @@
 package frc.robot.commands.led;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LEDSubsystem.LEDState;
@@ -15,7 +16,7 @@ public class DefaultLED extends CommandBase {
 
     @Override
     public void initialize() {
-        m_ledSubsystem.setLEDState(LEDState.RED);
+        m_ledSubsystem.setLEDState(Color.kRed, LEDState.SOLID);
     }
 
     @Override
