@@ -1,5 +1,6 @@
 package frc.robot.commands.hang;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
@@ -35,7 +36,7 @@ public class RaiseHang extends CommandBase {
     @Override
     public boolean isFinished() {
         if (m_hangSubsystem.isLeftRaised() && m_hangSubsystem.isRightRaised()) {
-            m_ledSubsystem.setLEDState(LEDState.GREEN);
+            m_ledSubsystem.setLEDState(new Color(0, 255, 0), LEDState.SOLID);
             return true;
         } else {
             return false;

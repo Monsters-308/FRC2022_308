@@ -1,6 +1,7 @@
 package frc.robot.commands.index;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -28,7 +29,7 @@ public class AutoIndex extends CommandBase {
      * 
      * @param indexSubsystem  the Index subsystem
      * @param intakeSubsystem the Intake subsystem
-     * @param ledSubsystem the LED subsystem
+     * @param ledSubsystem    the LED subsystem
      */
     public AutoIndex(IndexSubsystem indexSubsystem, IntakeSubsystem intakeSubsystem, LEDSubsystem ledSubsystem) {
         m_indexSubsystem = indexSubsystem;
@@ -68,7 +69,7 @@ public class AutoIndex extends CommandBase {
                 }
                 break;
             case LOWBALL:
-                m_ledSubsystem.setLEDState(LEDState.PURPLE);
+                m_ledSubsystem.setLEDState(Color.kPurple, LEDState.SOLID);
                 m_intakeSubsystem.runIntake();
                 m_indexSubsystem.stopIndex();
                 if (m_indexSubsystem.isUpperBallPresent()) {
@@ -87,7 +88,7 @@ public class AutoIndex extends CommandBase {
                 }
                 break;
             case FULL:
-                m_ledSubsystem.setLEDState(LEDState.GREEN);
+                m_ledSubsystem.setLEDState(new Color(0, 255, 0), LEDState.SOLID);
                 m_complete = true;
         }
     }
