@@ -30,8 +30,9 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int kShooterMotorCANPort = 5;
-        public static final int kHelperMotorCANPort = 6;
+        public static final int kShooterMotorCANPort = 11;
+        public static final int kHelperMotorCANPort = 9;
+        public static final int kBackspinMotorPort = 5;
 
         public static final double kF = 0.05;
         public static final double kD = 5.0;
@@ -53,8 +54,8 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorPort = 11;
-        public static final int kWinchMotorPort = 8;
+        public static final int kIntakeMotorPort = 10;
+        public static final int kWinchMotorPort = 12;
         public static final int kLoweredSwitchPort = 3;
         public static final int kRaisedSwitchPort = 4;
 
@@ -63,7 +64,7 @@ public final class Constants {
     }
 
     public static final class IndexConstants {
-        public static final int kIndexMotorPort = 7;
+        public static final int kIndexMotorPort = 8;
         public static final int kHighSensorPort = 2;
         public static final int kLowSensorPort = 1;
         public static final int kIntakeSensorPort = 0;
@@ -72,8 +73,10 @@ public final class Constants {
     }
 
     public static final class HangConstants {
-        public static final int kLeftMotorPort = 12;
-        public static final int kRightMotorPort = 13;
+        public static final int kLeftNeoPort = 13;
+        public static final int kRightNeoPort = 14;
+        public static final int kLeft775Port = 6;
+        public static final int kRight775Port = 7;
         public static final int kUpperLeftSwitchPort = 7; // change when we know the port // 7 5
         public static final int kLowerLeftSwitchPort = 8; // change when we know the port // 8 6
         public static final int kUpperRightSwitchPort = 5; // change when we know the port
