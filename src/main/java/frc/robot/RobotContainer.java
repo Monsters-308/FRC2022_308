@@ -53,7 +53,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -210,28 +209,16 @@ public class RobotContainer {
                                 new DefaultLED(m_ledSubsystem)));
 
         new JoystickButton(m_coDriverController, Button.kLeftBumper.value)
-                .whenPressed(new RaiseIntake(m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
-                        m_intakeSubsystem));
+                .whenPressed(new RaiseIntake(m_intakeSubsystem));
 
         new JoystickButton(m_coDriverController, Button.kRightBumper.value)
-                .whenPressed(new LowerIntake(m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch,
-                        m_intakeSubsystem));
+                .whenPressed(new LowerIntake(m_intakeSubsystem));
 
         new JoystickButton(m_coDriverController, Button.kX.value)
                 .whenPressed(new AutoLowShooter(m_indexSubsystem, m_shooterSubsystem, m_ledSubsystem))
                 .whenReleased(
                         new ParallelCommandGroup(new StopIndex(m_indexSubsystem), new StopShooter(m_shooterSubsystem),
                                 new DefaultLED(m_ledSubsystem)));
-
-        new JoystickButton(m_coDriverController, Button.kLeftStick.value)
-                .whenPressed(new InstantCommand(m_intakeSubsystem::runWinch, m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
-
-        new JoystickButton(m_coDriverController, Button.kRightStick.value)
-                .whenPressed(new InstantCommand(m_intakeSubsystem::reverseWinch, m_intakeSubsystem))
-                .whenReleased(new InstantCommand(m_intakeSubsystem::stopWinch, m_intakeSubsystem));
     }
 
     /**

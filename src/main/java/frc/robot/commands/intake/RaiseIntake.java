@@ -14,18 +14,11 @@ public class RaiseIntake extends CommandBase {
 
     @Override
     public void initialize() {
-        if (!m_intakeSubsystem.isRaised()) {
-            m_intakeSubsystem.runWinch();
-        }
+        m_intakeSubsystem.setLowered(false);
     }
 
     @Override
     public boolean isFinished() {
-        return m_intakeSubsystem.isRaised();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        m_intakeSubsystem.stopWinch();
+        return true;
     }
 }

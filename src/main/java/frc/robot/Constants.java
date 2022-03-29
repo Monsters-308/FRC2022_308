@@ -55,12 +55,10 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int kIntakeMotorPort = 10;
-        public static final int kWinchMotorPort = 12;
-        public static final int kLoweredSwitchPort = 3;
-        public static final int kRaisedSwitchPort = 4;
+        public static final int kLeftPistonChannel = 47; // change when we know the channel
+        public static final int kRightPistonChannel = 47; // change when we know the channel
 
         public static final double kIntakeMotorSpeed = 0.7;
-        public static final double kWinchMotorSpeed = 1.0;
     }
 
     public static final class IndexConstants {
