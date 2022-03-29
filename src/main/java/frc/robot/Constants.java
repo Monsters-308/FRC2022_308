@@ -44,8 +44,9 @@ public final class Constants {
         public static final double kShooterSpeed = 0.44; //at 44% power, the shooter was at 2000-2100 RMP
         public static final double kShooterLowGoalSpeed = 0.3;
         public static final double kHelperMotorSpeed = 0.5;
+        public static final double kBackspinMotorSpeed = 0.5;
         public static final double kShooterReverseSpeed = -0.4;
-        public static final double kShooterSpeedRPM = 3200;
+        public static final double kShooterSpeedRPM = 2100;
 
         public static final double kRampTimeSec = 2;
         public static final double kMaxIndexTimeSec = 1;

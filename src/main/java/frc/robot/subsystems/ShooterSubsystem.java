@@ -17,6 +17,7 @@ import static frc.robot.Constants.ShooterConstants;
 public class ShooterSubsystem extends SubsystemBase {
     private final WPI_TalonFX m_shooterMotor = new WPI_TalonFX(ShooterConstants.kShooterMotorCANPort);
     private final WPI_TalonSRX m_helperMotor = new WPI_TalonSRX(ShooterConstants.kHelperMotorCANPort);
+    private final WPI_TalonSRX m_backspinMotor = new WPI_TalonSRX(ShooterConstants.kBackspinMotorPort);
     private TalonFXConfiguration m_configs = new TalonFXConfiguration();
 
     public ShooterSubsystem() {
@@ -40,6 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooterMotor.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20);
 
         m_helperMotor.setNeutralMode(NeutralMode.Brake);
+        m_backspinMotor.setNeutralMode(NeutralMode.Coast);
     }
 
     public void runShooter() {
@@ -68,6 +70,18 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public void reverseHelper() {
         m_helperMotor.set(TalonSRXControlMode.PercentOutput, -ShooterConstants.kHelperMotorSpeed);
+    }
+
+    public void runBackspin() {
+        m_backspinMotor.set(TalonSRXControlMode.PercentOutput, ShooterConstants.kBackspinMotorSpeed);
+    }
+
+    public void stopBackspin() {
+        m_backspinMotor.set(TalonSRXControlMode.PercentOutput, 0);
+    }
+
+    public void reverseBackspin() {
+        m_backspinMotor.set(TalonSRXControlMode.PercentOutput, -ShooterConstants.kBackspinMotorSpeed);
     }
 
     public double getShooterVelocity() {
