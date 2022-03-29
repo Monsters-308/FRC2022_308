@@ -1,17 +1,28 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
+
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.PneumaticsConstants;
+
 import static frc.robot.Constants.HangConstants;
 
 public class HangSubsystem extends SubsystemBase {
-    private final CANSparkMax m_hangMotorLeft = new CANSparkMax(HangConstants.kLeftNeoPort, MotorType.kBrushless);
-    private final CANSparkMax m_hangMotorRight = new CANSparkMax(HangConstants.kRightNeoPort, MotorType.kBrushless);
+    private final CANSparkMax m_stationaryMotorLeft = new CANSparkMax(HangConstants.kLeftNeoPort, MotorType.kBrushless);
+    private final CANSparkMax m_stationaryMotorRight = new CANSparkMax(HangConstants.kRightNeoPort, MotorType.kBrushless);
+    private final WPI_TalonSRX m_rotatingMotorLeft = new WPI_TalonSRX(HangConstants.kLeft775Port);
+    private final WPI_TalonSRX m_rotatingMotorRight = new WPI_TalonSRX(HangConstants.kRight775Port);
+    private final Solenoid m_leftPiston = new Solenoid(PneumaticsConstants.kControlModulePort, PneumaticsModuleType.CTREPCM, PneumaticsConstants.kLeftHangPistonPort);
+    private final Solenoid m_rightPiston = new Solenoid(PneumaticsConstants.kControlModulePort, PneumaticsModuleType.CTREPCM, PneumaticsConstants.kRightHangPistonPort);
 
     private final DigitalInput m_upperLeftSwitch = new DigitalInput(HangConstants.kUpperLeftSwitchPort);
     private final DigitalInput m_lowerLeftSwitch = new DigitalInput(HangConstants.kLowerLeftSwitchPort);
@@ -19,39 +30,39 @@ public class HangSubsystem extends SubsystemBase {
     private final DigitalInput m_lowerRightSwitch = new DigitalInput(HangConstants.kLowerRightSwitchPort);
 
     public HangSubsystem() {
-        m_hangMotorLeft.restoreFactoryDefaults();
-        m_hangMotorRight.restoreFactoryDefaults();
+        m_stationaryMotorLeft.restoreFactoryDefaults();
+        m_stationaryMotorRight.restoreFactoryDefaults();
 
-        m_hangMotorLeft.setSmartCurrentLimit(40);
-        m_hangMotorRight.setSmartCurrentLimit(40);
-        m_hangMotorLeft.setIdleMode(IdleMode.kBrake);
-        m_hangMotorRight.setIdleMode(IdleMode.kBrake);
-        m_hangMotorLeft.setInverted(true);
+        m_stationaryMotorLeft.setSmartCurrentLimit(40);
+        m_stationaryMotorRight.setSmartCurrentLimit(40);
+        m_stationaryMotorLeft.setIdleMode(IdleMode.kBrake);
+        m_stationaryMotorRight.setIdleMode(IdleMode.kBrake);
+        m_stationaryMotorLeft.setInverted(true);
     }
 
     public void runLeftHang() {
-        m_hangMotorLeft.set(HangConstants.kHangMotorSpeed);
+        m_stationaryMotorLeft.set(HangConstants.kHangMotorSpeed);
     }
 
     public void runRightHang() {
-        m_hangMotorRight.set(HangConstants.kHangMotorSpeed);
+        m_stationaryMotorRight.set(HangConstants.kHangMotorSpeed);
 
     }
 
     public void reverseLeftHang() {
-        m_hangMotorLeft.set(-HangConstants.kHangMotorSpeed);
+        m_stationaryMotorLeft.set(-HangConstants.kHangMotorSpeed);
     }
 
     public void reverseRightHang() {
-        m_hangMotorRight.set(-HangConstants.kHangMotorSpeed);
+        m_stationaryMotorRight.set(-HangConstants.kHangMotorSpeed);
     }
 
     public void stopLeftHang() {
-        m_hangMotorLeft.set(0);
+        m_stationaryMotorLeft.set(0);
     }
 
     public void stopRightHang() {
-        m_hangMotorRight.set(0);
+        m_stationaryMotorRight.set(0);
 
     }
 
