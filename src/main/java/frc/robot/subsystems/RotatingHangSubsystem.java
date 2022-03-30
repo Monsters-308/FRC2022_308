@@ -52,7 +52,15 @@ public class RotatingHangSubsystem extends SubsystemBase {
         m_leftPiston.set(forward);
     }
 
+    public void toggleLeftPiston() {
+        m_leftPiston.toggle();
+    }
+
     public void setRightDeployed(boolean forward) {
         m_rightPiston.set(forward);
+    }
+
+    public void toggleRightPiston() {
+        m_rightPiston.toggle();
     }
 }
