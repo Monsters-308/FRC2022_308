@@ -31,7 +31,7 @@ public final class Constants {
 
     public static final class ShooterConstants {
         public static final int kShooterMotorCANPort = 11;
-        public static final int kHelperMotorCANPort = 9;
+        public static final int kHelperMotorCANPort = 7;
         public static final int kBackspinMotorPort = 5;
 
         public static final double kF = 0.05;
@@ -73,7 +73,7 @@ public final class Constants {
         public static final int kLeftNeoPort = 13;
         public static final int kRightNeoPort = 14;
         public static final int kLeft775Port = 6;
-        public static final int kRight775Port = 7;
+        public static final int kRight775Port = 9;
         public static final int kUpperLeftSwitchPort = 7; // change when we know the port // 7 5
         public static final int kLowerLeftSwitchPort = 8; // change when we know the port // 8 6
         public static final int kUpperRightSwitchPort = 5; // change when we know the port
