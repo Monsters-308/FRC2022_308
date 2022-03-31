@@ -13,8 +13,7 @@ public class RetractRotatingHang extends CommandBase {
 
     @Override
     public void initialize() {
-        m_hangSubsystem.setLeftDeployed(false);
-        m_hangSubsystem.setRightDeployed(false);
+        m_hangSubsystem.setDeployed(false);
     }
 
     @Override

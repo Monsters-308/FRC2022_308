@@ -13,8 +13,7 @@ public class ToggleRotatingHang extends CommandBase {
 
     @Override
     public void initialize() {
-        m_hangSubsystem.toggleLeftPiston();
-        m_hangSubsystem.toggleRightPiston();
+        m_hangSubsystem.togglePiston();
     }
 
     @Override

@@ -13,10 +13,8 @@ import frc.robot.Constants.PneumaticsConstants;
 public class RotatingHangSubsystem extends SubsystemBase {
     private final WPI_TalonSRX m_rotatingMotorLeft = new WPI_TalonSRX(HangConstants.kLeft775Port);
     private final WPI_TalonSRX m_rotatingMotorRight = new WPI_TalonSRX(HangConstants.kRight775Port);
-    private final Solenoid m_leftPiston = new Solenoid(PneumaticsConstants.kControlModulePort,
-            PneumaticsModuleType.CTREPCM, PneumaticsConstants.kLeftHangPistonPort);
-    private final Solenoid m_rightPiston = new Solenoid(PneumaticsConstants.kControlModulePort,
-            PneumaticsModuleType.CTREPCM, PneumaticsConstants.kRightHangPistonPort);
+    private final Solenoid m_hangPiston = new Solenoid(PneumaticsConstants.kControlModulePort,
+            PneumaticsModuleType.CTREPCM, PneumaticsConstants.kHangPistonPort);
 
     public RotatingHangSubsystem() {
         m_rotatingMotorLeft.setNeutralMode(NeutralMode.Brake);
@@ -48,19 +46,11 @@ public class RotatingHangSubsystem extends SubsystemBase {
         m_rotatingMotorRight.set(TalonSRXControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
     }
 
-    public void setLeftDeployed(boolean forward) {
-        m_leftPiston.set(forward);
+    public void setDeployed(boolean forward) {
+        m_hangPiston.set(forward);
     }
 
-    public void toggleLeftPiston() {
-        m_leftPiston.toggle();
-    }
-
-    public void setRightDeployed(boolean forward) {
-        m_rightPiston.set(forward);
-    }
-
-    public void toggleRightPiston() {
-        m_rightPiston.toggle();
+    public void togglePiston() {
+        m_hangPiston.toggle();
     }
 }

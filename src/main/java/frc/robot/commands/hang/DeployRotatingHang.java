@@ -13,8 +13,7 @@ public class DeployRotatingHang extends CommandBase {
 
     @Override
     public void initialize() {
-        m_hangSubsystem.setLeftDeployed(true);
-        m_hangSubsystem.setRightDeployed(true);
+        m_hangSubsystem.setDeployed(true);
     }
 
     @Override
