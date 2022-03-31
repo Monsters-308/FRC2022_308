@@ -25,8 +25,12 @@ import frc.robot.commands.drive.DriveDistance;
 import frc.robot.commands.drive.DriveTurn2;
 import frc.robot.commands.drive.StopDrive;
 import frc.robot.commands.hang.LowerHang;
+import frc.robot.commands.hang.LowerRotatingHang;
 import frc.robot.commands.hang.RaiseHang;
+import frc.robot.commands.hang.RaiseRotatingHang;
 import frc.robot.commands.hang.StopHang;
+import frc.robot.commands.hang.StopRotatingHang;
+import frc.robot.commands.hang.ToggleRotatingHang;
 import frc.robot.commands.index.AutoIndex;
 import frc.robot.commands.index.StopIndex;
 import frc.robot.commands.intake.LowerIntake;
@@ -44,6 +48,7 @@ import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.IndexSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.RotatingHangSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.subsystems.LEDSubsystem.LEDState;
@@ -53,6 +58,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -76,6 +82,7 @@ public class RobotContainer {
     private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
     private final HangSubsystem m_hangSubsystem = new HangSubsystem();
     private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+    private final RotatingHangSubsystem m_rotHangSubsystem = new RotatingHangSubsystem();
 
     SendableChooser<Command> m_autonChooser = new SendableChooser<>();
 
@@ -155,21 +162,36 @@ public class RobotContainer {
         // co X : low shooter (speed not tuned)
         // co LBumper : raise intake
         // co RBumper : lower intake
-        // driver Y : raise hang
-        // driver A : lower hang
         // driver B : auto aim
+        // driver RBumper : Raise rotating arms
+        // driver RTrigger : Lower rotating arms
+        // driver LBumper : Raise stationary arms
+        // driver LTrigger : Lower stationary arms
+        // driver A : Flip rotating arms
+
         // SmartDashboard.putString();
         // System.out.println(Button.values()); // get ALL values of button on
         // controller (D-Pad test)
 
         // DRIVER CONTROLLS ------------------------------------------------------
-        new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(new LowerHang(m_hangSubsystem))
-                .whenReleased(new ParallelCommandGroup(new StopHang(m_hangSubsystem), new DefaultLED(m_ledSubsystem)));
+        new Trigger(() -> m_driverController.getRightTriggerAxis() > 0.5)
+                .whenActive(new LowerHang(m_hangSubsystem))
+                .whenInactive(new StopHang(m_hangSubsystem));
 
-        new JoystickButton(m_driverController, Button.kY.value)
+        new JoystickButton(m_driverController, Button.kRightBumper.value)
                 .whenPressed(new RaiseHang(m_hangSubsystem, m_ledSubsystem))
                 .whenReleased(new StopHang(m_hangSubsystem));
+
+        new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.5)
+            .whenActive(new LowerRotatingHang(m_rotHangSubsystem))
+            .whenInactive(new StopRotatingHang(m_rotHangSubsystem));
+
+        new JoystickButton(m_driverController, Button.kLeftBumper.value)
+            .whenPressed(new RaiseRotatingHang(m_rotHangSubsystem))
+            .whenReleased(new StopRotatingHang(m_rotHangSubsystem));
+
+        new JoystickButton(m_driverController, Button.kA.value)
+            .whenPressed(new ToggleRotatingHang(m_rotHangSubsystem));
 
         new JoystickButton(m_driverController, Button.kB.value)
                 .whenPressed(new SequentialCommandGroup(
