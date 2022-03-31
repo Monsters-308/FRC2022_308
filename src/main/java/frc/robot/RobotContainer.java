@@ -71,9 +71,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
 
-    XboxController m_driverController = new XboxController(IOConstants.controllerDrivePort);
+    XboxController m_driverController = new XboxController(IOConstants.kControllerDrivePort);
 
-    XboxController m_coDriverController = new XboxController(IOConstants.controllerCoPort);
+    XboxController m_coDriverController = new XboxController(IOConstants.kControllerCoPort);
 
     private final DriveSubsystem m_driveSubsystem = new DriveSubsystem(m_driverController);
     private final IndexSubsystem m_indexSubsystem = new IndexSubsystem();
@@ -174,7 +174,7 @@ public class RobotContainer {
         // controller (D-Pad test)
 
         // DRIVER CONTROLLS ------------------------------------------------------
-        new Trigger(() -> m_driverController.getRightTriggerAxis() > 0.5)
+        new Trigger(() -> m_driverController.getRightTriggerAxis() > IOConstants.kTriggerThreshold)
                 .whenActive(new LowerHang(m_hangSubsystem))
                 .whenInactive(new StopHang(m_hangSubsystem));
 
@@ -182,7 +182,7 @@ public class RobotContainer {
                 .whenPressed(new RaiseHang(m_hangSubsystem, m_ledSubsystem))
                 .whenReleased(new StopHang(m_hangSubsystem));
 
-        new Trigger(() -> m_driverController.getLeftTriggerAxis() > 0.5)
+        new Trigger(() -> m_driverController.getLeftTriggerAxis() > IOConstants.kTriggerThreshold)
             .whenActive(new LowerRotatingHang(m_rotHangSubsystem))
             .whenInactive(new StopRotatingHang(m_rotHangSubsystem));
 

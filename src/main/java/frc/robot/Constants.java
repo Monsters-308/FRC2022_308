@@ -83,8 +83,9 @@ public final class Constants {
     }
 
     public static final class IOConstants {
-        public static final int controllerDrivePort = 0;
-        public static final int controllerCoPort = 1;
+        public static final int kControllerDrivePort = 0;
+        public static final int kControllerCoPort = 1;
+        public static final double kTriggerThreshold = 0.5;
     }
 
     public static final class LEDConstants {
