@@ -19,11 +19,11 @@ public class RotatingHangSubsystem extends SubsystemBase {
     public RotatingHangSubsystem() {
         m_rotatingMotorLeft.setNeutralMode(NeutralMode.Brake);
         m_rotatingMotorRight.setNeutralMode(NeutralMode.Brake);
-        m_rotatingMotorLeft.setInverted(true);
+        m_rotatingMotorRight.setInverted(true);
     }
 
     public void runLeftHang() {
-        m_rotatingMotorLeft.set(TalonSRXControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+        m_rotatingMotorLeft.set(TalonSRXControlMode.PercentOutput, 0.8*HangConstants.kRotHangMotorSpeed);
     }
 
     public void stopLeftHang() {
@@ -31,11 +31,11 @@ public class RotatingHangSubsystem extends SubsystemBase {
     }
 
     public void reverseLeftHang() {
-        m_rotatingMotorLeft.set(TalonSRXControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
+        m_rotatingMotorLeft.set(TalonSRXControlMode.PercentOutput, -0.8*HangConstants.kRotHangMotorSpeed);
     }
 
     public void runRightHang() {
-        m_rotatingMotorRight.set(TalonSRXControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
+        m_rotatingMotorRight.set(TalonSRXControlMode.PercentOutput, HangConstants.kRotHangMotorSpeed);
     }
 
     public void stopRightHang() {
@@ -43,7 +43,7 @@ public class RotatingHangSubsystem extends SubsystemBase {
     }
 
     public void reverseRightHang() {
-        m_rotatingMotorRight.set(TalonSRXControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
+        m_rotatingMotorRight.set(TalonSRXControlMode.PercentOutput, -HangConstants.kRotHangMotorSpeed);
     }
 
     public void setDeployed(boolean forward) {

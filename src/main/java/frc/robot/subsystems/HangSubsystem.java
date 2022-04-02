@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import static frc.robot.Constants.HangConstants;
 
@@ -28,7 +29,6 @@ public class HangSubsystem extends SubsystemBase {
         m_stationaryMotorRight.setSmartCurrentLimit(40);
         m_stationaryMotorLeft.setIdleMode(IdleMode.kBrake);
         m_stationaryMotorRight.setIdleMode(IdleMode.kBrake);
-        m_stationaryMotorLeft.setInverted(true);
     }
 
     public void runLeftHang() {
@@ -49,7 +49,7 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public void stopLeftHang() {
-        m_stationaryMotorLeft.set(0);
+        m_stationaryMotorLeft.set(Constants.cZero);
     }
 
     public void stopRightHang() {
@@ -62,7 +62,7 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public boolean isLeftLowered() {
-        return m_lowerLeftSwitch.get();
+        return !m_lowerLeftSwitch.get();
     }
 
     public boolean isRightRaised() {
@@ -70,7 +70,7 @@ public class HangSubsystem extends SubsystemBase {
     }
 
     public boolean isRightLowered() {
-        return !m_lowerRightSwitch.get();
+        return m_lowerRightSwitch.get();
     }
 
     @Override

@@ -98,10 +98,10 @@ public class RobotContainer {
         m_ledSubsystem.setLEDState(LEDState.RAINBOW);
         configureButtonBindings();
 
-        m_driveChooser.setDefaultOption("Tank Drive",
+        m_driveChooser.addOption("Tank Drive",
                 new DefaultDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightY,
                         m_driverController::getRightBumper));
-        m_driveChooser.addOption("Arcade Drive",
+        m_driveChooser.setDefaultOption("Arcade Drive",
                 new ArcadeDrive(m_driveSubsystem, m_driverController::getLeftY, m_driverController::getRightX,
                         m_driverController::getRightBumper));
 
@@ -163,30 +163,30 @@ public class RobotContainer {
         // co LBumper : raise intake
         // co RBumper : lower intake
         // driver B : auto aim
-        // driver RBumper : Raise rotating arms
-        // driver RTrigger : Lower rotating arms
-        // driver LBumper : Raise stationary arms
-        // driver LTrigger : Lower stationary arms
-        // driver A : Flip rotating arms
+        // driver LTrigger : lower stationary arms
+        // driver LBumper : raise stationary arms
+        // driver RTrigger : lower rotating arms
+        // driver RBumper : raise rotating arms
+        // driver A : flip rotating arms
 
         // SmartDashboard.putString();
         // System.out.println(Button.values()); // get ALL values of button on
         // controller (D-Pad test)
 
         // DRIVER CONTROLLS ------------------------------------------------------
-        new Trigger(() -> m_driverController.getRightTriggerAxis() > IOConstants.kTriggerThreshold)
+        new Trigger(() -> m_driverController.getLeftTriggerAxis() > IOConstants.kTriggerThreshold)
                 .whenActive(new LowerHang(m_hangSubsystem))
                 .whenInactive(new StopHang(m_hangSubsystem));
 
-        new JoystickButton(m_driverController, Button.kRightBumper.value)
+        new JoystickButton(m_driverController, Button.kLeftBumper.value)
                 .whenPressed(new RaiseHang(m_hangSubsystem, m_ledSubsystem))
                 .whenReleased(new StopHang(m_hangSubsystem));
 
-        new Trigger(() -> m_driverController.getLeftTriggerAxis() > IOConstants.kTriggerThreshold)
+        new Trigger(() -> m_driverController.getRightTriggerAxis() > IOConstants.kTriggerThreshold)
             .whenActive(new LowerRotatingHang(m_rotHangSubsystem))
             .whenInactive(new StopRotatingHang(m_rotHangSubsystem));
 
-        new JoystickButton(m_driverController, Button.kLeftBumper.value)
+        new JoystickButton(m_driverController, Button.kRightBumper.value)
             .whenPressed(new RaiseRotatingHang(m_rotHangSubsystem))
             .whenReleased(new StopRotatingHang(m_rotHangSubsystem));
 

@@ -17,7 +17,8 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
+    public static final int cOne=1;
+    public static final int cZero=0;
     public static final class DriveConstants {
         public static final int kLeftMotor1Port = 2;
         public static final int kLeftMotor2Port = 3;
@@ -41,14 +42,14 @@ public final class Constants {
         public static final int kIzone = 300;
         public static final int kUnitsPerRotation = 2048;
 
-        public static final double kShooterSpeed = 0.44; //at 44% power, the shooter was at 2000-2100 RMP
+        public static final double kShooterSpeed = 0.35; //at 44% power, the shooter was at 2000-2100 RMP
         public static final double kShooterLowGoalSpeed = 0.3;
         public static final double kHelperMotorSpeed = 0.5;
         public static final double kBackspinMotorSpeed = 0.5;
         public static final double kShooterReverseSpeed = -0.4;
-        public static final double kShooterSpeedRPM = 2100;
+        public static final double kShooterSpeedRPM = 2000;
 
-        public static final double kRampTimeSec = 2;
+        public static final double kRampTimeSec = 1;
         public static final double kMaxIndexTimeSec = 1;
         public static final double kMaxRampTime = 2;
         public static final double kMaxReleaseTimeSec = 0.1;
@@ -80,6 +81,7 @@ public final class Constants {
         public static final int kLowerRightSwitchPort = 6; // change when we know the port
 
         public static final double kHangMotorSpeed = 1.0;
+        public static final double kRotHangMotorSpeed = 0.75;
     }
 
     public static final class IOConstants {

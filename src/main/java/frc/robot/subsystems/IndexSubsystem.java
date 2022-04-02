@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.IndexConstants;
 
 public class IndexSubsystem extends SubsystemBase {
-    private final TalonSRX m_indexMotor = new TalonSRX(IndexConstants.kIndexMotorPort);
+    private final WPI_TalonSRX m_indexMotor = new WPI_TalonSRX(IndexConstants.kIndexMotorPort);
     private final DigitalInput m_highSensor = new DigitalInput(IndexConstants.kHighSensorPort);
     private final DigitalInput m_lowSensor = new DigitalInput(IndexConstants.kLowSensorPort);
     private final DigitalInput m_intakeSensor = new DigitalInput(IndexConstants.kIntakeSensorPort);
@@ -21,7 +21,7 @@ public class IndexSubsystem extends SubsystemBase {
         config.peakCurrentDuration = 1500; // the time at the peak current before the limit triggers, in ms
         config.continuousCurrentLimit = 30; // the current to maintain if the peak limit is triggered
         m_indexMotor.configAllSettings(config); // apply the config settings; this selects the quadrature encoder
-
+        m_indexMotor.setInverted(true);
     }
 
     public void runIndex() {

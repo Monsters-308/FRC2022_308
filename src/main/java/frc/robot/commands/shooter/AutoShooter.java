@@ -2,6 +2,7 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexSubsystem;
@@ -85,7 +86,7 @@ public class AutoShooter extends CommandBase {
                 // }
                 break;
             case SHOOTING:
-                m_ledSubsystem.setLEDState(new Color(0, 255, 0), LEDState.SOLID);
+                m_ledSubsystem.setLEDState(new Color8Bit(0, 255, 0), LEDState.SOLID);
                 if (m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
                     m_indexSubsystem.stopIndex();
                     m_shooterSubsystem.stopHelper();

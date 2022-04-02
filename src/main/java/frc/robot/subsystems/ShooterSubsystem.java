@@ -42,6 +42,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_helperMotor.setNeutralMode(NeutralMode.Brake);
         m_backspinMotor.setNeutralMode(NeutralMode.Coast);
+        m_helperMotor.setInverted(true);
+        m_backspinMotor.setInverted(true);
     }
 
     public void runShooter() {
