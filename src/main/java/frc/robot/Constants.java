@@ -95,7 +95,7 @@ public final class Constants {
 
     public static final class PneumaticsConstants {
         public static final int kControlModulePort = 17;
-        public static final int kIntakePistonPort = 0; // change when we know the port
-        public static final int kHangPistonPort = 1; // change when we know the port
+        public static final int kIntakePistonPort = 6;
+        public static final int kHangPistonPort = 7;
     }
 }
