@@ -17,8 +17,6 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int cOne=1;
-    public static final int cZero=0;
     public static final class DriveConstants {
         public static final int kLeftMotor1Port = 2;
         public static final int kLeftMotor2Port = 3;
@@ -71,10 +69,10 @@ public final class Constants {
     }
 
     public static final class HangConstants {
-        public static final int kLeftNeoPort = 13;
-        public static final int kRightNeoPort = 14;
-        public static final int kLeft775Port = 6;
-        public static final int kRight775Port = 9;
+        public static final int kLeftStaticArmPort = 6;
+        public static final int kRightStaticArmPort = 9;
+        public static final int kLeftRotatingArmPort = 13;
+        public static final int kRightRotatingArmPort = 14;
         public static final int kUpperLeftSwitchPort = 7; // change when we know the port // 7 5
         public static final int kLowerLeftSwitchPort = 8; // change when we know the port // 8 6
         public static final int kUpperRightSwitchPort = 5; // change when we know the port

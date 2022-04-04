@@ -1,20 +1,19 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 import static frc.robot.Constants.HangConstants;
 
 public class HangSubsystem extends SubsystemBase {
-    private final CANSparkMax m_stationaryMotorLeft = new CANSparkMax(HangConstants.kLeftNeoPort, MotorType.kBrushless);
-    private final CANSparkMax m_stationaryMotorRight = new CANSparkMax(HangConstants.kRightNeoPort, MotorType.kBrushless);
+    private final WPI_TalonSRX m_stationaryMotorLeft = new WPI_TalonSRX(HangConstants.kLeftStaticArmPort);
+    private final WPI_TalonSRX m_stationaryMotorRight = new WPI_TalonSRX(HangConstants.kRightStaticArmPort);
     
     private final DigitalInput m_upperLeftSwitch = new DigitalInput(HangConstants.kUpperLeftSwitchPort);
     private final DigitalInput m_lowerLeftSwitch = new DigitalInput(HangConstants.kLowerLeftSwitchPort);
@@ -22,38 +21,33 @@ public class HangSubsystem extends SubsystemBase {
     private final DigitalInput m_lowerRightSwitch = new DigitalInput(HangConstants.kLowerRightSwitchPort);
 
     public HangSubsystem() {
-        m_stationaryMotorLeft.restoreFactoryDefaults();
-        m_stationaryMotorRight.restoreFactoryDefaults();
-
-        m_stationaryMotorLeft.setSmartCurrentLimit(40);
-        m_stationaryMotorRight.setSmartCurrentLimit(40);
-        m_stationaryMotorLeft.setIdleMode(IdleMode.kBrake);
-        m_stationaryMotorRight.setIdleMode(IdleMode.kBrake);
+        m_stationaryMotorLeft.setNeutralMode(NeutralMode.Brake);
+        m_stationaryMotorRight.setNeutralMode(NeutralMode.Brake);
     }
 
     public void runLeftHang() {
-        m_stationaryMotorLeft.set(HangConstants.kHangMotorSpeed);
+        m_stationaryMotorLeft.set(TalonSRXControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
     }
 
     public void runRightHang() {
-        m_stationaryMotorRight.set(HangConstants.kHangMotorSpeed);
+        m_stationaryMotorRight.set(TalonSRXControlMode.PercentOutput, HangConstants.kHangMotorSpeed);
 
     }
 
     public void reverseLeftHang() {
-        m_stationaryMotorLeft.set(-HangConstants.kHangMotorSpeed);
+        m_stationaryMotorLeft.set(TalonSRXControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
     }
 
     public void reverseRightHang() {
-        m_stationaryMotorRight.set(-HangConstants.kHangMotorSpeed);
+        m_stationaryMotorRight.set(TalonSRXControlMode.PercentOutput, -HangConstants.kHangMotorSpeed);
     }
 
     public void stopLeftHang() {
-        m_stationaryMotorLeft.set(Constants.cZero);
+        m_stationaryMotorLeft.set(TalonSRXControlMode.PercentOutput, 0);
     }
 
     public void stopRightHang() {
-        m_stationaryMotorRight.set(0);
+        m_stationaryMotorRight.set(TalonSRXControlMode.PercentOutput, 0);
 
     }
 

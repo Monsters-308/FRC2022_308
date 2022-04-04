@@ -11,8 +11,8 @@ import frc.robot.Constants.HangConstants;
 import frc.robot.Constants.PneumaticsConstants;
 
 public class RotatingHangSubsystem extends SubsystemBase {
-    private final WPI_TalonSRX m_rotatingMotorLeft = new WPI_TalonSRX(HangConstants.kLeft775Port);
-    private final WPI_TalonSRX m_rotatingMotorRight = new WPI_TalonSRX(HangConstants.kRight775Port);
+    private final WPI_TalonSRX m_rotatingMotorLeft = new WPI_TalonSRX(HangConstants.kLeftRotatingArmPort);
+    private final WPI_TalonSRX m_rotatingMotorRight = new WPI_TalonSRX(HangConstants.kRightRotatingArmPort);
     private final Solenoid m_hangPiston = new Solenoid(PneumaticsConstants.kControlModulePort,
             PneumaticsModuleType.CTREPCM, PneumaticsConstants.kHangPistonPort);
 
