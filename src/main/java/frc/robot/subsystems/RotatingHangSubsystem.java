@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -17,6 +18,8 @@ public class RotatingHangSubsystem extends SubsystemBase {
             PneumaticsModuleType.CTREPCM, PneumaticsConstants.kHangPistonPort);
 
     public RotatingHangSubsystem() {
+        m_rotatingMotorLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        m_rotatingMotorRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
         m_rotatingMotorLeft.setNeutralMode(NeutralMode.Brake);
         m_rotatingMotorRight.setNeutralMode(NeutralMode.Brake);
         m_rotatingMotorRight.setInverted(true);
@@ -52,5 +55,9 @@ public class RotatingHangSubsystem extends SubsystemBase {
 
     public void togglePiston() {
         m_hangPiston.toggle();
+    }
+
+    @Override
+    public void periodic() {
     }
 }
