@@ -40,7 +40,7 @@ public final class Constants {
         public static final int kIzone = 300;
         public static final int kUnitsPerRotation = 2048;
 
-        public static final double kShooterSpeed = 0.35; //at 44% power, the shooter was at 2000-2100 RMP
+        public static final double kShooterSpeed = 0.40; //at 44% power, the shooter was at 2000-2100 RMP
         public static final double kShooterLowGoalSpeed = 0.3;
         public static final double kHelperMotorSpeed = 0.5;
         public static final double kBackspinMotorSpeed = 0.5;
@@ -50,7 +50,7 @@ public final class Constants {
         public static final double kRampTimeSec = 1;
         public static final double kMaxIndexTimeSec = 1;
         public static final double kMaxRampTime = 2;
-        public static final double kMaxReleaseTimeSec = 0.1;
+        public static final double kMaxReleaseTimeSec = 0.15;
     }
 
     public static final class IntakeConstants {

@@ -90,7 +90,9 @@ public class AutoShooter extends CommandBase {
                 if (m_timer.hasElapsed(ShooterConstants.kMaxReleaseTimeSec)) {
                     m_indexSubsystem.stopIndex();
                     m_shooterSubsystem.stopHelper();
-                    m_shooterStage = ShooterStage.INDEXING;
+                    // switch back to indexing for wait between balls
+                    // m_shooterStage = ShooterStage.INDEXING;
+                    m_shooterStage = ShooterStage.EMPTY;
                     m_timer.reset();
                 } else if (m_indexSubsystem.isUpperBallPresent()) {
                     m_indexSubsystem.runIndex();
