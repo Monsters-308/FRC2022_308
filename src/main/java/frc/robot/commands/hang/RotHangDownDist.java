@@ -9,9 +9,10 @@ public class RotHangDownDist extends CommandBase {
     private double m_startingDistLeft;
     private double m_startingDistRight;
 
+    // Input a positive distance in encoder counts
     public RotHangDownDist(RotatingHangSubsystem hangSubsystem, double distance) {
         m_hangSubsystem = hangSubsystem;
-        m_distance = distance;
+        m_distance = -distance;
         addRequirements(m_hangSubsystem);
     }
 
